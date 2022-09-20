@@ -112,7 +112,7 @@ module Phlexing
       when Nokogiri::HTML4::DocumentFragment
         handle_children(node, level)
       else
-        @buffer << "UNKOWN" + node.class.to_s
+        @buffer << "UNKNOWN" + node.class.to_s
       end
 
       @buffer
