@@ -1,5 +1,4 @@
 import { Controller } from "@hotwired/stimulus"
-import { useDebounce } from "stimulus-use"
 
 export default class extends Controller {
   static targets = ["input", "output", "form"]
@@ -16,6 +15,20 @@ export default class extends Controller {
   convert() {
     this.save()
     this.formTarget.requestSubmit()
+  }
+
+  async copy(event) {
+    await navigator.clipboard.writeText(document.getElementById("output").value)
+
+    const button = (event.target instanceof HTMLButtonElement) ? event.target : event.target.closest("button")
+
+    button.querySelector(".fa-copy").classList.add("hidden")
+    button.querySelector(".fa-circle-check").classList.remove("hidden")
+
+    setTimeout(() => {
+      button.querySelector(".fa-copy").classList.remove("hidden")
+      button.querySelector(".fa-circle-check").classList.add("hidden")
+    }, 1000)
   }
 
   save() {

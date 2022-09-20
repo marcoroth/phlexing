@@ -24,7 +24,7 @@
         <form data-converter-target="form" action="<%= converters_path %>" data-turbo-stream method="post" data-action="submit->converter#convert change->converter#convert">
           <div class="mt-6">
             <div class="flex items-center">
-              <div class="text-gray-900 bg-gray-100 rounded-md px-3 py-1.5 text-sm font-medium" aria-controls="tabs-1-panel-1">ERB</div>
+              <div class="text-gray-900 rounded-md px-3 py-1.5 text-sm font-medium" aria-controls="tabs-1-panel-1">ERB</div>
             </div>
             <div class="mt-2">
               <div id="tabs-1-panel-1" class="-m-0.5 rounded-lg p-0.5" aria-labelledby="tabs-1-tab-1" role="tabpanel" tabindex="0">
@@ -37,9 +37,14 @@
         </form>
 
         <div class="mt-6" data-converter-target="output">
-          <div class="flex items-center">
-            <div class="text-gray-900 bg-gray-100 rounded-md px-3 py-1.5 text-sm font-medium" aria-controls="tabs-1-panel-1">Phlex</div>
+          <div class="grid grid-cols-[1fr,auto] items-center">
+            <div class="text-gray-900 rounded-md px-3 py-1.5 text-sm font-medium" aria-controls="tabs-1-panel-1">Phlex</div>
+            <button data-action="click->converter#copy" class="text-gray-900 bg-gray-100 hover:bg-gray-200 active:bg-gray-300 rounded-md ml-12 px-3 py-1.5 text-sm font-medium">
+              <i class="far fa-copy"></i>
+              <i class="fas fa-circle-check text-green-600 hidden ease-in duration-300"></i>
+            </button>
           </div>
+
           <div class="mt-2">
             <div id="tabs-1-panel-1" class="-m-0.5 rounded-lg p-0.5" aria-labelledby="tabs-1-tab-1" role="tabpanel" tabindex="0">
               <textarea readonly id="output" rows="40" cols="120" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></textarea>
