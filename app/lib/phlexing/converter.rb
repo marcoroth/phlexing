@@ -35,14 +35,18 @@ module Phlexing
       if text.length.positive?
         @buffer << indent(level)
 
-        if node.parent.children.length > 1
-          @buffer << "text "
-        end
-
-        if text.starts_with?("<%=") && text.ends_with?("%>")
-          @buffer << text.from(3).to(-3).strip
+        if text.starts_with?("<%") && text.ends_with?("%>") && text[2] != "="
+          @buffer << text.from(2).to(-3).strip
         else
-          @buffer << double_quote(text)
+          if node.parent.children.length > 1
+            @buffer << "text "
+          end
+
+          if text.starts_with?("<%=") && text.ends_with?("%>")
+            @buffer << text.from(3).to(-3).strip
+          else
+            @buffer << double_quote(text)
+          end
         end
 
         @buffer << "\n" if newline
