@@ -2,12 +2,18 @@ require "nokogiri"
 
 module Phlexing
   class Converter
-    attr_accessor :html, :buffer
+    attr_accessor :html
 
     def initialize(html)
       @html = html
       @buffer = ""
       handle_node
+    end
+
+    def buffer
+      Rufo::Formatter.format(@buffer.strip)
+    rescue Rufo::SyntaxError
+      @buffer.strip
     end
 
     def indent(level)

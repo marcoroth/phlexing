@@ -1,2 +1,2 @@
 <%= turbo_stream.remove_css_class("[data-converter-target=output]", "hidden") %>
-<%= turbo_stream.update("output", @parser.buffer.strip) %>
+<%= turbo_stream.update("output", @parser.buffer) %>
