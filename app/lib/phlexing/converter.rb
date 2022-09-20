@@ -2,6 +2,8 @@ require "nokogiri"
 
 module Phlexing
   class Converter
+    include Helpers
+
     attr_accessor :html
 
     def initialize(html)
@@ -10,55 +12,29 @@ module Phlexing
       handle_node
     end
 
-    def buffer
-      Rufo::Formatter.format(@buffer.strip)
-    rescue Rufo::SyntaxError
-      @buffer.strip
-    end
-
-    def indent(level)
-      return "" if level == 1
-      "  " * level
-    end
-
-    def double_quote(string)
-      "\"#{string}\""
-    end
-
-    def single_quote(string)
-      "'#{string}'"
-    end
-
     def handle_text(node, level, newline = true)
       text = node.text.strip
 
       if text.length.positive?
         @buffer << indent(level)
 
-        if text.starts_with?("<%") && text.ends_with?("%>") && text[2] != "="
-          @buffer << text.from(2).to(-3).strip
-        else
-          if node.parent.children.length > 1
-            @buffer << "text "
-          end
-
-          if text.starts_with?("<%=") && text.ends_with?("%>")
-            @buffer << text.from(3).to(-3).strip
-          else
-            @buffer << double_quote(text)
-          end
+        if node.parent.children.length > 1
+          @buffer << "text "
         end
 
+        @buffer << double_quote(text)
         @buffer << "\n" if newline
       end
     end
 
-    def do_block_start
-      " do\n"
-    end
+    def handle_erb_element(node, level)
+      if node.attributes["interpolated"]
+        @buffer << "text "
+      elsif node.attributes["comment"]
+        @buffer << "# "
+      end
 
-    def do_block_end(level = 0)
-      indent(level) + "end\n"
+      @buffer << node.text
     end
 
     def handle_element(node, level)
@@ -107,7 +83,12 @@ module Phlexing
       when Nokogiri::XML::Text
         handle_text(node, level)
       when Nokogiri::XML::Element
-        handle_element(node, level)
+        if node.name == "erb"
+          handle_erb_element(node, level)
+        else
+          handle_element(node, level)
+        end
+
         @buffer << "\n" if level == 1
       when Nokogiri::HTML4::DocumentFragment
         handle_children(node, level)
@@ -119,7 +100,19 @@ module Phlexing
     end
 
     def parsed
-      @parsed ||= Nokogiri::HTML.fragment(html)
+      @parsed ||= Nokogiri::HTML.fragment(converted_erb)
+    end
+
+    def buffer
+      Rufo::Formatter.format(@buffer.strip)
+    rescue Rufo::SyntaxError
+      @buffer.strip
+    end
+
+    def converted_erb
+      ErbParser.transform_xml(html)
+    rescue
+      html
     end
   end
 end

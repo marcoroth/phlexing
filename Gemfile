@@ -81,4 +81,6 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
+
+gem "erb_parser"
 gem "rufo"
