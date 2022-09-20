@@ -2,19 +2,50 @@
 <html>
   <head>
     <title>Phlexing</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js" integrity="sha512-naukR7I+Nk6gp7p5TMA4ycgfxaZBJ7MO5iC3Fp6ySQyKFHOGfpkSZkYVWV5R7u7cfAicxanwYQ5D1e17EfJcMA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   </head>
 
-  <body>
-    <div class="min-h-full">
-      <div class="py-10">
-        <%= yield %>
-      </div>
+  <body class="bg-white">
+    <header class="bg-[#C81657]">
+      <nav class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" aria-label="Top">
+        <div class="flex w-full items-center justify-between border-b border-indigo-500 py-6 lg:border-none">
+          <div class="flex items-center">
+            <a href="/" class="text-white font-bold text-lg">
+              Phlexing
+            </a>
+            <div class="ml-10 hidden space-x-8 lg:block">
+              <a href="https://github.com/joeldrapper/phlex" class="text-base font-medium text-white hover:text-indigo-50" target="_blank">Phlex</a>
+              <a href="https://github.com/marcoroth/phlexing" class="text-base font-medium text-white hover:text-indigo-50" target="_blank">GitHub Repo</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <div class="mt-6">
+      <%= yield %>
     </div>
+
+    <footer class="mt-16 mb-3">
+      <div class="max-w-screen-xl mx-auto w-full py-6 border-t border-gray-200 dark:border-gray-600">
+        <div class="flex flex-col md:flex-row md:justify-between md:items-start items-center px-3 text-center md:text-left">
+          <div class="text-sm">
+            Phlexing - ERB to Phlex converter - Built by <a class="font-semibold" href="https://github.com/marcoroth" target="_blank">Marco Roth</a>
+          </div>
+          <div class="flex flex-col py-4 md:flex-row-reserve md:space-x-4 md:py-0">
+            <a href="https://github.com/marcoroth/phlexing" target="_blank" class="hover:opacity-70">
+              <i class="fab fa-github"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
   </body>
 </html>
