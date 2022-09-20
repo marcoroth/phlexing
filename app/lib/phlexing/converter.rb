@@ -11,6 +11,7 @@ module Phlexing
     end
 
     def indent(level)
+      return "" if level == 1
       "  " * level
     end
 
