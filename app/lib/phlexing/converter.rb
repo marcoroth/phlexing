@@ -47,7 +47,7 @@ module Phlexing
     end
 
     def handle_element(node, level)
-      @buffer << indent(level) + node.name + handle_attributes(node.attributes)
+      @buffer << indent(level) + node.name + handle_attributes(node)
 
       if node.children.any?
         if node.children.one? && node.children.first.is_a?(Nokogiri::XML::Text)
@@ -68,19 +68,23 @@ module Phlexing
       end
     end
 
-    def handle_attributes(attributes)
-      return "" if attributes.keys.none?
+    def handle_attributes(node)
+      return "" if node.attributes.keys.none?
 
       b = ""
 
-      attributes.values.each do |attribute|
+      node.attributes.values.each do |attribute|
         b << attribute.name.gsub("-", "_")
         b << ": "
         b << double_quote(attribute.value)
-        b << ", " if attributes.values.last != attribute
+        b << ", " if node.attributes.values.last != attribute
       end
 
-      "(#{b.strip}) "
+      if node.children.any?
+        "(#{b.strip}) "
+      else
+        " #{b.strip}"
+      end
     end
 
     def handle_node(node = parsed, level = 0)
