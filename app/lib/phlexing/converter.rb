@@ -28,6 +28,10 @@ module Phlexing
       if text.length.positive?
         @buffer << indent(level)
 
+        if node.parent.children.length > 1
+          @buffer << "text "
+        end
+
         if text.starts_with?("<%=") && text.ends_with?("%>")
           @buffer << text.from(3).to(-3).strip
         else
