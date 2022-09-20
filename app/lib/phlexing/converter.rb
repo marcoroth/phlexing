@@ -28,13 +28,13 @@ module Phlexing
     end
 
     def handle_erb_element(node, level)
-      if node.attributes["interpolated"]
+      if node.attributes["interpolated"] && node.text.starts_with?('"')
         @buffer << "text "
       elsif node.attributes["comment"]
         @buffer << "# "
       end
 
-      @buffer << node.text
+      @buffer << node.text + "\n"
     end
 
     def handle_element(node, level)
