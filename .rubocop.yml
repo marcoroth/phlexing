@@ -2,3 +2,6 @@ inherit_from: "https://www.goodcop.style"
 
 AllCops:
   TargetRubyVersion: 2.7
+
+Lint/EmptyClass:
+  Enabled: false
