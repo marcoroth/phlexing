@@ -49,7 +49,7 @@ module Phlexing
       @buffer << indent(level) + node.name.gsub("-", "_") + handle_attributes(node)
 
       if node.children.any?
-        if node.children.one? && node.children.first.is_a?(Nokogiri::XML::Text)
+        if node.children.one? && text_node?(node.children.first) && node.text.length <= 32
           single_line_block {
             handle_text(node.children.first, 0, false)
           }
