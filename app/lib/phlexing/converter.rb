@@ -46,7 +46,7 @@ module Phlexing
     end
 
     def handle_element(node, level)
-      @buffer << indent(level) + node.name + handle_attributes(node)
+      @buffer << indent(level) + node.name.gsub("-", "_") + handle_attributes(node)
 
       if node.children.any?
         if node.children.one? && node.children.first.is_a?(Nokogiri::XML::Text)
