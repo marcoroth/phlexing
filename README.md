@@ -1,24 +1,13 @@
-# README
+# Phlexing
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+[![Tests](https://github.com/marcoroth/phlexing/actions/workflows/tests.yml/badge.svg)](https://github.com/marcoroth/phlexing/actions/workflows/tests.yml)
+[![Rubocop](https://github.com/marcoroth/phlexing/actions/workflows/rubocop.yml/badge.svg)](https://github.com/marcoroth/phlexing/actions/workflows/rubocop.yml)
 
-Things you may want to cover:
+A simple ERB to [Phlex](https://github.com/marcoroth/phlexing) Converter.
 
-* Ruby version
 
-* System dependencies
+![Screenshot](./screenshot.png)
 
-* Configuration
+## Website
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+A hosted version of the converter is running at [https://phlexing.fun](https://phlexing.fun).
