@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module TurboHelper
   include TurboPower::StreamHelper
 end

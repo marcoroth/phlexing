@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "nokogiri"
 
 module Phlexing
@@ -12,7 +14,7 @@ module Phlexing
       handle_node
     end
 
-    def handle_text(node, level, newline = true)
+    def handle_text(node, level, newline: true)
       text = node.text.strip
 
       if text.length.positive?
@@ -27,7 +29,7 @@ module Phlexing
       end
     end
 
-    def handle_erb_element(node, level, newline = true)
+    def handle_erb_element(node, level, newline: true)
       if erb_safe_output?(node)
         @buffer << "raw "
         @buffer << node.text.from(1)
@@ -46,16 +48,16 @@ module Phlexing
     end
 
     def handle_element(node, level)
-      @buffer << indent(level) + node.name.gsub("-", "_") + handle_attributes(node)
+      @buffer << (indent(level) + node.name.gsub("-", "_") + handle_attributes(node))
 
       if node.children.any?
         if node.children.one? && text_node?(node.children.first) && node.text.length <= 32
           single_line_block {
-            handle_text(node.children.first, 0, false)
+            handle_text(node.children.first, 0, newline: false)
           }
         elsif node.children.one? && erb_interpolation?(node.children.first) && node.text.length <= 32
           single_line_block {
-            handle_erb_element(node.children.first, 0, false)
+            handle_erb_element(node.children.first, 0, newline: false)
           }
         else
           multi_line_block(level) {
@@ -78,7 +80,7 @@ module Phlexing
 
       b = StringIO.new
 
-      node.attributes.values.each do |attribute|
+      node.attributes.each_value do |attribute|
         b << attribute.name.gsub("-", "_")
         b << ": "
         b << double_quote(attribute.value)
@@ -107,7 +109,7 @@ module Phlexing
       when Nokogiri::HTML4::DocumentFragment
         handle_children(node, level)
       else
-        @buffer << "UNKNOWN" + node.class.to_s
+        @buffer << ("UNKNOWN#{node.class}")
       end
 
       @buffer.string
@@ -125,7 +127,7 @@ module Phlexing
 
     def converted_erb
       ErbParser.transform_xml(html)
-    rescue
+    rescue StandardError
       html
     end
   end

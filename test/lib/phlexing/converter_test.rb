@@ -1,42 +1,44 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 module Phlexing
   class ConverterTest < ActiveSupport::TestCase
     test "basic tags" do
-      assert_equal "div", convert_html(%{<div></div>})
-      assert_equal "span", convert_html(%{<span></span>})
-      assert_equal "p", convert_html(%{<p></p>})
+      assert_equal "div", convert_html(%(<div></div>))
+      assert_equal "span", convert_html(%(<span></span>))
+      assert_equal "p", convert_html(%(<p></p>))
     end
 
     test "basic tags with whitespace" do
-      assert_equal "div { }", convert_html(%{<div> </div>})
-      assert_equal "span { }", convert_html(%{<span> </span>})
-      assert_equal "p { }", convert_html(%{<p> </p>})
+      assert_equal "div { }", convert_html(%(<div> </div>))
+      assert_equal "span { }", convert_html(%(<span> </span>))
+      assert_equal "p { }", convert_html(%(<p> </p>))
     end
 
     test "basic self closing tag" do
-      assert_equal %{img}, convert_html(%{<img />})
-      assert_equal %{br}, convert_html(%{<br />})
+      assert_equal %(img), convert_html(%(<img />))
+      assert_equal %(br), convert_html(%(<br />))
     end
 
     test "basic custom element tag" do
-      assert_equal %{custom_element { "Custom Element" }}, convert_html(%{<custom-element>Custom Element</custom-element>})
+      assert_equal %(custom_element { "Custom Element" }), convert_html(%(<custom-element>Custom Element</custom-element>))
     end
 
     test "tag with one attribute" do
-      assert_equal %{div class: "app"}, convert_html(%{<div class="app"></div>})
+      assert_equal %(div class: "app"), convert_html(%(<div class="app"></div>))
     end
 
     test "tag with multiple attributes" do
-      assert_equal %{div class: "app", id: "body"}, convert_html(%{<div class="app" id="body"></div>})
+      assert_equal %(div class: "app", id: "body"), convert_html(%(<div class="app" id="body"></div>))
     end
 
     test "tag with attributes and single text node child" do
-      assert_equal %{div(class: "app", id: "body") { "Text" }}, convert_html(%{<div class="app" id="body">Text</div>})
+      assert_equal %{div(class: "app", id: "body") { "Text" }}, convert_html(%(<div class="app" id="body">Text</div>))
     end
 
     test "tag with one text node child" do
-      assert_equal %{div { "Text" }}, convert_html(%{<div>Text</div>})
+      assert_equal %(div { "Text" }), convert_html(%(<div>Text</div>))
     end
 
     test "tag with one text node child and long content" do
@@ -46,7 +48,7 @@ module Phlexing
         end
       HTML
 
-      assert_equal expected, convert_html(%{<div>This is a super long text which exceeds the single line block limit</div>})
+      assert_equal expected, convert_html(%(<div>This is a super long text which exceeds the single line block limit</div>))
     end
 
     test "tag with attributes and mulitple children" do
@@ -60,7 +62,7 @@ module Phlexing
         end
       HTML
 
-      assert_equal expected, convert_html(%{<div class="app" id="body"><h1>Title 1</h1><h2>Title 2<span>Small Addition</span></h2></div>})
+      assert_equal expected, convert_html(%(<div class="app" id="body"><h1>Title 1</h1><h2>Title 2<span>Small Addition</span></h2></div>))
     end
 
     test "tag with mulitple text and element children" do
@@ -72,7 +74,7 @@ module Phlexing
         end
       HTML
 
-      assert_equal expected, convert_html(%{<div>Text<br/>Line 2</div>})
+      assert_equal expected, convert_html(%(<div>Text<br/>Line 2</div>))
     end
 
     test "tag with one tag node child" do
@@ -82,7 +84,7 @@ module Phlexing
         end
       HTML
 
-      assert_equal expected, convert_html(%{<div><span></span></div>})
+      assert_equal expected, convert_html(%(<div><span></span></div>))
     end
 
     test "ERB method call" do
@@ -90,7 +92,7 @@ module Phlexing
         div { some_method }
       HTML
 
-      assert_equal expected, convert_html(%{<div><%= some_method %></div>})
+      assert_equal expected, convert_html(%(<div><%= some_method %></div>))
     end
 
     test "ERB method call with long method name" do
@@ -100,7 +102,7 @@ module Phlexing
         end
       HTML
 
-      assert_equal expected, convert_html(%{<div><%= some_method_super_long_method_which_should_be_split_up %></div>})
+      assert_equal expected, convert_html(%(<div><%= some_method_super_long_method_which_should_be_split_up %></div>))
     end
 
     test "ERB interpolation" do
@@ -108,7 +110,7 @@ module Phlexing
         div { "\#{some_method}_text" }
       HTML
 
-      assert_equal expected, convert_html(%{<div><%= "\#{some_method}_text" %></div>})
+      assert_equal expected, convert_html(%(<div><%= "\#{some_method}_text" %></div>))
     end
 
     test "ERB interpolation and text node" do
@@ -119,7 +121,7 @@ module Phlexing
         end
       HTML
 
-      assert_equal expected, convert_html(%{<div><%= "\#{some_method}_text" %> More Text</div>})
+      assert_equal expected, convert_html(%(<div><%= "\#{some_method}_text" %> More Text</div>))
     end
 
     test "ERB loop" do
@@ -170,7 +172,7 @@ module Phlexing
         end
       HTML
 
-      assert_equal expected, convert_html(%{<div><%# The Next line has text in it %> More Text</div>})
+      assert_equal expected, convert_html(%(<div><%# The Next line has text in it %> More Text</div>))
     end
 
     test "ERB HTML safe output" do
@@ -178,7 +180,7 @@ module Phlexing
         div { raw "<p>Some safe HTML</p>" }
       HTML
 
-      assert_equal expected, convert_html(%{<div><%== "<p>Some safe HTML</p>" %></div>})
+      assert_equal expected, convert_html(%(<div><%== "<p>Some safe HTML</p>" %></div>))
     end
 
     test "ERB HTML safe output and other erb output" do
@@ -189,7 +191,7 @@ module Phlexing
         end
       HTML
 
-      assert_equal expected, convert_html(%{<div><%== "<p>Some safe HTML</p>" %><%= "Another output" %></div>})
+      assert_equal expected, convert_html(%(<div><%== "<p>Some safe HTML</p>" %><%= "Another output" %></div>))
     end
   end
 end

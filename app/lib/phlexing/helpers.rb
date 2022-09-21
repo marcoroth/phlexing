@@ -1,7 +1,10 @@
+# frozen_string_literal: true
+
 module Phlexing
   module Helpers
     def indent(level)
       return "" if level == 1
+
       "  " * level
     end
 
@@ -18,13 +21,13 @@ module Phlexing
     end
 
     def do_block_end(level = 0)
-      indent(level) + "end\n"
+      "#{indent(level)}end\n"
     end
 
     def multi_line_block(level)
       @buffer << " do\n"
       yield
-      @buffer << indent(level) + "end\n"
+      @buffer << ("#{indent(level)}end\n")
     end
 
     def single_line_block
@@ -52,7 +55,7 @@ module Phlexing
     end
 
     def erb_safe_output?(node)
-      erb_interpolation?(node) && node.text.starts_with?('=')
+      erb_interpolation?(node) && node.text.starts_with?("=")
     end
 
     def erb_comment?(node)
