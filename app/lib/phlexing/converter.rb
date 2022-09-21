@@ -62,6 +62,8 @@ module Phlexing
             handle_children(node, level)
           }
         end
+      else
+        @buffer << "\n"
       end
     end
 
