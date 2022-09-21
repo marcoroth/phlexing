@@ -8,7 +8,7 @@ module Phlexing
 
     def initialize(html)
       @html = html
-      @buffer = ""
+      @buffer = StringIO.new
       handle_node
     end
 
@@ -76,7 +76,7 @@ module Phlexing
     def handle_attributes(node)
       return "" if node.attributes.keys.none?
 
-      b = ""
+      b = StringIO.new
 
       node.attributes.values.each do |attribute|
         b << attribute.name.gsub("-", "_")
@@ -86,9 +86,9 @@ module Phlexing
       end
 
       if node.children.any?
-        "(#{b.strip}) "
+        "(#{b.string.strip}) "
       else
-        " #{b.strip}"
+        " #{b.string.strip}"
       end
     end
 
@@ -110,7 +110,7 @@ module Phlexing
         @buffer << "UNKNOWN" + node.class.to_s
       end
 
-      @buffer
+      @buffer.string
     end
 
     def parsed
@@ -118,9 +118,9 @@ module Phlexing
     end
 
     def buffer
-      Rufo::Formatter.format(@buffer.strip)
+      Rufo::Formatter.format(@buffer.string.strip)
     rescue Rufo::SyntaxError
-      @buffer.strip
+      @buffer.string.strip
     end
 
     def converted_erb
