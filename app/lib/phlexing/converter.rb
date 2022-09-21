@@ -53,6 +53,10 @@ module Phlexing
           single_line_block {
             handle_text(node.children.first, 0, false)
           }
+        elsif node.children.one? && erb_interpolation?(node.children.first) && node.text.length <= 32
+          single_line_block {
+            handle_erb_element(node.children.first, 0, false)
+          }
         else
           multi_line_block(level) {
             handle_children(node, level)
