@@ -50,13 +50,13 @@ module Phlexing
 
       if node.children.any?
         if node.children.one? && node.children.first.is_a?(Nokogiri::XML::Text)
-          @buffer << " { "
-          handle_text(node.children.first, 0, false)
-          @buffer << " }\n"
+          single_line_block {
+            handle_text(node.children.first, 0, false)
+          }
         else
-          @buffer << do_block_start
-          handle_children(node, level)
-          @buffer << do_block_end(level)
+          multi_line_block(level) {
+            handle_children(node, level)
+          }
         end
       end
     end
