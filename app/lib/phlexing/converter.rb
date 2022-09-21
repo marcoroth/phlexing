@@ -27,14 +27,22 @@ module Phlexing
       end
     end
 
-    def handle_erb_element(node, level)
-      if node.attributes["interpolated"] && node.text.starts_with?('"')
-        @buffer << "text "
-      elsif node.attributes["comment"]
-        @buffer << "# "
+    def handle_erb_element(node, level, newline = true)
+      if erb_safe_output?(node)
+        @buffer << "raw "
+        @buffer << node.text.from(1)
+        @buffer << "\n" if newline
+        return
       end
 
-      @buffer << node.text + "\n"
+      if erb_interpolation?(node) && node.parent.children.count > 1
+        @buffer << "text "
+      elsif erb_comment?(node)
+        @buffer << "#"
+      end
+
+      @buffer << node.text
+      @buffer << "\n" if newline
     end
 
     def handle_element(node, level)
@@ -83,7 +91,7 @@ module Phlexing
       when Nokogiri::XML::Text
         handle_text(node, level)
       when Nokogiri::XML::Element
-        if node.name == "erb"
+        if erb_node?(node)
           handle_erb_element(node, level)
         else
           handle_element(node, level)
