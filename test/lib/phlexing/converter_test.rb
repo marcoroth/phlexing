@@ -193,6 +193,18 @@ module Phlexing
       assert_equal expected, convert_html(%(<div><%== "<p>Some safe HTML</p>" %></div>))
     end
 
+    test "ERB HTML safe output with siblings" do
+      expected = <<~HTML.strip
+        div do
+          raw "<p>Some safe HTML</p>"
+          text some_method
+          span { "Text" }
+        end
+      HTML
+
+      assert_equal expected, convert_html(%(<div><%== "<p>Some safe HTML</p>" %><%= some_method %><span> Text</span></div>))
+    end
+
     test "ERB HTML safe output and other erb output" do
       expected = <<~HTML.strip
         div do
