@@ -6,3 +6,6 @@ AllCops:
 
 Lint/EmptyClass:
   Enabled: false
+
+Style/OpenStructUse:
+  Enabled: false
