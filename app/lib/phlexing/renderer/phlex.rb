@@ -21,9 +21,12 @@ module Phlexing
       def self.render_phlex(template, custom_elements: [])
         elements = custom_elements.to_a.map { |c| "register_element(:#{c})" }.join("\n")
 
+        view_helpers = "include ActionView::Helpers::TagHelper"
+        component_name = "TestComponent#{Time.now.to_i}#{rand(10000)}"
+
         ruby = %{
-          class TestComponent < ::Phlex::Component
-            include ActionView::Helpers::TagHelper
+          class #{component_name} < ::Phlex::Component
+            #{view_helpers unless template.include?('raw')}
 
             def initialize
               @articles = [OpenStruct.new(title: "Article 1"), OpenStruct.new(title: "Article 2")]
@@ -45,12 +48,15 @@ module Phlexing
               true
             end
           end
+
+          #{component_name}
         }
 
         begin
-          eval(ruby) # rubocop:disable Security/Eval
+          # puts Rufo::Formatter.format(ruby)
+          clazz = eval(ruby) # rubocop:disable Security/Eval
 
-          HtmlPress.press(TestComponent.new.call)
+          HtmlPress.press(clazz.new.call)
         rescue SyntaxError, StandardError => e
           e.message
         end

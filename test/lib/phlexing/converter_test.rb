@@ -193,8 +193,6 @@ module Phlexing
     end
 
     test "ERB HTML safe output" do
-      skip
-
       expected = <<~HTML.strip
         div { raw "<p>Some safe HTML</p>" }
       HTML
@@ -203,8 +201,6 @@ module Phlexing
     end
 
     test "ERB HTML safe output with siblings" do
-      skip
-
       expected = <<~HTML.strip
         div do
           raw "<p>Some safe HTML</p>"
@@ -213,12 +209,10 @@ module Phlexing
         end
       HTML
 
-      assert_phlex expected, %(<div><%== "<p>Some safe HTML</p>" %><%= some_method %><span> Text</span></div>)
+      assert_phlex expected, %(<div><%== "<p>Some safe HTML</p>" %><%= some_method %><span>Text</span></div>)
     end
 
     test "ERB HTML safe output and other erb output" do
-      skip
-
       expected = <<~HTML.strip
         div do
           raw "<p>Some safe HTML</p>"

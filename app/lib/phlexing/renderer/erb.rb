@@ -16,7 +16,7 @@ module Phlexing
         @user = OpenStruct.new(firstname: "John", lastname: "Doe")
         @users = [@user, OpenStruct.new(firstname: "Jane", lastname: "Doe")]
 
-        erb = eval Erubi::Engine.new(html).src # rubocop:disable Security/Eval
+        erb = eval Erubi::Engine.new(html, { escapefunc: "" }).src # rubocop:disable Security/Eval
 
         begin
           HtmlPress.press(erb)
