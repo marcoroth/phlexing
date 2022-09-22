@@ -20,6 +20,7 @@ module Phlexing
       text = node.text
 
       if text.squish.empty? && text.length.positive?
+        @buffer << indent(level)
         @buffer << "whitespace\n"
 
         text.strip!
