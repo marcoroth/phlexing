@@ -40,7 +40,7 @@ module Phlexing
               #{template}
             end
 
-            def method_missing(name)
+            def method_missing(name, *args, &block)
               "method_call(:\#{name})"
             end
 
