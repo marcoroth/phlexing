@@ -1,2 +1,3 @@
-<%= turbo_stream.remove_css_class("[data-converter-target=output]", "hidden") %>
-<%= turbo_stream.update("output", @parser.buffer) %>
+<%= turbo_stream.update("output", html_escape(@parser.buffer)) %>
+
+<%= turbo_stream.remove_css_class("#output", "bg-gray-100 animate-pulse duration-75 blur-[1px]") %>

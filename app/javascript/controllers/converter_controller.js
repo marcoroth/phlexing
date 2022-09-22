@@ -4,8 +4,6 @@ export default class extends Controller {
   static targets = ["input", "output", "form"]
 
   connect() {
-    this.outputTarget.classList.add("hidden")
-
     if (this.inputTarget.value.trim() === "") {
       this.inputTarget.value = this.sessionStorageValue
       this.convert()
@@ -13,8 +11,13 @@ export default class extends Controller {
   }
 
   convert() {
-    this.save()
-    this.formTarget.requestSubmit()
+    if (this.inputTarget.value.trim() !== "") {
+      this.save()
+
+      this.outputTarget.querySelector("textarea").classList.add("bg-gray-100", "animate-pulse", "duration-75", "blur-[1px]")
+
+      this.formTarget.requestSubmit()
+    }
   }
 
   async copy(event) {
