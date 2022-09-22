@@ -4,20 +4,25 @@ export default class extends Controller {
   static targets = ["input", "output", "form"]
 
   connect() {
-    if (this.inputTarget.value.trim() === "") {
+    if (this.inputValue === "") {
       this.inputTarget.value = this.sessionStorageValue
-      this.convert()
+    }
+
+    if (this.inputValue !== "") {
+      this.submit()
     }
   }
 
   convert() {
-    if (this.inputTarget.value.trim() !== "") {
+    if (this.inputValue !== "" && this.inputValue !== this.sessionStorageValue) {
       this.save()
-
-      this.outputTarget.querySelector("textarea").classList.add("bg-gray-100", "animate-pulse", "duration-75", "blur-[1px]")
-
-      this.formTarget.requestSubmit()
+      this.submit()
     }
+  }
+
+  submit() {
+    this.outputTarget.querySelector("textarea").classList.add("bg-gray-100", "animate-pulse", "duration-75", "blur-[1px]")
+    this.formTarget.requestSubmit()
   }
 
   async copy(event) {
@@ -35,7 +40,11 @@ export default class extends Controller {
   }
 
   save() {
-    sessionStorage.setItem("input", this.inputTarget.value)
+    sessionStorage.setItem("input", this.inputValue)
+  }
+
+  get inputValue() {
+    return this.inputTarget.value.trim()
   }
 
   get sessionStorageValue() {
