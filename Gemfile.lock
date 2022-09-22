@@ -15,6 +15,14 @@ GIT
       unicode-display_width (>= 1.4.0, < 3.0)
 
 GIT
+  remote: https://github.com/marcoroth/phlex.git
+  revision: 1b1f7282f6d2b0859bace1d71d18ebc149a00adf
+  branch: br-element
+  specs:
+    phlex (0.2.2)
+      zeitwerk (~> 2.6)
+
+GIT
   remote: https://github.com/marcoroth/turbo-rails.git
   revision: 7dc45696aef909cfd07447b92952ee0b44f398f2
   branch: custom-action-helpers
@@ -120,8 +128,12 @@ GEM
     childprocess (4.1.0)
     concurrent-ruby (1.1.10)
     crass (1.0.6)
+    css_press (0.3.2)
+      csspool-st (= 3.1.2)
+      json
     cssbundling-rails (1.1.1)
       railties (>= 6.0.0)
+    csspool-st (3.1.2)
     debug (1.6.2)
       irb (>= 1.3.6)
       reline (>= 0.3.1)
@@ -129,8 +141,14 @@ GEM
     erb_parser (0.0.2)
       treetop
     erubi (1.11.0)
+    execjs (2.8.1)
     globalid (1.0.0)
       activesupport (>= 5.0)
+    html_press (0.8.2)
+      htmlentities
+      multi_css (>= 0.1.0)
+      multi_js (>= 0.1.0)
+    htmlentities (4.3.4)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
     io-console (0.5.11)
@@ -153,6 +171,10 @@ GEM
     mini_mime (1.1.2)
     minitest (5.16.3)
     msgpack (1.5.6)
+    multi_css (0.1.0)
+      css_press
+    multi_js (0.1.0)
+      uglifier (~> 2)
     net-imap (0.2.3)
       digest
       net-protocol
@@ -246,6 +268,9 @@ GEM
       turbo-rails (>= 1.1)
     tzinfo (2.0.5)
       concurrent-ruby (~> 1.0)
+    uglifier (2.7.2)
+      execjs (>= 0.3.0)
+      json (>= 1.8.0)
     unicode-display_width (2.3.0)
     web-console (4.2.0)
       actionview (>= 6.0.0)
@@ -274,9 +299,11 @@ DEPENDENCIES
   cssbundling-rails
   debug
   erb_parser
+  html_press (~> 0.8.2)
   jbuilder
   jsbundling-rails
   pg (~> 1.1)
+  phlex!
   puma (~> 5.0)
   rails (~> 7.0.4)
   redis (~> 4.0)

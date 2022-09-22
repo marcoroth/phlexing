@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "nokogiri"
+require "html_press"
 
 module Phlexing
   class Converter
@@ -16,10 +17,12 @@ module Phlexing
     end
 
     def handle_text(node, level, newline: true)
-      text = node.text.strip
+      text = node.text
 
-      if needs_whitespace?(node)
+      if text.squish.empty? && text.length.positive?
         @buffer << "whitespace\n"
+
+        text.strip!
       end
 
       if text.length.positive?
@@ -121,7 +124,7 @@ module Phlexing
     end
 
     def parsed
-      @parsed ||= Nokogiri::HTML.fragment(converted_erb)
+      @parsed ||= Nokogiri::HTML.fragment(minified_erb)
     end
 
     def buffer
@@ -131,9 +134,15 @@ module Phlexing
     end
 
     def converted_erb
-      ErbParser.transform_xml(html)
+      ErbParser.transform_xml(html).gsub("\n", "").gsub("\r", "")
     rescue StandardError
       html
+    end
+
+    def minified_erb
+      HtmlPress.press(converted_erb)
+    rescue StandardError
+      converted_erb
     end
   end
 end

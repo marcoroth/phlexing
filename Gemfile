@@ -84,3 +84,7 @@ end
 
 gem "erb_parser"
 gem "rufo"
+
+gem "phlex", github: "marcoroth/phlex", branch: "br-element"
+
+gem "html_press", "~> 0.8.2"

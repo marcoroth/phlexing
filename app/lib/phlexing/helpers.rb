@@ -66,10 +66,6 @@ module Phlexing
       multiple_children?(node.parent)
     end
 
-    def needs_whitespace?(node)
-      node.text.starts_with?(" ") && siblings?(node) && ((element_node?(node.previous) && !erb_comment?(node.previous)) || text_node?(node.previous))
-    end
-
     def erb_interpolation?(node)
       first = node.children.first
 
