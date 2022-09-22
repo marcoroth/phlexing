@@ -287,5 +287,23 @@ module Phlexing
 
       assert_phlex expected, html
     end
+
+    test "ERB capture" do
+      expected = <<~HTML.strip
+        @greeting = capture do
+          text " Welcome to my shiny new web page! The date and time is "
+          text Time.now
+        end
+      HTML
+
+      html = <<~HTML.strip
+        <% @greeting = capture do %>
+          Welcome to my shiny new web page!  The date and time is
+          <%= Time.now %>
+        <% end %>
+      HTML
+
+      assert_phlex expected, html
+    end
   end
 end
