@@ -1,4 +1,11 @@
 GIT
+  remote: https://github.com/joeldrapper/phlex.git
+  revision: 4c86958281d9be3f48027dabe83ff18c305dad0e
+  specs:
+    phlex (0.2.2)
+      zeitwerk (~> 2.6)
+
+GIT
   remote: https://github.com/joeldrapper/rubocop.git
   revision: 8d3c1a7dd04a0dee701e26ee506b28af0ffe3b98
   branch: rubocop-user-agent
@@ -13,14 +20,6 @@ GIT
       rubocop-ast (>= 1.20.1, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 3.0)
-
-GIT
-  remote: https://github.com/marcoroth/phlex.git
-  revision: 1b1f7282f6d2b0859bace1d71d18ebc149a00adf
-  branch: br-element
-  specs:
-    phlex (0.2.2)
-      zeitwerk (~> 2.6)
 
 GIT
   remote: https://github.com/marcoroth/turbo-rails.git
