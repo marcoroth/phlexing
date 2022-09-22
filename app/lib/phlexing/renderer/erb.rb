@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "erubi"
+
 module Phlexing
   module Renderer
     class Erb
@@ -10,14 +12,14 @@ module Phlexing
       end
 
       def render(html)
-        erb = ::ERB.new(html)
-
         @articles = [OpenStruct.new(title: "Article 1"), OpenStruct.new(title: "Article 2")]
         @user = OpenStruct.new(firstname: "John", lastname: "Doe")
         @users = [@user, OpenStruct.new(firstname: "Jane", lastname: "Doe")]
 
+        erb = eval Erubi::Engine.new(html).src # rubocop:disable Security/Eval
+
         begin
-          HtmlPress.press(erb.result(binding).squish)
+          HtmlPress.press(erb)
         rescue SyntaxError, StandardError => e
           e.message
         end
