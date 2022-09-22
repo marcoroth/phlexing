@@ -22,7 +22,16 @@ module Phlexing
     end
 
     test "basic custom element tag" do
-      assert_equal %(custom_element { "Custom Element" }), convert_html(%(<custom-element>Custom Element</custom-element>))
+      html = %(<custom-element><custom-element>Custom Element</custom-element></custom-element>)
+
+      expected = <<~HTML.strip
+        custom_element do
+          custom_element { "Custom Element" }
+        end
+      HTML
+
+      assert_equal expected, convert_html(html)
+      assert_equal ["custom_element"], Phlexing::Converter.new(html).custom_elements.to_a
     end
 
     test "tag with one attribute" do

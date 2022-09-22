@@ -6,11 +6,12 @@ module Phlexing
   class Converter
     include Helpers
 
-    attr_accessor :html
+    attr_accessor :html, :custom_elements
 
     def initialize(html)
       @html = html
       @buffer = StringIO.new
+      @custom_elements = Set.new
       handle_node
     end
 
@@ -52,7 +53,7 @@ module Phlexing
     end
 
     def handle_element(node, level)
-      @buffer << (indent(level) + node.name.gsub("-", "_") + handle_attributes(node))
+      @buffer << (indent(level) + node_name(node) + handle_attributes(node))
 
       if node.children.any?
         if node.children.one? && text_node?(node.children.first) && node.text.length <= 32

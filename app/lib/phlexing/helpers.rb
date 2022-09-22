@@ -16,6 +16,15 @@ module Phlexing
       "'#{string}'"
     end
 
+    def node_name(node)
+      return node.name unless node.name.include?("-")
+
+      name = node.name.gsub("-", "_")
+      @custom_elements << name
+
+      name
+    end
+
     def do_block_start
       " do\n"
     end
