@@ -50,7 +50,7 @@ module Phlexing
         begin
           eval(ruby) # rubocop:disable Security/Eval
 
-          TestComponent.new.call
+          HtmlPress.press(TestComponent.new.call)
         rescue SyntaxError, StandardError => e
           e.message
         end

@@ -17,7 +17,7 @@ module Phlexing
         @users = [@user, OpenStruct.new(firstname: "Jane", lastname: "Doe")]
 
         begin
-          erb.result(binding).squish
+          HtmlPress.press(erb.result(binding).squish)
         rescue SyntaxError, StandardError => e
           e.message
         end
