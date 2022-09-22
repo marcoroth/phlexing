@@ -8,6 +8,7 @@ module Phlexing
       assert_equal "div", convert_html(%(<div></div>))
       assert_equal "span", convert_html(%(<span></span>))
       assert_equal "p", convert_html(%(<p></p>))
+      assert_equal "template_tag", convert_html(%(<template></template>))
     end
 
     test "basic tags with whitespace" do

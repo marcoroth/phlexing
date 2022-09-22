@@ -17,6 +17,7 @@ module Phlexing
     end
 
     def node_name(node)
+      return "template_tag" if node.name == "template"
       return node.name unless node.name.include?("-")
 
       name = node.name.gsub("-", "_")
