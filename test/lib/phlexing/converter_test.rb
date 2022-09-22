@@ -117,6 +117,7 @@ module Phlexing
       expected = <<~HTML.strip
         div do
           text "\#{some_method}_text"
+          whitespace
           text "More Text"
         end
       HTML
@@ -167,12 +168,12 @@ module Phlexing
     test "ERB comment" do
       expected = <<~HTML.strip
         div do
-          # The Next line has text in it
+          # The Next line has text on it
           text "More Text"
         end
       HTML
 
-      assert_equal expected, convert_html(%(<div><%# The Next line has text in it %> More Text</div>))
+      assert_equal expected, convert_html(%(<div><%# The Next line has text on it %> More Text</div>))
     end
 
     test "ERB HTML safe output" do
@@ -192,6 +193,54 @@ module Phlexing
       HTML
 
       assert_equal expected, convert_html(%(<div><%== "<p>Some safe HTML</p>" %><%= "Another output" %></div>))
+    end
+
+    test "whitespace between HTML tag and text node" do
+      expected = <<~HTML.strip
+        a do
+          i class: "fa fa-pencil"
+          whitespace
+          text "Edit"
+        end
+      HTML
+
+      html = <<~HTML.strip
+        <a><i class="fa fa-pencil"></i> Edit</a>
+      HTML
+
+      assert_equal expected, convert_html(html)
+    end
+
+    test "whitespace between HTML tags" do
+      expected = <<~HTML.strip
+        a do
+          i class: "fa fa-pencil"
+          whitespace
+          span { "Edit" }
+        end
+      HTML
+
+      html = <<~HTML.strip
+        <a><i class="fa fa-pencil"></i> <span>Edit</span></a>
+      HTML
+
+      assert_equal expected, convert_html(html)
+    end
+
+    test "whitespace between ERB interpolations" do
+      expected = <<~HTML.strip
+        h1 do
+          text @user.firstname
+          whitespace
+          text @user.lastname
+        end
+      HTML
+
+      html = <<~HTML.strip
+        <h1><%= @user.firstname %> <%= @user.lastname %></h1>
+      HTML
+
+      assert_equal expected, convert_html(html)
     end
   end
 end

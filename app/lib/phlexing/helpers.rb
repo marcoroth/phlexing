@@ -40,8 +40,24 @@ module Phlexing
       node.is_a?(Nokogiri::XML::Element) && node.name == "erb"
     end
 
+    def element_node?(node)
+      node.is_a?(Nokogiri::XML::Element)
+    end
+
     def text_node?(node)
       node.is_a?(Nokogiri::XML::Text)
+    end
+
+    def multiple_children?(node)
+      node.children.length > 1
+    end
+
+    def siblings?(node)
+      multiple_children?(node.parent)
+    end
+
+    def needs_whitespace?(node)
+      node.text.starts_with?(" ") && siblings?(node) && (element_node?(node.previous) && !erb_comment?(node.previous) || text_node?(node.previous))
     end
 
     def erb_interpolation?(node)

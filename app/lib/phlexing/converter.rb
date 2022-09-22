@@ -17,10 +17,14 @@ module Phlexing
     def handle_text(node, level, newline: true)
       text = node.text.strip
 
+      if needs_whitespace?(node)
+        @buffer << "whitespace\n"
+      end
+
       if text.length.positive?
         @buffer << indent(level)
 
-        if node.parent.children.length > 1
+        if siblings?(node)
           @buffer << "text "
         end
 
