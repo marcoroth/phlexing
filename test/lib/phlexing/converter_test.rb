@@ -275,5 +275,23 @@ module Phlexing
 
       assert_phlex expected, html
     end
+
+    test "whitespace around and in tags" do
+      expected = <<~HTML.strip
+        span do
+          whitespace
+          span { " 1 " }
+          whitespace
+          span { " 2 " }
+          whitespace
+        end
+      HTML
+
+      html = <<~HTML.strip
+        <span> <span> 1 </span> <span> 2 </span> </span>
+      HTML
+
+      assert_phlex expected, html
+    end
   end
 end
