@@ -10,16 +10,16 @@ module Phlexing
         when String
           converter = Phlexing::Converter.new(argument)
 
-          render_phlex(converter)
+          render_phlex(converter.buffer, custom_elements: converter.custom_elements)
         when Phlexing::Converter
-          render_phlex(argument)
+          render_phlex(argument.buffer, custom_elements: argument.custom_elements)
         else
           throw
         end
       end
 
-      def self.render_phlex(converter)
-        elements = converter.custom_elements.to_a.map { |c| "register_element(:#{c})" }.join("\n")
+      def self.render_phlex(template, custom_elements: [])
+        elements = custom_elements.to_a.map { |c| "register_element(:#{c})" }.join("\n")
 
         ruby = %{
           class TestComponent < ::Phlex::Component
@@ -34,7 +34,7 @@ module Phlexing
             #{elements}
 
             def template
-              #{converter.buffer}
+              #{template}
             end
 
             def method_missing(name)
