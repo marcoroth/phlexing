@@ -47,7 +47,10 @@
 
           <div class="mt-2">
             <div id="tabs-1-panel-1" class="-m-0.5 rounded-lg p-0.5" aria-labelledby="tabs-1-tab-1" role="tabpanel" tabindex="0">
-              <textarea readonly id="output" rows="40" cols="120" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></textarea>
+              <div class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                <pre class="phlex-output p-3 mb-3 rounded overflow-auto font-mono bg-[#282c34] text-[#dcdfe4] highlight h-[70vh] overflow-scroll" id="output"></pre>
+                <textarea id="output-copy" class="phlex-output hidden"></textarea
+              </div>
             </div>
           </div>
         </div>
@@ -55,3 +58,6 @@
     </div>
   </main>
 </section>
+<style type="text/css">
+  <%= Rouge::Themes::Monokai.render(scope: 'pre') %>
+</style>

@@ -21,12 +21,12 @@ export default class extends Controller {
   }
 
   submit() {
-    this.outputTarget.querySelector("textarea").classList.add("bg-gray-100", "animate-pulse", "duration-75", "blur-[1px]")
+    this.outputTarget.querySelector("pre").classList.add("bg-gray-100", "animate-pulse", "duration-75")
     this.formTarget.requestSubmit()
   }
 
   async copy(event) {
-    await navigator.clipboard.writeText(document.getElementById("output").value)
+    await navigator.clipboard.writeText(document.getElementById("output-copy").value)
 
     const button = (event.target instanceof HTMLButtonElement) ? event.target : event.target.closest("button")
 

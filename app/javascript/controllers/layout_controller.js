@@ -26,7 +26,7 @@ export default class extends Controller {
       this.layoutElement.classList.add("grid-cols-2")
       document.querySelector("[data-value=horizontal]").disabled = true
       document.querySelector("[data-value=vertical]").disabled = false
-      document.querySelector("#input").rows = 40
+      document.querySelector("#input").style.height = "70vh"
     }
 
     if (value === "vertical") {
@@ -34,7 +34,7 @@ export default class extends Controller {
       this.layoutElement.classList.remove("grid-cols-2")
       document.querySelector("[data-value=horizontal]").disabled = false
       document.querySelector("[data-value=vertical]").disabled = true
-      document.querySelector("#input").rows = 10
+      document.querySelector("#input").style.height = "20vh"
     }
   }
 

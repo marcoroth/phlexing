@@ -88,3 +88,5 @@ gem "rufo"
 gem "phlex", github: "joeldrapper/phlex"
 
 gem "html_press", "~> 0.8.2"
+
+gem "rouge", "~> 4.0"
