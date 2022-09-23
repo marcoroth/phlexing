@@ -1,4 +1,4 @@
-<section data-controller="layout">
+<section data-controller="layout converter">
   <header>
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div class="min-w-0 flex flex-1">
@@ -6,7 +6,7 @@
 
           <div class="flex flex-1 justify-between sm:justify-end">
             <div class="ml-6 flex items-center">
-              <button type="button" data-action="click->converter#convert" class="ml-3 items-center rounded-md border border-transparent bg-[#C81657] px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-[#c6153f] focus:outline-none focus:ring-2 focus:ring-[#C81657] focus:ring-offset-2"><i class="fas fa-play-circle"></i>  Convert</button>
+              <button type="button" data-action="click->converter#submit" class="ml-3 items-center rounded-md border border-transparent bg-[#C81657] px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-[#c6153f] focus:outline-none focus:ring-2 focus:ring-[#C81657] focus:ring-offset-2"><i class="fas fa-play-circle"></i>  Convert</button>
 
               <div class="mx-6 hidden h-5 w-px bg-slate-900/10 sm:block"></div>
 
@@ -18,7 +18,7 @@
     </div>
   </header>
 
-  <main data-controller="converter">
+  <main>
     <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
       <div id="layout" class="grid grid-cols-2 gap-2">
         <form data-converter-target="form" action="<%= converters_path %>" data-turbo-stream method="post" data-action="submit->converter#convert change->converter#convert">
@@ -29,7 +29,7 @@
             <div class="mt-2">
               <div class="-m-0.5 rounded-lg p-0.5" role="tabpanel" tabindex="0">
                 <div>
-                  <textarea data-converter-target="input" data-action="change->converter#convert keyup->converter#convert" name="input" id="input" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="Paste ERB here"></textarea>
+                  <textarea data-converter-target="input" data-action="change->converter#convert keyup->converter#convert" name="input" id="input" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="Paste ERB here" style="height: 70vh"></textarea>
                 </div>
               </div>
             </div>

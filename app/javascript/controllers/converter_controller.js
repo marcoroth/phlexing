@@ -13,14 +13,14 @@ export default class extends Controller {
     }
   }
 
-  convert() {
-    if (this.inputValue !== "" && this.inputValue !== this.sessionStorageValue) {
-      this.save()
+  convert(event) {
+    if (this.inputValue !== this.sessionStorageValue) {
       this.submit()
     }
   }
 
   submit() {
+    this.save()
     this.outputTarget.querySelector("pre").classList.add("bg-gray-100", "animate-pulse", "duration-75")
     this.formTarget.requestSubmit()
   }
