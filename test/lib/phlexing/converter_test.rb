@@ -327,5 +327,19 @@ module Phlexing
 
       assert_phlex expected, html
     end
+
+    test "HTML comment" do
+      expected = <<~HTML.strip
+        comment "Hello World"
+        div { "Hello World" }
+      HTML
+
+      html = <<~HTML.strip
+        <!-- Hello World -->
+        <div>Hello World</div>
+      HTML
+
+      assert_phlex expected, html
+    end
   end
 end

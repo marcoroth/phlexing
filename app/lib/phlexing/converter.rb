@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "nokogiri"
-require "html_press"
 
 module Phlexing
   class Converter
@@ -87,6 +86,13 @@ module Phlexing
       end
     end
 
+    def handle_comment_node(node, level)
+      @buffer << indent(level)
+      @buffer << "comment "
+      @buffer << double_quote(node.text.strip)
+      @buffer << "\n"
+    end
+
     def handle_children(node, level)
       node.children.each do |child|
         handle_node(child, level + 1)
@@ -126,6 +132,8 @@ module Phlexing
         @buffer << "\n" if level == 1
       when Nokogiri::HTML4::DocumentFragment
         handle_children(node, level)
+      when Nokogiri::XML::Comment
+        handle_comment_node(node, level)
       else
         @buffer << ("UNKNOWN#{node.class}")
       end

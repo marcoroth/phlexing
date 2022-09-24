@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/joeldrapper/phlex.git
-  revision: 4c86958281d9be3f48027dabe83ff18c305dad0e
+  revision: 0a6c3ab1d4cd2d6c72290d36081a38fd09c9ccb0
   specs:
     phlex (0.2.2)
       zeitwerk (~> 2.6)
