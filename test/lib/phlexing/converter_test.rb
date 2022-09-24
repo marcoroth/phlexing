@@ -94,6 +94,28 @@ module Phlexing
       assert_phlex expected, %(<div>Text<br />Line 2</div>)
     end
 
+    test "tag with long text gets wrapped into parenthesis" do
+      expected = <<~HTML.strip
+        div do
+          text "Text"
+          text("A super long text which gets wrapped in parenthesis")
+        end
+      HTML
+
+      assert_phlex expected, %(<div>Text<%= "A super long text which gets wrapped in parenthesis" %></div>)
+    end
+
+    test "tag with long erb interpolation gets wrapped into parenthesis" do
+      expected = <<~HTML.strip
+        div do
+          text "Text"
+          text(long_method_name(with: "a bunch", of: :arguments))
+        end
+      HTML
+
+      assert_phlex expected, %(<div>Text<%= long_method_name(with: "a bunch", of: :arguments) %></div>)
+    end
+
     test "tag with one tag node child" do
       expected = <<~HTML.strip
         div do

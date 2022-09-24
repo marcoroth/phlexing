@@ -47,12 +47,21 @@ module Phlexing
       end
 
       if erb_interpolation?(node) && node.parent.children.count > 1
-        @buffer << "text "
+        if node.text.length >= 24
+          @buffer << "text("
+          @buffer << node.text
+          @buffer << ")"
+        else
+          @buffer << "text "
+          @buffer << node.text
+        end
       elsif erb_comment?(node)
         @buffer << "#"
+        @buffer << node.text
+      else
+        @buffer << node.text
       end
 
-      @buffer << node.text
       @buffer << "\n" if newline
     end
 
