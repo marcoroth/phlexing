@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/joeldrapper/phlex.git
-  revision: 0a6c3ab1d4cd2d6c72290d36081a38fd09c9ccb0
+  revision: 8d1c2ef2ca53a7f6ff9583a4df2929af89ca7945
   specs:
     phlex (0.2.2)
       zeitwerk (~> 2.6)
@@ -20,25 +20,6 @@ GIT
       rubocop-ast (>= 1.20.1, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 3.0)
-
-GIT
-  remote: https://github.com/marcoroth/turbo-rails.git
-  revision: 7dc45696aef909cfd07447b92952ee0b44f398f2
-  branch: custom-action-helpers
-  specs:
-    turbo-rails (1.1.1)
-      actionpack (>= 6.0.0)
-      activejob (>= 6.0.0)
-      railties (>= 6.0.0)
-
-GIT
-  remote: https://github.com/marcoroth/turbo_pack-rails.git
-  revision: 0b6973058b2b730797e769f6d4f0af0d60952430
-  branch: main
-  specs:
-    turbo_power (0.1.1)
-      turbo-rails
-      turbo_ready
 
 GEM
   remote: https://rubygems.org/
@@ -263,6 +244,13 @@ GEM
     timeout (0.3.0)
     treetop (1.6.11)
       polyglot (~> 0.3)
+    turbo-rails (1.3.0)
+      actionpack (>= 6.0.0)
+      activejob (>= 6.0.0)
+      railties (>= 6.0.0)
+    turbo_power (0.1.2)
+      turbo-rails (~> 1.3.0)
+      turbo_ready
     turbo_ready (0.1.0)
       rails (>= 6.1)
       turbo-rails (>= 1.1)
@@ -313,8 +301,8 @@ DEPENDENCIES
   selenium-webdriver
   sprockets-rails
   stimulus-rails
-  turbo-rails!
-  turbo_power!
+  turbo-rails (~> 1.3.0)
+  turbo_power (~> 0.1.2)
   tzinfo-data
   web-console
   webdrivers
