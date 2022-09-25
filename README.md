@@ -5,8 +5,9 @@
 
 A simple ERB to [Phlex](https://github.com/marcoroth/phlexing) Converter.
 
-
-![Screenshot](./screenshot.png)
+<a href="https://phlexing.fun">
+  <img src="./screenshot.png" alt="Phlexing Screenshot">
+</a>
 
 ## Website
 
