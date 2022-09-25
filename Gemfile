@@ -90,3 +90,5 @@ gem "phlex", github: "joeldrapper/phlex"
 gem "html_press", "~> 0.8.2"
 
 gem "rouge", "~> 4.0"
+
+gem "rack-rewrite", "~> 1.5"
