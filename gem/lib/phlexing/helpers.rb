@@ -77,7 +77,7 @@ module Phlexing
     end
 
     def erb_safe_output?(node)
-      erb_interpolation?(node) && node.text.starts_with?("=")
+      erb_interpolation?(node) && node.text.start_with?("=")
     end
 
     def erb_comment?(node)
