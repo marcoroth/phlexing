@@ -1,0 +1,3 @@
+module Phlexing
+  VERSION: String
+end
