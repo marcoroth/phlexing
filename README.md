@@ -39,7 +39,6 @@ Phlexing::Converter.convert(%{
     h1 { article.title }
   end
 })
-
 => "\"@articles.each do |article| h1 { article.title } end\"\n"
 
 ```
