@@ -14,6 +14,10 @@ module Phlexing
 
     attr_accessor :html, :custom_elements
 
+    def self.convert(html)
+      new(html).buffer
+    end
+
     def initialize(html)
       @html = html
       @buffer = StringIO.new
