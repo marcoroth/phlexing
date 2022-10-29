@@ -30,7 +30,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "nokogiri"
-
-  spec.add_development_dependency "erubi"
-  spec.add_development_dependency "phlex"
+  spec.add_dependency "rufo"
+  spec.add_dependency "html_press"
+  spec.add_dependency "erb_parser"
 end

@@ -18,24 +18,39 @@ PATH
   remote: .
   specs:
     phlexing (0.1.0)
+      erb_parser
+      html_press
       nokogiri
+      rufo
 
 GEM
   remote: https://rubygems.org/
   specs:
     ast (2.4.2)
-    erubi (1.11.0)
+    css_press (0.3.2)
+      csspool-st (= 3.1.2)
+      json
+    csspool-st (3.1.2)
+    erb_parser (0.0.2)
+      treetop
+    execjs (2.8.1)
+    html_press (0.8.2)
+      htmlentities
+      multi_css (>= 0.1.0)
+      multi_js (>= 0.1.0)
+    htmlentities (4.3.4)
     json (2.6.2)
     minitest (5.16.3)
+    multi_css (0.1.0)
+      css_press
+    multi_js (0.1.0)
+      uglifier (~> 2)
     nokogiri (1.13.9-x86_64-darwin)
       racc (~> 1.4)
     parallel (1.22.1)
     parser (3.1.2.1)
       ast (~> 2.4.1)
-    phlex (0.4.0)
-      syntax_tree (~> 3.6)
-      zeitwerk (~> 2.6)
-    prettier_print (1.0.2)
+    polyglot (0.3.5)
     racc (1.6.0)
     rainbow (3.1.1)
     rake (13.0.6)
@@ -44,18 +59,19 @@ GEM
     rubocop-ast (1.23.0)
       parser (>= 3.1.1.0)
     ruby-progressbar (1.11.0)
-    syntax_tree (3.6.3)
-      prettier_print
+    rufo (0.13.0)
+    treetop (1.6.11)
+      polyglot (~> 0.3)
+    uglifier (2.7.2)
+      execjs (>= 0.3.0)
+      json (>= 1.8.0)
     unicode-display_width (2.3.0)
-    zeitwerk (2.6.1)
 
 PLATFORMS
   x86_64-darwin-19
 
 DEPENDENCIES
-  erubi
   minitest (~> 5.0)
-  phlex
   phlexing!
   rake (~> 13.0)
   rubocop!

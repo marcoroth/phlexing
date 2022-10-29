@@ -1,10 +1,16 @@
 # frozen_string_literal: true
 
 require "nokogiri"
+require "ostruct"
+require "rufo"
+require "html_press"
+require "erb_parser"
 
 module Phlexing
   class Converter
     include Helpers
+
+    using ::Phlexing::Refinements::StringRefinements
 
     attr_accessor :html, :custom_elements
 

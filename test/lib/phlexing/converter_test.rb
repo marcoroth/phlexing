@@ -2,6 +2,8 @@
 
 require "test_helper"
 
+require "phlexing"
+
 module Phlexing
   class ConverterTest < ActiveSupport::TestCase
     test "basic tags" do

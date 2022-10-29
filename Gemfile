@@ -82,13 +82,7 @@ group :test do
   gem "webdrivers"
 end
 
-gem "erb_parser"
-gem "rufo"
-
-gem "phlex", github: "joeldrapper/phlex"
-
-gem "html_press", "~> 0.8.2"
-
+gem "phlexing", path: "gem"
+gem "phlex", github: "joeldrapper/phlex", ref: "8d1c2ef2ca53a7f6ff9583a4df2929af89ca7945"
 gem "rouge", "~> 4.0"
-
 gem "rack-rewrite", "~> 1.5"

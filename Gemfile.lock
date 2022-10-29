@@ -1,6 +1,7 @@
 GIT
   remote: https://github.com/joeldrapper/phlex.git
   revision: 8d1c2ef2ca53a7f6ff9583a4df2929af89ca7945
+  ref: 8d1c2ef2ca53a7f6ff9583a4df2929af89ca7945
   specs:
     phlex (0.2.2)
       zeitwerk (~> 2.6)
@@ -20,6 +21,15 @@ GIT
       rubocop-ast (>= 1.20.1, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 3.0)
+
+PATH
+  remote: gem
+  specs:
+    phlexing (0.1.0)
+      erb_parser
+      html_press
+      nokogiri
+      rufo
 
 GEM
   remote: https://rubygems.org/
@@ -287,19 +297,17 @@ DEPENDENCIES
   capybara
   cssbundling-rails
   debug
-  erb_parser
-  html_press (~> 0.8.2)
   jbuilder
   jsbundling-rails
   pg (~> 1.1)
   phlex!
+  phlexing!
   puma (~> 5.0)
   rack-rewrite (~> 1.5)
   rails (~> 7.0.4)
   redis (~> 4.0)
   rouge (~> 4.0)
   rubocop!
-  rufo
   selenium-webdriver
   sprockets-rails
   stimulus-rails
