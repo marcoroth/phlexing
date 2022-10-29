@@ -1,4 +1,4 @@
-name: Rubocop
+name: RuboCop
 
 on:
   push:
@@ -22,5 +22,5 @@ jobs:
           ruby-version: ${{ matrix.ruby }}
           bundler-cache: true
 
-      - name: Run RuboCOp
+      - name: Run RuboCop
         run: bundle exec rubocop

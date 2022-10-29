@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Phlexing
   module Refinements
     module StringRefinements
