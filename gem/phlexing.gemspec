@@ -29,8 +29,8 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "erb_parser"
-  spec.add_dependency "html_press"
-  spec.add_dependency "nokogiri"
-  spec.add_dependency "rufo"
+  spec.add_dependency "erb_parser", "~> 0.0.2"
+  spec.add_dependency "html_press", "~> 0.8.2"
+  spec.add_dependency "nokogiri", "~> 1.0"
+  spec.add_dependency "rufo", "~> 0.13.0"
 end

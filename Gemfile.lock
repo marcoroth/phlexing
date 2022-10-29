@@ -26,10 +26,10 @@ PATH
   remote: gem
   specs:
     phlexing (0.1.0)
-      erb_parser
-      html_press
-      nokogiri
-      rufo
+      erb_parser (~> 0.0.2)
+      html_press (~> 0.8.2)
+      nokogiri (~> 1.0)
+      rufo (~> 0.13.0)
 
 GEM
   remote: https://rubygems.org/
