@@ -34,16 +34,16 @@ require "phlexing"
 Phlexing::Converter.convert('<h1 class="title">Hello World</h1>')
 => "h1(class: \"title\") { \"Hello World\" }\n"
 
-puts Phlexing::Converter.convert(%{
+Phlexing::Converter.convert(%{
   <% @articles.each do |article| %>
     <h1><%= article.title %></h1>
   <% end %>
 })
-# @articles.each do |article|
-#   h1 { article.title }
-#
-#   whitespace
-# end
+=> "@articles.each do |article|
+     h1 { article.title }
+
+     whitespace
+   end"
 
 ```
 
