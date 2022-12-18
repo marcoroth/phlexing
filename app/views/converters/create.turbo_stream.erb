@@ -6,3 +6,7 @@
 
 <%= turbo_stream.remove_css_class("#output", "bg-gray-100 animate-pulse duration-75") %>
 
+<%#= turbo_stream.set_session_storage_item("input2", @parser.buffer.strip) %>
+<%#= turbo_stream.update("output2", html_escape(@parser.converted_erb)) %>
+<%= turbo_stream.update("output_erb", html_escape(@erb_output)) %>
+<%= turbo_stream.update("output_phlex", html_escape(@phlex_output)) %>
