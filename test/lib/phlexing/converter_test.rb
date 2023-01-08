@@ -60,6 +60,10 @@ module Phlexing
       assert_phlex %(div { "Text" }), %(<div>Text</div>)
     end
 
+    test "tag with one text node child with double quotes" do
+      assert_phlex %(div { 'Text with "quotes"' }), %(<div>Text with "quotes"</div>)
+    end
+
     test "tag with one text node child and long content" do
       expected = <<~HTML.strip
         div do
@@ -84,7 +88,7 @@ module Phlexing
       assert_phlex expected, %(<div class="app" id="body"><h1>Title 1</h1><h2>Title 2<span>Small Addition</span></h2></div>)
     end
 
-    test "tag with mulitple text and element children" do
+    test "tag with multiple text and element children" do
       expected = <<~HTML.strip
         div do
           text "Text"
@@ -338,6 +342,20 @@ module Phlexing
 
       html = <<~HTML.strip
         <!-- Hello World -->
+        <div>Hello World</div>
+      HTML
+
+      assert_phlex expected, html
+    end
+
+    test "HTML comment with double quotes" do
+      expected = <<~HTML.strip
+        comment 'Hello "World"'
+        div { "Hello World" }
+      HTML
+
+      html = <<~HTML.strip
+        <!-- Hello "World" -->
         <div>Hello World</div>
       HTML
 

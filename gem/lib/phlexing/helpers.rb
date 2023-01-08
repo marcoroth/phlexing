@@ -16,6 +16,14 @@ module Phlexing
       "'#{string}'"
     end
 
+    def quote(string)
+      if string.include?('"')
+        single_quote(string)
+      else
+        double_quote(string)
+      end
+    end
+
     def node_name(node)
       return "template_tag" if node.name == "template"
       return node.name unless node.name.include?("-")
