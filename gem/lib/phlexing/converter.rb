@@ -42,7 +42,7 @@ module Phlexing
           @buffer << "text "
         end
 
-        @buffer << double_quote(text)
+        @buffer << quote(text)
         @buffer << "\n" if newline
       end
     end
@@ -99,7 +99,7 @@ module Phlexing
     def handle_comment_node(node, level)
       @buffer << indent(level)
       @buffer << "comment "
-      @buffer << double_quote(node.text.strip)
+      @buffer << quote(node.text.strip)
       @buffer << "\n"
     end
 
