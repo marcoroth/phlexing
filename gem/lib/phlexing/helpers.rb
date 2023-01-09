@@ -20,12 +20,15 @@ module Phlexing
       "'#{string}'"
     end
 
+    def percent_literal_string(string)
+      "%(#{string})"
+    end
+
     def quote(string)
-      if string.include?('"')
-        single_quote(string)
-      else
-        double_quote(string)
-      end
+      return double_quote(string) unless string.include?('"')
+      return single_quote(string) unless string.include?("'")
+
+      percent_literal_string(string)
     end
 
     def node_name(node)
