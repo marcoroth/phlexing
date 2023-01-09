@@ -282,6 +282,21 @@ module Phlexing
       assert_phlex expected, html
     end
 
+    test "no whitespace between HTML tags when whitespace option disabled" do
+      expected = <<~HTML.strip
+        a do
+          i class: "fa fa-pencil"
+          span { "Edit" }
+        end
+      HTML
+
+      html = <<~HTML.strip
+        <a><i class="fa fa-pencil"></i> <span>Edit</span></a>
+      HTML
+
+      assert_phlex expected, html, whitespace: false
+    end
+
     test "whitespace between ERB interpolations" do
       expected = <<~HTML.strip
         h1 do
@@ -296,6 +311,21 @@ module Phlexing
       HTML
 
       assert_phlex expected, html
+    end
+
+    test "no whitespace between ERB interpolations when whitespace option disabled" do
+      expected = <<~HTML.strip
+        h1 do
+          text @user.firstname
+          text @user.lastname
+        end
+      HTML
+
+      html = <<~HTML.strip
+        <h1><%= @user.firstname %> <%= @user.lastname %></h1>
+      HTML
+
+      assert_phlex expected, html, whitespace: false
     end
 
     test "whitespace around and in tags" do
@@ -314,6 +344,21 @@ module Phlexing
       HTML
 
       assert_phlex expected, html
+    end
+
+    test "no whitespace around and in tags when whitespace option disabled" do
+      expected = <<~HTML.strip
+        span do
+          span { " 1 " }
+          span { " 2 " }
+        end
+      HTML
+
+      html = <<~HTML.strip
+        <span> <span> 1 </span> <span> 2 </span> </span>
+      HTML
+
+      assert_phlex expected, html, whitespace: false
     end
 
     test "ERB capture" do

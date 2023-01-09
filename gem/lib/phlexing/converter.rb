@@ -14,14 +14,15 @@ module Phlexing
 
     attr_accessor :html, :custom_elements
 
-    def self.convert(html)
-      new(html).buffer
+    def self.convert(html, **options)
+      new(html, **options).buffer
     end
 
-    def initialize(html)
+    def initialize(html, **options)
       @html = html
       @buffer = StringIO.new
       @custom_elements = Set.new
+      @options = options
       handle_node
     end
 
@@ -30,7 +31,7 @@ module Phlexing
 
       if text.squish.empty? && text.length.positive?
         @buffer << indent(level)
-        @buffer << "whitespace\n"
+        @buffer << whitespace(@options)
 
         text.strip!
       end

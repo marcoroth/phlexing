@@ -13,14 +13,16 @@ class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   # fixtures :all
 
-  def convert_html(html)
-    Phlexing::Converter.new(html).buffer.strip
+  def convert_html(html, **options)
+    Phlexing::Converter.new(html, **options).buffer.strip
   end
 
-  def assert_phlex(expected, html)
-    assert_equal(expected, convert_html(html))
+  def assert_phlex(expected, html, **options)
+    assert_equal(expected, convert_html(html, **options))
 
-    converter = Phlexing::Converter.new(html)
+    return unless options[:whitespace]
+
+    converter = Phlexing::Converter.new(html, **options)
 
     assert_equal(
       Phlexing::Renderer::Erb.render(html),
