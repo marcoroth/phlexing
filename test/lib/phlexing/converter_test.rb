@@ -60,8 +60,22 @@ module Phlexing
       assert_phlex %(div { "Text" }), %(<div>Text</div>)
     end
 
+    test "tag with one text node child with single quotes" do
+      assert_phlex %(div { "Text with 'single quotes'" }), %(<div>Text with 'single quotes'</div>)
+    end
+
     test "tag with one text node child with double quotes" do
-      assert_phlex %(div { 'Text with "quotes"' }), %(<div>Text with "quotes"</div>)
+      assert_phlex %(div { 'Text with "double quotes"' }), %(<div>Text with "double quotes"</div>)
+    end
+
+    test "tag with one text node child with single and double quotes" do
+      expected = <<~HTML.strip
+        div do
+          %(Text with 'single quotes' and "double quotes")
+        end
+      HTML
+
+      assert_phlex expected, %(<div>Text with 'single quotes' and "double quotes"</div>)
     end
 
     test "tag with one text node child and long content" do
