@@ -8,6 +8,10 @@ module Phlexing
       "  " * level
     end
 
+    def whitespace(options)
+      options.fetch(:whitespace, true) ? "whitespace\n" : ""
+    end
+
     def double_quote(string)
       "\"#{string}\""
     end
