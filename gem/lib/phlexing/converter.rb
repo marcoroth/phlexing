@@ -149,7 +149,22 @@ module Phlexing
         @buffer << ("UNKNOWN#{node.class}")
       end
 
-      @buffer.string
+      @output = StringIO.new
+
+      if level == 0 && @options.fetch(:phlex_class, false)
+        @output << "class #{@options.fetch(:component_name, 'MyComponent')} < #{@options.fetch(:parent_component, 'Phlex::HTML')}\n"
+        @custom_elements.each do |element|
+          @output << "register_element :#{element}\n"
+        end
+        @output << "def template\n"
+        @output << @buffer.string
+        @output << "end\n"
+        @output << "end\n"
+      else
+        @output << @buffer.string
+      end
+
+      @output.string
     end
 
     def parsed
@@ -157,7 +172,7 @@ module Phlexing
     end
 
     def buffer
-      Rufo::Formatter.format(@buffer.string.strip)
+      Rufo::Formatter.format(@output.string.strip)
     rescue Rufo::SyntaxError
       @buffer.string.strip
     end

@@ -32,6 +32,35 @@
               <p class="text-gray-500">Generate whitespace in and around HTML block elements</p>
             </div>
           </div>
+
+          <div data-controller="phlex-class">
+            <div class="relative flex items-start mb-3">
+              <div class="flex h-5 items-center">
+                <input id="phlex_class" name="phlex_class" type="checkbox" data-action="click->converter#submit click->phlex-class#toggle" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+              </div>
+              <div class="ml-3 text-sm">
+                <label for="phlex_class" class="font-medium text-gray-700">Generate Phlex class</label>
+                <p class="text-gray-500">Generate a Phlex class with a template method around your input</p>
+              </div>
+            </div>
+
+            <div class="hidden" data-phlex-class-target="toggle">
+              <div class="sm:col-span-4 ml-6 mb-3">
+                <label for="component_name" class="block text-sm font-medium text-gray-700">Component Name</label>
+                <div class="mt-1">
+                  <input value="MyComponent" id="component_name" name="component_name" data-action="keyup->converter#submit" type="text" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                </div>
+              </div>
+
+              <div class="sm:col-span-4 ml-6 mb-3">
+                <label for="email" class="block text-sm font-medium text-gray-700">Parent Component</label>
+                <div class="mt-1">
+                  <input value="Phlex::HTML" id="parent_component" name="parent_component" data-action="keyup->converter#submit" type="text" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
 
