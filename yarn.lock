@@ -2,11 +2,6 @@
 # yarn lockfile v1
 
 
-"@alpinejs/morph@>=3.10.4":
-  version "3.10.5"
-  resolved "https://registry.yarnpkg.com/@alpinejs/morph/-/morph-3.10.5.tgz#855bf3352250148f73158780a8f27bbd5ee95d05"
-  integrity sha512-NQmC1vFwvNbVke1Io6rp6A0Hxgy3iz1xsyqjBZmMJVM5eYaYUwJJXR9N0hFzUTAt4KfzPZpeabwaiduKaEuxBQ==
-
 "@esbuild/android-arm@0.15.8":
   version "0.15.8"
   resolved "https://registry.yarnpkg.com/@esbuild/android-arm/-/android-arm-0.15.8.tgz#52b094c98e415ec72fab39827c12f2051ac9c550"
@@ -70,18 +65,6 @@
   dependencies:
     mini-svg-data-uri "^1.2.3"
 
-"@vue/reactivity@~3.1.1":
-  version "3.1.5"
-  resolved "https://registry.yarnpkg.com/@vue/reactivity/-/reactivity-3.1.5.tgz#dbec4d9557f7c8f25c2635db1e23a78a729eb991"
-  integrity sha512-1tdfLmNjWG6t/CsPldh+foumYFo3cpyCHgBYQ34ylaMsJ+SNHQ1kApMIa8jN+i593zQuaw3AdWH0nJTARzCFhg==
-  dependencies:
-    "@vue/shared" "3.1.5"
-
-"@vue/shared@3.1.5":
-  version "3.1.5"
-  resolved "https://registry.yarnpkg.com/@vue/shared/-/shared-3.1.5.tgz#74ee3aad995d0a3996a6bb9533d4d280514ede03"
-  integrity sha512-oJ4F3TnvpXaQwZJNF3ZK+kLPHKarDmJjJ6jyzVNDKH9md1dptjC7lWR//jrGuLdek/U6iltWxqAnYOu8gCiOvA==
-
 acorn-node@^1.8.2:
   version "1.8.2"
   resolved "https://registry.yarnpkg.com/acorn-node/-/acorn-node-1.8.2.tgz#114c95d64539e53dede23de8b9d96df7c7ae2af8"
@@ -100,13 +83,6 @@ acorn@^7.0.0:
   version "7.4.1"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-7.4.1.tgz#feaed255973d2e77555b83dbc08851a6c63520fa"
   integrity sha512-nQyp0o1/mNdbTO1PO6kHkwSrmgZ0MT/jCCpNiwbUjGoRN4dlBhqJtoQuCnEOKzgTVwg0ZWiCoQy6SxMebQVh8A==
-
-alpinejs@>=3.10.4:
-  version "3.10.5"
-  resolved "https://registry.yarnpkg.com/alpinejs/-/alpinejs-3.10.5.tgz#59ca09ad42293cc8e0bbbdf4c7696fc22c6df700"
-  integrity sha512-qlvnal44Gof2XVfm/lef8fYpXKxR9fjdSki7aFB/9THyFvbsRKZ6lM5SjxXpIs7B0faJt7bgpK2K25gzrraXJw==
-  dependencies:
-    "@vue/reactivity" "~3.1.1"
 
 anymatch@~3.1.2:
   version "3.1.2"
@@ -763,21 +739,12 @@ turbo-morph@^0.1.0:
   resolved "https://registry.yarnpkg.com/turbo-morph/-/turbo-morph-0.1.0.tgz#1db6900ea5a96780e94915d3bcb9c9b0e45c442e"
   integrity sha512-+T7KQySPZS3MQYm4zHrAvGV7pdL8d/Tn5Dq51WlUNp6CCEQgWjS9ruiGbU1rb/pvFJa51HBm0tEH4aJiNxIrIQ==
 
-turbo_power@^0.1.5:
-  version "0.1.5"
-  resolved "https://registry.yarnpkg.com/turbo_power/-/turbo_power-0.1.5.tgz#3415af2d5e2b1162070bebe60f50308475bb2b52"
-  integrity sha512-bIaVMpxLy3kXyi1Ha/fcWNUJfXmr2gSfL64PSa/M8XXkEbCtEK228q1JcHmg6KQP3zFrqOGQZKWl6UrmR/WBSA==
+turbo_power@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/turbo_power/-/turbo_power-0.2.0.tgz#76e6d23af28d484d269c69033bf531479060567a"
+  integrity sha512-SNAl1Q5ejtuNsVwbqWsrLlkGamNu8knS+HFHNEBmOhicLXE4nrM1DzXrIUywtipA2owehUIcn42uILRrCug+Cg==
   dependencies:
     turbo-morph "^0.1.0"
-    turbo_ready "^0.1.0"
-
-turbo_ready@^0.1.0:
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/turbo_ready/-/turbo_ready-0.1.2.tgz#0aa812c0661073106e6efea2f1af41d7b6786e44"
-  integrity sha512-CwJJ2sz72cuNBQuECH2K3H8R9Zb8d3jppK61+i+PwMxPXM8dyL3Rj4K23JPR5RnUBQGIPwxmAVdmPXQxQJoYCA==
-  dependencies:
-    "@alpinejs/morph" ">=3.10.4"
-    alpinejs ">=3.10.4"
 
 update-browserslist-db@^1.0.9:
   version "1.0.9"
