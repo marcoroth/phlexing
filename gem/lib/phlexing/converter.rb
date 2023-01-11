@@ -21,7 +21,6 @@ module Phlexing
     def initialize(html, **options)
       @html = html
       @buffer = StringIO.new
-      @output = StringIO.new
       @custom_elements = Set.new
       @options = options
       handle_node
@@ -150,23 +149,7 @@ module Phlexing
         @buffer << ("UNKNOWN#{node.class}")
       end
 
-      if level == 0 && @options.fetch(:phlex_class, false)
-        @output << "class #{@options.fetch(:component_name, 'MyComponent')}"
-        @output << "< #{@options.fetch(:parent_component, 'Phlex::HTML')}\n"
-
-        @custom_elements.each do |element|
-          @output << "register_element :#{element}\n"
-        end
-
-        @output << "def template\n"
-        @output << @buffer.string
-        @output << "end\n"
-        @output << "end\n"
-      else
-        @output << @buffer.string
-      end
-
-      @output.string
+      @buffer.string
     end
 
     def parsed
@@ -180,9 +163,27 @@ module Phlexing
     end
 
     def output
-      Rufo::Formatter.format(@output.string.strip)
+      buffer = StringIO.new
+
+      if @options.fetch(:phlex_class, false)
+        buffer << "class #{@options.fetch(:component_name, 'MyComponent')}"
+        buffer << "< #{@options.fetch(:parent_component, 'Phlex::HTML')}\n"
+
+        @custom_elements.each do |element|
+          buffer << indent(1) + "register_element :#{element}\n"
+        end
+
+        buffer << indent(1) + "def template\n"
+        buffer << indent(2) + @buffer.string
+        buffer << indent(1) + "end\n"
+        buffer << "end\n"
+      else
+        buffer << @buffer.string
+      end
+
+      Rufo::Formatter.format(buffer.string.strip)
     rescue Rufo::SyntaxError
-      @output.string.strip
+      buffer.string.strip
     end
 
     def converted_erb
