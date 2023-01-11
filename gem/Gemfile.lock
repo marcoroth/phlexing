@@ -17,7 +17,7 @@ GIT
 PATH
   remote: .
   specs:
-    phlexing (0.1.0)
+    phlexing (0.2.0)
       erb_parser (~> 0.0.2)
       html_press (~> 0.8.2)
       nokogiri (~> 1.0)
@@ -62,7 +62,7 @@ GEM
       parser (>= 3.1.1.0)
     ruby-progressbar (1.11.0)
     rufo (0.13.0)
-    treetop (1.6.11)
+    treetop (1.6.12)
       polyglot (~> 0.3)
     uglifier (2.7.2)
       execjs (>= 0.3.0)
