@@ -24,7 +24,7 @@ gem "jsbundling-rails"
 gem "turbo-rails", "~> 1.3.0"
 
 # Power-pack for Turbo-Streams
-gem "turbo_power", "~> 0.1.5"
+gem "turbo_power", "~> 0.2"
 
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem "stimulus-rails"
@@ -83,6 +83,6 @@ group :test do
 end
 
 gem "phlexing", path: "gem"
-gem "phlex", github: "joeldrapper/phlex", ref: "8d1c2ef2ca53a7f6ff9583a4df2929af89ca7945"
+gem "phlex", "~> 1.1"
 gem "rouge", "~> 4.0"
 gem "rack-rewrite", "~> 1.5"
