@@ -6,7 +6,7 @@
     "@hotwired/turbo-rails": "^7.2.0",
     "@rails/actioncable": "^7.0.4",
     "@tailwindcss/forms": "^0.5.3",
-    "autoprefixer": "^10.4.11",
+    "autoprefixer": "^10.4.13",
     "debounced": "^0.0.5",
     "esbuild": "^0.15.8",
     "esbuild-rails": "^1.0.3",
