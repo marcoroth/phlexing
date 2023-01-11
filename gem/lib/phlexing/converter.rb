@@ -15,7 +15,7 @@ module Phlexing
     attr_accessor :html, :custom_elements
 
     def self.convert(html, **options)
-      new(html, **options).buffer
+      new(html, **options).output
     end
 
     def initialize(html, **options)
@@ -160,6 +160,30 @@ module Phlexing
       Rufo::Formatter.format(@buffer.string.strip)
     rescue Rufo::SyntaxError
       @buffer.string.strip
+    end
+
+    def output
+      buffer = StringIO.new
+
+      if @options.fetch(:phlex_class, false)
+        buffer << "class #{@options.fetch(:component_name, 'MyComponent')}"
+        buffer << "< #{@options.fetch(:parent_component, 'Phlex::HTML')}\n"
+
+        @custom_elements.each do |element|
+          buffer << (indent(1) + "register_element :#{element}\n")
+        end
+
+        buffer << ("#{indent(1)}def template\n")
+        buffer << (indent(2) + @buffer.string)
+        buffer << ("#{indent(1)}end\n")
+        buffer << "end\n"
+      else
+        buffer << @buffer.string
+      end
+
+      Rufo::Formatter.format(buffer.string.strip)
+    rescue Rufo::SyntaxError
+      buffer.string.strip
     end
 
     def converted_erb

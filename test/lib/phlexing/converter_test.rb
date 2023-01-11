@@ -420,5 +420,67 @@ module Phlexing
 
       assert_phlex expected, html
     end
+
+    test "should generate phlex class with component name" do
+      html = %(<h1>Hello World</h1>)
+
+      expected = <<~HTML.strip
+        class TestComponent < Phlex::HTML
+          def template
+            h1 { "Hello World" }
+          end
+        end
+      HTML
+
+      assert_equal expected, Phlexing::Converter.new(html, phlex_class: true, component_name: "TestComponent").output.strip
+    end
+
+    test "should generate phlex class with parent class name" do
+      html = %(<h1>Hello World</h1>)
+
+      expected = <<~HTML.strip
+        class MyComponent < ApplicationView
+          def template
+            h1 { "Hello World" }
+          end
+        end
+      HTML
+
+      assert_equal expected, Phlexing::Converter.new(html, phlex_class: true, parent_component: "ApplicationView").output.strip
+    end
+
+    test "should generate phlex class with parent class name and component name" do
+      html = %(<h1>Hello World</h1>)
+
+      expected = <<~HTML.strip
+        class TestComponent < ApplicationView
+          def template
+            h1 { "Hello World" }
+          end
+        end
+      HTML
+
+      assert_equal expected, Phlexing::Converter.new(html, phlex_class: true, component_name: "TestComponent", parent_component: "ApplicationView").output.strip
+    end
+
+    test "should generate phlex class with custom elements" do
+      html = %(<my-custom>Hello<another-custom>World</another-custom></my-custom>)
+
+      expected = <<~HTML.strip
+        class MyComponent < Phlex::HTML
+          register_element :my_custom
+          register_element :another_custom
+
+          def template
+            my_custom do
+              text "Hello"
+              another_custom { "World" }
+            end
+          end
+        end
+      HTML
+
+      assert_equal expected, Phlexing::Converter.new(html, phlex_class: true).output.strip
+    end
   end
 end
