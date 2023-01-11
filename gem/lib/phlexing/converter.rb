@@ -170,12 +170,12 @@ module Phlexing
         buffer << "< #{@options.fetch(:parent_component, 'Phlex::HTML')}\n"
 
         @custom_elements.each do |element|
-          buffer << indent(1) + "register_element :#{element}\n"
+          buffer << (indent(1) + "register_element :#{element}\n")
         end
 
-        buffer << indent(1) + "def template\n"
-        buffer << indent(2) + @buffer.string
-        buffer << indent(1) + "end\n"
+        buffer << ("#{indent(1)}def template\n")
+        buffer << (indent(2) + @buffer.string)
+        buffer << ("#{indent(1)}end\n")
         buffer << "end\n"
       else
         buffer << @buffer.string

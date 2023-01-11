@@ -463,7 +463,6 @@ module Phlexing
       assert_equal expected, Phlexing::Converter.new(html, phlex_class: true, component_name: "TestComponent", parent_component: "ApplicationView").output.strip
     end
 
-
     test "should generate phlex class with custom elements" do
       html = %(<my-custom>Hello<another-custom>World</another-custom></my-custom>)
 
@@ -483,8 +482,5 @@ module Phlexing
 
       assert_equal expected, Phlexing::Converter.new(html, phlex_class: true).output.strip
     end
-
-
-
   end
 end
