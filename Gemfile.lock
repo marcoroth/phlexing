@@ -178,7 +178,7 @@ GEM
     parallel (1.22.1)
     parser (3.1.2.1)
       ast (~> 2.4.1)
-    pg (1.4.3)
+    pg (1.4.5)
     phlex (1.1.0)
       zeitwerk (~> 2.6)
     polyglot (0.3.5)
@@ -291,7 +291,7 @@ DEPENDENCIES
   debug
   jbuilder
   jsbundling-rails
-  pg (~> 1.1)
+  pg (~> 1.4)
   phlex (~> 1.1)
   phlexing!
   puma (~> 5.0)
