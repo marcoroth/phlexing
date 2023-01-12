@@ -15,7 +15,7 @@ class ConvertersController < ApplicationController
     parent_component = params["parent_component"].presence || "Phlex::HTML"
     parent_component = parent_component.gsub(" ", "_").camelize
 
-    @parser = Phlexing::Converter.new(
+    @converter = Phlexing::Converter.new(
       content,
       whitespace: whitespace,
       phlex_class: phlex_class,
