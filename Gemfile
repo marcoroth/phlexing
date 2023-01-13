@@ -12,7 +12,7 @@ gem "rails", "~> 7.0.4"
 gem "sprockets-rails"
 
 # Use postgresql as the database for Active Record
-gem "pg", "~> 1.1"
+# gem "pg", "~> 1.1"
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"
@@ -24,7 +24,7 @@ gem "jsbundling-rails"
 gem "turbo-rails", "~> 1.3.0"
 
 # Power-pack for Turbo-Streams
-gem "turbo_power", "~> 0.2"
+gem "turbo_power", github: "marcoroth/turbo_power-rails", branch: "remove-turbo-ready-dep"
 
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem "stimulus-rails"
@@ -33,16 +33,28 @@ gem "stimulus-rails"
 gem "cssbundling-rails"
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
-gem "jbuilder"
+# gem "jbuilder"
 
 # Use Redis adapter to run Action Cable in production
-gem "redis", "~> 4.0"
+# gem "redis", "~> 4.0"
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
+
+# Simple ERB to Phlex converter
+gem "phlexing", path: "gem"
+
+# A framework for building object-oriented views in Ruby
+gem "phlex", "~> 1.1"
+
+# A pure Ruby code highlighter that is compatible with Pygments
+gem "rouge", "~> 4.0"
+
+# A web server agnostic rack middleware for defining and applying rewrite rules
+gem "rack-rewrite", "~> 1.5"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
@@ -77,12 +89,7 @@ end
 
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
-  gem "capybara"
-  gem "selenium-webdriver"
-  gem "webdrivers"
+  # gem "capybara"
+  # gem "selenium-webdriver"
+  # gem "webdrivers"
 end
-
-gem "phlexing", path: "gem"
-gem "phlex", "~> 1.1"
-gem "rouge", "~> 4.0"
-gem "rack-rewrite", "~> 1.5"
