@@ -678,10 +678,10 @@ source-map-js@^1.0.2:
   resolved "https://registry.yarnpkg.com/source-map-js/-/source-map-js-1.0.2.tgz#adbc361d9c62df380125e7f161f71c826f1e490c"
   integrity sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw==
 
-stimulus-use@^0.51.1:
-  version "0.51.1"
-  resolved "https://registry.yarnpkg.com/stimulus-use/-/stimulus-use-0.51.1.tgz#55e775eee26d583ee4bdb4427d58979885408ebe"
-  integrity sha512-e7yEDHWz1GrDWwTc1y1Nnz62HPjELRAfn5q1JSCpTj1wHCCs4NNRUR14oZ08xxlp/4bjrgApMOKRkMPKA2TmVg==
+stimulus-use@^0.51.2:
+  version "0.51.2"
+  resolved "https://registry.yarnpkg.com/stimulus-use/-/stimulus-use-0.51.2.tgz#06d993854abb219399657b6e30c64554b2f4c05b"
+  integrity sha512-EY+f5X5gmWBmwxyRqAWOzk/JAsp4fawC8LW8jzgq2fUxZQMYlErMvKdo5aeTej18ZY6cWE4aKOdeoHlC7TZ41w==
   dependencies:
     hotkeys-js ">=3"
 
