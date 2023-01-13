@@ -34,7 +34,7 @@ module Phlexing
 
         if classes = first_element.attributes.try(:[], "class")
           classes = classes.value.split(" ")
-          return "#{classes[0]}_component" if classes.one?
+          return "#{classes[0]}_component"
         end
 
         return "#{first_element.name}_component" unless ["div", "span", "p"].include?(first_element.name)
