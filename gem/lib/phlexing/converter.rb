@@ -18,6 +18,31 @@ module Phlexing
       new(html, **options).output
     end
 
+    def self.suggest_name(html)
+      converter = Phlexing::Converter.new(html)
+
+      if converter.erb_dependencies.any?
+        return "#{converter.erb_dependencies.first.gsub("@", "")}_component"
+      end
+
+      if converter.parsed
+        first_element = converter.parsed.children.first
+
+        if id = first_element.attributes.try(:[], "id")
+          return "#{id.value.strip}_component" unless id.value.include?("<erb")
+        end
+
+        if classes = first_element.attributes.try(:[], "class")
+          classes = classes.value.split(" ")
+          return "#{classes[0]}_component" if classes.one?
+        end
+
+        return "#{first_element.name}_component" unless ["div", "span", "p"].include?(first_element.name)
+      end
+
+      "Component"
+    end
+
     def initialize(html, **options)
       @html = html
       @buffer = StringIO.new
@@ -177,8 +202,14 @@ module Phlexing
       buffer = StringIO.new
 
       if @options.fetch(:phlex_class, false)
-        buffer << "class #{@options.fetch(:component_name, 'MyComponent')}"
-        buffer << "< #{@options.fetch(:parent_component, 'Phlex::HTML')}\n"
+        component_name = @options.fetch(:component_name, 'Component')
+        component_name = "A#{component_name}" if component_name[0] == "0" || component_name[0].to_i != 0
+
+        parent_component = @options.fetch(:parent_component, 'Phlex::HTML')
+        parent_component = "A#{parent_component}" if parent_component[0] == "0" || parent_component[0].to_i != 0
+
+        buffer << "class #{component_name}"
+        buffer << "< #{parent_component}\n"
 
         if @erb_dependencies.any?
           buffer << indent(1)
