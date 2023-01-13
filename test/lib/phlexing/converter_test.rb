@@ -482,5 +482,42 @@ module Phlexing
 
       assert_equal expected, Phlexing::Converter.new(html, phlex_class: true).output.strip
     end
+
+    test "should handle ERB within HTML attributes" do
+      html = %(<div class="<%= @classes ? "one" : "two" %>">Hello</div>)
+
+      expected = <<~HTML.strip
+        div(class: @classes ? "one" : "two") { "Hello" }
+      HTML
+
+      assert_phlex expected, html
+    end
+
+
+    test "123" do
+      html = %(<div class="<erb interpolated="true"> @classes ? &quot;one&quot; : &quot;two&quot; </erb>">Hello</div>)
+      expected = %(<div class="{PHLEXING:ERB:INDEX:0}">Hello</div>)
+
+      erb = MyErbParser.new(html)
+
+      assert_equal expected, erb.scan
+    end
+
+
+    # test "256" do
+    #   # html = %(<div class="<erb interpolated="true"> @classes ? &quot;one&quot; : &quot;two&quot; </erb>">Hello</div>)
+    #   # expected = %(<div class="{PHLEXING:ERB:INDEX:0}">Hello</div>)
+    #
+    #   html = %(<div class="<%= @classes ? "one" : "two" %>">Hello</div>)
+    #   abc = []
+    #   result = ErbParser.parse(html, map: lambda { |t| t.ruby_code.reverse.downcase; abc << t })
+    #
+    #
+    #   binding.irb
+    #   # erb = MyErbParser.new(html)
+    #
+    #   assert_equal "1", result
+    # end
+
   end
 end

@@ -7,6 +7,44 @@ require "html_press"
 require "erb_parser"
 
 module Phlexing
+  class ErbPart
+    attr_accessor :html, :unescaped, :index, :replace_tag
+
+    def initialize(html, unescaped, index)
+      @html = html
+      @unescaped = CGI.unescapeHTML(unescaped)
+      @index = index
+      @replace_tag = "{PHLEXING:ERB:INDEX:#{index}}"
+    end
+  end
+
+  class MyErbParser
+    REGEX_1 = /(<erb \w+=".+">(.+)<\/erb>)/
+    REGEX_2 = /(<erb (?:(?: )*\w+="(?:(?: )*(?:\w)*(?: )*)*"(?: )*)*>(.+)<\/erb>)/
+    TAG = /{PHLEXING:ERB:INDEX:\d+}/
+
+    attr_accessor :parts, :initial_html, :html
+
+    def initialize(html)
+      @parts = []
+      @initial_html = html
+      @html = html
+    end
+
+    def scan
+      @initial_html.scan(REGEX_2).each_with_index do |result, index|
+        erb = result[0]
+        unescaped = result[1]
+
+        part = ErbPart.new(erb.strip, unescaped, index)
+        @html = @html.gsub(erb, part.replace_tag)
+        @parts << part
+      end
+
+      @html
+    end
+  end
+
   class Converter
     include Helpers
 
@@ -29,6 +67,16 @@ module Phlexing
     def handle_text(node, level, newline: true)
       text = node.text
 
+      if text.scan(MyErbParser::TAG).any?
+        @my_erb_parser.parts.each do |part|
+          if text.include?(part.replace_tag)
+            text = text.gsub(%("#{part.replace_tag}"), part.unescaped.strip)
+            text = text.gsub(%('#{part.replace_tag}'), part.unescaped.strip)
+            text = text.gsub(part.replace_tag, part.unescaped.strip)
+          end
+        end
+      end
+
       if text.squish.empty? && text.length.positive?
         @buffer << indent(level)
         @buffer << whitespace(@options)
@@ -49,6 +97,8 @@ module Phlexing
     end
 
     def handle_erb_element(node, level, newline: true)
+      # binding.irb
+
       if erb_safe_output?(node)
         @buffer << "raw "
         @buffer << node.text.from(1)
@@ -118,7 +168,17 @@ module Phlexing
       node.attributes.each_value do |attribute|
         b << attribute.name.gsub("-", "_")
         b << ": "
-        b << double_quote(attribute.value)
+
+        if attribute.value.scan(MyErbParser::TAG)
+          @my_erb_parser.parts.each do |part|
+            if attribute.value.include?(part.replace_tag)
+              b << part.unescaped.strip
+            end
+          end
+        else
+          b << double_quote(attribute.value)
+        end
+
         b << ", " if node.attributes.values.last != attribute
       end
 
@@ -132,13 +192,38 @@ module Phlexing
     def handle_node(node = parsed, level = 0)
       case node
       when Nokogiri::XML::Text
-        handle_text(node, level)
-      when Nokogiri::XML::Element
-        if erb_node?(node)
-          handle_erb_element(node, level)
+
+        if node.text.scan(MyErbParser::TAG) && node.children.none?
+          @my_erb_parser.parts.each do |part|
+            if node.text.include?(part.replace_tag)
+              element = Nokogiri.parse(part.html).root
+
+              handle_node(element, level)
+            end
+          end
         else
-          handle_element(node, level)
+          handle_text(node, level)
         end
+
+
+      when Nokogiri::XML::Element
+
+        if node.text.scan(MyErbParser::TAG) && node.children.none?
+          @my_erb_parser.parts.each do |part|
+            if node.text.include?(part.replace_tag)
+              element = Nokogiri.parse(part.html).root
+
+              handle_node(element, level)
+            end
+          end
+        else
+          if erb_node?(node)
+            handle_erb_element(node, level)
+          else
+            handle_element(node, level)
+          end
+        end
+
 
         @buffer << "\n" if level == 1
       when Nokogiri::HTML4::DocumentFragment
@@ -153,11 +238,18 @@ module Phlexing
     end
 
     def parsed
-      @parsed ||= Nokogiri::HTML.fragment(minified_erb)
+      @parsed ||= Nokogiri::HTML.fragment(erb_escaped_html)
     end
 
     def buffer
-      Rufo::Formatter.format(@buffer.string.strip)
+      string = @buffer.string.strip
+
+      @my_erb_parser.parts.each do |part|
+        # string = string.gsub(%("#{part.replace_tag}"), part.unescaped)
+        string = string.gsub(part.replace_tag, part.unescaped)
+      end
+
+      Rufo::Formatter.format(string)
     rescue Rufo::SyntaxError
       @buffer.string.strip
     end
@@ -193,9 +285,16 @@ module Phlexing
     end
 
     def minified_erb
-      HtmlPress.press(converted_erb)
+      HtmlPress.press(converted_erb).gsub("</erb>", "</erb>\n")
     rescue StandardError
       converted_erb
+    end
+
+    def erb_escaped_html
+      @my_erb_parser = MyErbParser.new(minified_erb)
+      @my_erb_parser.scan
+    rescue StandardError
+      minified_erb
     end
   end
 end
