@@ -12,7 +12,7 @@ module Phlexing
 
     using ::Phlexing::Refinements::StringRefinements
 
-    attr_accessor :html, :custom_elements
+    attr_accessor :html, :custom_elements, :erb_dependencies
 
     def self.convert(html, **options)
       new(html, **options).output
@@ -22,8 +22,15 @@ module Phlexing
       @html = html
       @buffer = StringIO.new
       @custom_elements = Set.new
+      @erb_dependencies = Set.new
       @options = options
       handle_node
+    end
+
+    def register_erb_dependency(erb)
+      erb.scan(/@\w+/).each do |dep|
+        @erb_dependencies << dep
+      end
     end
 
     def handle_text(node, level, newline: true)
@@ -53,6 +60,8 @@ module Phlexing
         @buffer << "raw "
         @buffer << node.text.from(1)
         @buffer << "\n" if newline
+
+        register_erb_dependency(node.text.from(1))
         return
       end
 
@@ -71,6 +80,8 @@ module Phlexing
       else
         @buffer << node.text
       end
+
+      register_erb_dependency(node.text)
 
       @buffer << "\n" if newline
     end
@@ -168,6 +179,24 @@ module Phlexing
       if @options.fetch(:phlex_class, false)
         buffer << "class #{@options.fetch(:component_name, 'MyComponent')}"
         buffer << "< #{@options.fetch(:parent_component, 'Phlex::HTML')}\n"
+
+        if @erb_dependencies.any?
+          buffer << indent(1)
+          buffer << "def initialize("
+
+          @erb_dependencies.each do |dep|
+            buffer << "#{dep.gsub('@', '')}: "
+            buffer << ", " if dep != @erb_dependencies.to_a.last
+          end
+
+          buffer << ")\n"
+
+          @erb_dependencies.each do |dep|
+            buffer << (indent(2) + "#{dep} = #{dep.gsub('@', '')}\n")
+          end
+
+          buffer << ("#{indent(1)}end\n")
+        end
 
         @custom_elements.each do |element|
           buffer << (indent(1) + "register_element :#{element}\n")

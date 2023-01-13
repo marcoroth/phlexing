@@ -27,8 +27,9 @@ module Phlexing
         end
       HTML
 
-      assert_phlex expected, html
-      assert_equal ["custom_element"], Phlexing::Converter.new(html).custom_elements.to_a
+      assert_phlex expected, html do
+        assert_custom_elements "custom_element"
+      end
     end
 
     test "multiple custom element tags" do
@@ -40,8 +41,9 @@ module Phlexing
         end
       HTML
 
-      assert_phlex expected, html
-      assert_equal %w[first_element second_element], Phlexing::Converter.new(html).custom_elements.to_a
+      assert_phlex expected, html do
+        assert_custom_elements "first_element", "second_element"
+      end
     end
 
     test "tag with one attribute" do
@@ -196,7 +198,9 @@ module Phlexing
         <% end %>
       HTML
 
-      assert_phlex expected, html
+      assert_phlex expected, html do
+        assert_erb_dependencies "@articles"
+      end
     end
 
     test "ERB if/else" do
@@ -324,7 +328,9 @@ module Phlexing
         <h1><%= @user.firstname %> <%= @user.lastname %></h1>
       HTML
 
-      assert_phlex expected, html
+      assert_phlex expected, html do
+        assert_erb_dependencies "@user"
+      end
     end
 
     test "no whitespace between ERB interpolations when whitespace option disabled" do
@@ -339,7 +345,9 @@ module Phlexing
         <h1><%= @user.firstname %> <%= @user.lastname %></h1>
       HTML
 
-      assert_phlex expected, html, whitespace: false
+      assert_phlex expected, html, whitespace: false do
+        assert_erb_dependencies "@user"
+      end
     end
 
     test "whitespace around and in tags" do
@@ -390,7 +398,9 @@ module Phlexing
         <% end %>
       HTML
 
-      assert_phlex expected, html
+      assert_phlex expected, html do
+        assert_erb_dependencies "@greeting"
+      end
     end
 
     test "HTML comment" do
@@ -475,6 +485,29 @@ module Phlexing
             my_custom do
               text "Hello"
               another_custom { "World" }
+            end
+          end
+        end
+      HTML
+
+      assert_equal expected, Phlexing::Converter.new(html, phlex_class: true).output.strip
+    end
+
+    test "should generate phlex class with erb dependencies" do
+      html = %(<h1><%= @firstname %> <%= @lastname %></h1>)
+
+      expected = <<~HTML.strip
+        class MyComponent < Phlex::HTML
+          def initialize(firstname:, lastname:)
+            @firstname = firstname
+            @lastname = lastname
+          end
+
+          def template
+            h1 do
+              text @firstname
+              whitespace
+              text @lastname
             end
           end
         end
