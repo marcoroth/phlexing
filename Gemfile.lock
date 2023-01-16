@@ -232,7 +232,7 @@ GEM
     timeout (0.3.0)
     treetop (1.6.12)
       polyglot (~> 0.3)
-    turbo-rails (1.3.0)
+    turbo-rails (1.3.2)
       actionpack (>= 6.0.0)
       activejob (>= 6.0.0)
       railties (>= 6.0.0)
@@ -270,7 +270,7 @@ DEPENDENCIES
   rubocop!
   sprockets-rails
   stimulus-rails
-  turbo-rails (~> 1.3.0)
+  turbo-rails (~> 1.3.2)
   turbo_power!
   tzinfo-data
   web-console
