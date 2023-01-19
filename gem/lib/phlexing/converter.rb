@@ -18,31 +18,6 @@ module Phlexing
       new(html, **options).output
     end
 
-    def self.suggest_name(html)
-      converter = Phlexing::Converter.new(html)
-
-      if converter.erb_dependencies.any?
-        return "#{converter.erb_dependencies.first.gsub("@", "")}_component"
-      end
-
-      if converter.parsed
-        first_element = converter.parsed.children.first
-
-        if id = first_element.attributes.try(:[], "id")
-          return "#{id.value.strip}_component" unless id.value.include?("<erb")
-        end
-
-        if classes = first_element.attributes.try(:[], "class")
-          classes = classes.value.split(" ")
-          return "#{classes[0]}_component"
-        end
-
-        return "#{first_element.name}_component" unless ["div", "span", "p"].include?(first_element.name)
-      end
-
-      "Component"
-    end
-
     def initialize(html, **options)
       @html = html
       @buffer = StringIO.new
