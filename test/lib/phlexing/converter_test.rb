@@ -16,17 +16,31 @@ module Phlexing
       assert_phlex %(br), %(<br />)
     end
 
-    test "basic custom element tag" do
-      html = %(<custom-element><custom-element>Custom Element</custom-element></custom-element>)
+    test "basic custom element tags" do
+      html = %(<c><d>Custom Element</d></c>)
 
       expected = <<~HTML.strip
-        custom_element do
-          custom_element { "Custom Element" }
+        c do
+          d { "Custom Element" }
         end
       HTML
 
       assert_phlex expected, html do
-        assert_custom_elements "custom_element"
+        assert_custom_elements "c", "d"
+      end
+    end
+
+    test "basic custom element tag with dashes" do
+      html = %(<custom-element-one><custom-element-two>Custom Element</custom-element-two></custom-element-one>)
+
+      expected = <<~HTML.strip
+        custom_element_one do
+          custom_element_two { "Custom Element" }
+        end
+      HTML
+
+      assert_phlex expected, html do
+        assert_custom_elements "custom_element_one", "custom_element_two"
       end
     end
 
