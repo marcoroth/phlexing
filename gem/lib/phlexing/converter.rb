@@ -172,8 +172,14 @@ module Phlexing
       buffer = StringIO.new
 
       if @options.fetch(:phlex_class, false)
-        buffer << "class #{@options.fetch(:component_name, 'MyComponent')}"
-        buffer << "< #{@options.fetch(:parent_component, 'Phlex::HTML')}\n"
+        component_name = @options.fetch(:component_name, "Component")
+        component_name = "A#{component_name}" if component_name[0] == "0" || component_name[0].to_i != 0
+
+        parent_component = @options.fetch(:parent_component, "Phlex::HTML")
+        parent_component = "A#{parent_component}" if parent_component[0] == "0" || parent_component[0].to_i != 0
+
+        buffer << "class #{component_name}"
+        buffer << "< #{parent_component}\n"
 
         if locals.any?
           buffer << indent(1)
