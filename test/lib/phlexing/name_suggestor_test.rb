@@ -8,6 +8,7 @@ module Phlexing
       assert_equal "Component", Phlexing::NameSuggestor.suggest(%(<div>...</div>))
       assert_equal "Component", Phlexing::NameSuggestor.suggest(%(<span>...</span>))
       assert_equal "Component", Phlexing::NameSuggestor.suggest(%(<p>...</p>))
+      assert_equal "Component", Phlexing::NameSuggestor.suggest(%(<erb>...</erb>))
 
       assert_equal "ArticleComponent", Phlexing::NameSuggestor.suggest(%(<article>...</article>))
       assert_equal "SectionComponent", Phlexing::NameSuggestor.suggest(%(<section>...</section>))

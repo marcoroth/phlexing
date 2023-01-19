@@ -47,7 +47,7 @@ module Phlexing
           return "#{classes[0].strip.gsub('-', '_')}_component"
         end
 
-        return "#{element.name}_component" unless ["div", "span", "p"].include?(element.name)
+        return "#{element.name}_component" unless ["div", "span", "p", "erb"].include?(element.name)
       end
     end
   end
