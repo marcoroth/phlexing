@@ -8,8 +8,6 @@ module Phlexing
       suggest_raw_name(converter).camelize
     end
 
-    private
-
     def self.suggest_raw_name(converter)
       # if there is just one ivar or locals we use that
       # since that argument makes the component unique enough
@@ -40,13 +38,13 @@ module Phlexing
 
     def self.extract_name_from_element(element)
       if element
-        if id = element.attributes.try(:[], "id")
-          return "#{id.value.strip.gsub("-", "_")}_component" unless id.value.include?("<erb")
+        if (id = element.attributes.try(:[], "id")) && !id.value.include?("<erb")
+          return "#{id.value.strip.gsub('-', '_')}_component"
         end
 
-        if classes = element.attributes.try(:[], "class")
-          classes = classes.value.split(" ")
-          return "#{classes[0].strip.gsub("-", "_")}_component"
+        if (classes = element.attributes.try(:[], "class"))
+          classes = classes.value.split
+          return "#{classes[0].strip.gsub('-', '_')}_component"
         end
 
         return "#{element.name}_component" unless ["div", "span", "p"].include?(element.name)
