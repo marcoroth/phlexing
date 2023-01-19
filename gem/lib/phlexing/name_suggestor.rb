@@ -5,50 +5,69 @@ module Phlexing
     def self.suggest(html)
       converter = Phlexing::Converter.new(html)
 
-      suggest_raw_name(converter).camelize
-    end
+      ivars  = converter.ivars
+      locals = converter.locals
 
-    def self.suggest_raw_name(converter)
-      # if there is just one ivar or locals we use that
-      # since that argument makes the component unique enough
-      if converter.ivars.one?
-        return "#{converter.ivars.first}_component"
-      end
+      ids     = extract(converter, :extract_id_from_element)
+      classes = extract(converter, :extract_class_from_element)
+      tags    = extract(converter, :extract_tag_name_from_element)
 
-      if converter.locals.one?
-        return "#{converter.locals.first}_component"
-      end
-
-      if converter.parsed
-        elements = converter.parsed.children.map { |element| extract_name_from_element(element) }.compact
-
-        return elements.first if elements.any?
-      end
-
-      if converter.ivars.any?
-        return "#{converter.ivars.first}_component"
-      end
-
-      if converter.locals.any?
-        return "#{converter.locals.first}_component"
-      end
+      return wrap(ivars.first) if ivars.one? && locals.none?
+      return wrap(locals.first) if locals.one? && ivars.none?
+      return wrap(ids.first) if ids.any?
+      return wrap(ivars.first) if ivars.any?
+      return wrap(locals.first) if locals.any?
+      return wrap(classes.first) if classes.any?
+      return wrap(tags.first) if tags.any?
 
       "Component"
     end
 
-    def self.extract_name_from_element(element)
-      if element
-        if (id = element.attributes.try(:[], "id")) && !id.value.include?("<erb")
-          return "#{id.value.strip.gsub('-', '_')}_component"
-        end
+    def self.wrap(name)
+      "#{name}_component".gsub("-", "_").gsub(" ", "_").camelize
+    end
 
-        if (classes = element.attributes.try(:[], "class"))
-          classes = classes.value.split
-          return "#{classes[0].strip.gsub('-', '_')}_component"
-        end
+    def self.extract(converter, method)
+      return [] unless converter.parsed
 
-        return "#{element.name}_component" unless ["div", "span", "p", "erb"].include?(element.name)
-      end
+      converter.parsed.children.map { |element| send(method, element) }.compact
+    end
+
+    def self.extract_id_from_element(element)
+      return if element.nil?
+      return if element.is_a?(Nokogiri::XML::Text)
+
+      id_attribute = element.attributes.try(:[], "id")
+      return if id_attribute.nil?
+
+      id = id_attribute.value.to_s.strip
+      return if id.include?("<erb")
+
+      id
+    end
+
+    def self.extract_class_from_element(element)
+      return if element.nil?
+      return if element.is_a?(Nokogiri::XML::Text)
+
+      class_attribute = element.attributes.try(:[], "class")
+
+      return if class_attribute.nil?
+
+      classes = class_attribute.value.strip.split
+
+      return if classes.empty?
+
+      classes[0]
+    end
+
+    def self.extract_tag_name_from_element(element)
+      return if element.nil?
+      return if element.is_a?(Nokogiri::XML::Text)
+
+      return if ["div", "span", "p", "erb"].include?(element.name)
+
+      element.name
     end
   end
 end
