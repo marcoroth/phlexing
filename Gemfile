@@ -15,13 +15,13 @@ gem "sprockets-rails"
 # gem "pg", "~> 1.1"
 
 # Use the Puma web server [https://github.com/puma/puma]
-gem "puma", "~> 5.0"
+gem "puma", "~> 6.0"
 
 # Bundle and transpile JavaScript [https://github.com/rails/jsbundling-rails]
 gem "jsbundling-rails"
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
-gem "turbo-rails", "~> 1.3.0"
+gem "turbo-rails", "~> 1.3.2"
 
 # Power-pack for Turbo-Streams
 gem "turbo_power", github: "marcoroth/turbo_power-rails", branch: "remove-turbo-ready-dep"
