@@ -55,7 +55,7 @@ module Phlexing
 
     def handle_erb_element(node, level, newline: true)
       if erb_safe_output?(node)
-        @buffer << "raw "
+        @buffer << "unsafe_raw "
         @buffer << node.text.from(1)
         @buffer << "\n" if newline
 

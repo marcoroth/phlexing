@@ -249,7 +249,7 @@ module Phlexing
 
     test "ERB HTML safe output" do
       expected = <<~HTML.strip
-        div { raw "<p>Some safe HTML</p>" }
+        div { unsafe_raw "<p>Some safe HTML</p>" }
       HTML
 
       assert_phlex expected, %(<div><%== "<p>Some safe HTML</p>" %></div>)
@@ -258,7 +258,7 @@ module Phlexing
     test "ERB HTML safe output with siblings" do
       expected = <<~HTML.strip
         div do
-          raw "<p>Some safe HTML</p>"
+          unsafe_raw "<p>Some safe HTML</p>"
           text some_method
           span { "Text" }
         end
@@ -272,7 +272,7 @@ module Phlexing
     test "ERB HTML safe output and other erb output" do
       expected = <<~HTML.strip
         div do
-          raw "<p>Some safe HTML</p>"
+          unsafe_raw "<p>Some safe HTML</p>"
           text "Another output"
         end
       HTML
