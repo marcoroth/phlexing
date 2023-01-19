@@ -12,7 +12,7 @@ module Phlexing
 
     using ::Phlexing::Refinements::StringRefinements
 
-    attr_accessor :html, :custom_elements
+    attr_accessor :html, :custom_elements, :ivars, :locals, :idents
 
     def self.convert(html, **options)
       new(html, **options).output
@@ -22,7 +22,12 @@ module Phlexing
       @html = html
       @buffer = StringIO.new
       @custom_elements = Set.new
+      @ivars = Set.new
+      @locals = Set.new
+      @includes = Set.new
+      @idents = Set.new
       @options = options
+      analyze_ruby
       handle_node
     end
 
@@ -53,6 +58,7 @@ module Phlexing
         @buffer << "raw "
         @buffer << node.text.from(1)
         @buffer << "\n" if newline
+
         return
       end
 
@@ -169,13 +175,43 @@ module Phlexing
         buffer << "class #{@options.fetch(:component_name, 'MyComponent')}"
         buffer << "< #{@options.fetch(:parent_component, 'Phlex::HTML')}\n"
 
-        @custom_elements.each do |element|
-          buffer << (indent(1) + "register_element :#{element}\n")
+        if locals.any?
+          buffer << indent(1)
+          buffer << "attr_accessor "
+          buffer << @locals.map { |local| ":#{local}" }.join(", ")
+          buffer << "\n\n"
         end
 
-        buffer << ("#{indent(1)}def template\n")
-        buffer << (indent(2) + @buffer.string)
-        buffer << ("#{indent(1)}end\n")
+        kwargs = Set.new(ivars + locals)
+
+        if kwargs.any?
+          buffer << indent(1)
+          buffer << "def initialize("
+          buffer << kwargs.map { |kwarg| "#{kwarg}: " }.join(", ")
+          buffer << ")\n"
+
+          kwargs.each do |dep|
+            buffer << indent(2)
+            buffer << "@#{dep} = #{dep}\n"
+          end
+
+          buffer << indent(1)
+          buffer << "end\n"
+        end
+
+        @custom_elements.each do |element|
+          buffer << indent(1)
+          buffer << "register_element :#{element}\n"
+        end
+
+        buffer << indent(1)
+        buffer << "def template\n"
+
+        buffer << indent(2)
+        buffer << @buffer.string
+
+        buffer << indent(1)
+        buffer << "end\n"
         buffer << "end\n"
       else
         buffer << @buffer.string
@@ -184,6 +220,16 @@ module Phlexing
       Rufo::Formatter.format(buffer.string.strip)
     rescue Rufo::SyntaxError
       buffer.string.strip
+    end
+
+    def analyze_ruby
+      ruby_code = ErbParser.parse(html).tokens.map { |tag| tag.is_a?(ErbParser::ErbTag) && !tag.to_s.start_with?("<%#") ? tag.ruby_code.delete_prefix("=") : nil }.join("\n")
+      visitor = Phlexing::Visitor.new(self)
+      program = SyntaxTree.parse(ruby_code)
+      # puts program.construct_keys
+      visitor.visit(program)
+    rescue StandardError => e
+      puts e.inspect
     end
 
     def converted_erb
