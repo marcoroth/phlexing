@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "html2haml"
+
 require_relative "phlexing/version"
 require_relative "phlexing/helpers"
 require_relative "phlexing/refinements/string_refinements"
