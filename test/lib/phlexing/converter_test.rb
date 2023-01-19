@@ -462,7 +462,7 @@ module Phlexing
       html = %(<h1>Hello World</h1>)
 
       expected = <<~HTML.strip
-        class MyComponent < ApplicationView
+        class Component < ApplicationView
           def template
             h1 { "Hello World" }
           end
@@ -490,7 +490,7 @@ module Phlexing
       html = %(<my-custom>Hello<another-custom>World</another-custom></my-custom>)
 
       expected = <<~HTML.strip
-        class MyComponent < Phlex::HTML
+        class Component < Phlex::HTML
           register_element :my_custom
           register_element :another_custom
 
@@ -510,7 +510,7 @@ module Phlexing
       html = %(<h1><%= @firstname %> <%= @lastname %></h1>)
 
       expected = <<~HTML.strip
-        class MyComponent < Phlex::HTML
+        class Component < Phlex::HTML
           def initialize(firstname:, lastname:)
             @firstname = firstname
             @lastname = lastname
@@ -541,7 +541,7 @@ module Phlexing
       HTML
 
       expected = <<~HTML.strip
-        class MyComponent < Phlex::HTML
+        class Component < Phlex::HTML
           attr_accessor :show_company, :some_method
 
           def initialize(user:, company:, show_company:, some_method:)
