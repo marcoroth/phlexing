@@ -184,11 +184,16 @@ module Phlexing
         if locals.any?
           buffer << indent(1)
           buffer << "attr_accessor "
-          buffer << @locals.map { |local| ":#{local}" }.join(", ")
+          buffer << locals.sort.map { |local| ":#{local}" }.join(", ")
           buffer << "\n\n"
         end
 
-        kwargs = Set.new(ivars + locals)
+        @custom_elements.sort.each do |element|
+          buffer << indent(1)
+          buffer << "register_element :#{element}\n"
+        end
+
+        kwargs = Set.new(ivars + locals).sort
 
         if kwargs.any?
           buffer << indent(1)
@@ -203,11 +208,6 @@ module Phlexing
 
           buffer << indent(1)
           buffer << "end\n"
-        end
-
-        @custom_elements.each do |element|
-          buffer << indent(1)
-          buffer << "register_element :#{element}\n"
         end
 
         buffer << indent(1)

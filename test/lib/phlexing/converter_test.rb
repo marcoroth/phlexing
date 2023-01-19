@@ -503,13 +503,41 @@ module Phlexing
 
       expected = <<~HTML.strip
         class Component < Phlex::HTML
-          register_element :my_custom
           register_element :another_custom
+          register_element :my_custom
 
           def template
             my_custom do
               text "Hello"
               another_custom { "World" }
+            end
+          end
+        end
+      HTML
+
+      assert_equal expected, Phlexing::Converter.new(html, phlex_class: true).output.strip
+    end
+
+    test "should generate phlex class with custom elements and attr_accessors in alphabetical order" do
+      html = %(<% users.each do |user| %><d><%= user.firstname %></d><c><%= abc %></c><% end %>)
+
+      expected = <<~HTML.strip
+        class Component < Phlex::HTML
+          attr_accessor :abc, :users
+
+          register_element :c
+          register_element :d
+
+          def initialize(abc:, users:)
+            @abc = abc
+            @users = users
+          end
+
+          def template
+            users.each do |user|
+              d { user.firstname }
+
+              c { abc }
             end
           end
         end
@@ -556,11 +584,11 @@ module Phlexing
         class Component < Phlex::HTML
           attr_accessor :show_company, :some_method
 
-          def initialize(user:, company:, show_company:, some_method:)
-            @user = user
+          def initialize(company:, show_company:, some_method:, user:)
             @company = company
             @show_company = show_company
             @some_method = some_method
+            @user = user
           end
 
           def template
