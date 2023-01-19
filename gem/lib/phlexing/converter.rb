@@ -187,7 +187,7 @@ module Phlexing
         if kwargs.any?
           buffer << indent(1)
           buffer << "def initialize("
-          buffer << kwargs.map { |kwarg| "#{kwarg}: "}.join(", ")
+          buffer << kwargs.map { |kwarg| "#{kwarg}: " }.join(", ")
           buffer << ")\n"
 
           kwargs.each do |dep|
@@ -228,7 +228,7 @@ module Phlexing
       program = SyntaxTree.parse(ruby_code)
       # puts program.construct_keys
       visitor.visit(program)
-    rescue => e
+    rescue StandardError => e
       puts e.inspect
     end
 
