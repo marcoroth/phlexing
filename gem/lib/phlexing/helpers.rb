@@ -1,7 +1,11 @@
 # frozen_string_literal: true
 
+require "phlex"
+
 module Phlexing
   module Helpers
+    KNOWN_ELEMENTS = Phlex::HTML::VOID_ELEMENTS.values + Phlex::HTML::STANDARD_ELEMENTS.values
+
     def indent(level)
       return "" if level == 1
 
@@ -33,10 +37,10 @@ module Phlexing
 
     def node_name(node)
       return "template_tag" if node.name == "template"
-      return node.name unless node.name.include?("-")
 
       name = node.name.gsub("-", "_")
-      @custom_elements << name
+
+      @custom_elements << name unless KNOWN_ELEMENTS.include?(name)
 
       name
     end
