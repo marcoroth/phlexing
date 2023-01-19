@@ -153,7 +153,9 @@ module Phlexing
         div { some_method }
       HTML
 
-      assert_phlex expected, %(<div><%= some_method %></div>)
+      assert_phlex expected, %(<div><%= some_method %></div>) do
+        assert_locals "some_method"
+      end
     end
 
     test "ERB method call with long method name" do
@@ -163,7 +165,9 @@ module Phlexing
         end
       HTML
 
-      assert_phlex expected, %(<div><%= some_method_super_long_method_which_should_be_split_up %></div>)
+      assert_phlex expected, %(<div><%= some_method_super_long_method_which_should_be_split_up %></div>) do
+        assert_locals "some_method_super_long_method_which_should_be_split_up"
+      end
     end
 
     test "ERB interpolation" do
@@ -171,7 +175,9 @@ module Phlexing
         div { "\#{some_method}_text" }
       HTML
 
-      assert_phlex expected, %(<div><%= "\#{some_method}_text" %></div>)
+      assert_phlex expected, %(<div><%= "\#{some_method}_text" %></div>) do
+        assert_locals "some_method"
+      end
     end
 
     test "ERB interpolation and text node" do
@@ -182,7 +188,9 @@ module Phlexing
         end
       HTML
 
-      assert_phlex expected, %(<div><%= "\#{some_method}_text" %> More Text</div>)
+      assert_phlex expected, %(<div><%= "\#{some_method}_text" %> More Text</div>) do
+        assert_locals "some_method"
+      end
     end
 
     test "ERB loop" do
@@ -199,7 +207,8 @@ module Phlexing
       HTML
 
       assert_phlex expected, html do
-        assert_erb_dependencies "@articles"
+        assert_ivars "articles"
+        assert_locals
       end
     end
 
@@ -224,7 +233,9 @@ module Phlexing
         <% end %>
       HTML
 
-      assert_phlex expected, html
+      assert_phlex expected, html do
+        assert_locals "some_condition", "another_condition"
+      end
     end
 
     test "ERB comment" do
@@ -255,7 +266,9 @@ module Phlexing
         end
       HTML
 
-      assert_phlex expected, %(<div><%== "<p>Some safe HTML</p>" %><%= some_method %><span>Text</span></div>)
+      assert_phlex expected, %(<div><%== "<p>Some safe HTML</p>" %><%= some_method %><span>Text</span></div>) do
+        assert_locals "some_method"
+      end
     end
 
     test "ERB HTML safe output and other erb output" do
@@ -329,7 +342,7 @@ module Phlexing
       HTML
 
       assert_phlex expected, html do
-        assert_erb_dependencies "@user"
+        assert_ivars "user"
       end
     end
 
@@ -346,7 +359,7 @@ module Phlexing
       HTML
 
       assert_phlex expected, html, whitespace: false do
-        assert_erb_dependencies "@user"
+        assert_ivars "user"
       end
     end
 
@@ -399,7 +412,7 @@ module Phlexing
       HTML
 
       assert_phlex expected, html do
-        assert_erb_dependencies "@greeting"
+        assert_ivars "greeting"
       end
     end
 
@@ -493,7 +506,7 @@ module Phlexing
       assert_equal expected, Phlexing::Converter.new(html, phlex_class: true).output.strip
     end
 
-    test "should generate phlex class with erb dependencies" do
+    test "should generate phlex class with ivars" do
       html = %(<h1><%= @firstname %> <%= @lastname %></h1>)
 
       expected = <<~HTML.strip
@@ -509,6 +522,44 @@ module Phlexing
               whitespace
               text @lastname
             end
+          end
+        end
+      HTML
+
+      assert_equal expected, Phlexing::Converter.new(html, phlex_class: true).output.strip
+    end
+
+    test "should generate phlex class with ivars, locals and ifs" do
+      html = <<~HTML.strip
+        <%= @user.name %>
+
+        <% if show_company && @company %>
+          <%= @company.name %>
+        <% end %>
+
+        <%= some_method %>
+      HTML
+
+      expected = <<~HTML.strip
+        class MyComponent < Phlex::HTML
+          attr_accessor :show_company, :some_method
+
+          def initialize(user:, company:, show_company:, some_method:)
+            @user = user
+            @company = company
+            @show_company = show_company
+            @some_method = some_method
+          end
+
+          def template
+            text @user.name
+
+            if show_company && @company
+              whitespace
+              text @company.name
+            end
+
+            text some_method
           end
         end
       HTML
