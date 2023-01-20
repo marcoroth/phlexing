@@ -10,7 +10,7 @@ class Phlexing::Converter::ErbTest < Minitest::Spec
       div { some_method }
     PHLEX
 
-    assert_phlex expected, html do
+    assert_phlex_template expected, html do
       assert_locals "some_method"
     end
   end
@@ -24,7 +24,7 @@ class Phlexing::Converter::ErbTest < Minitest::Spec
       end
     PHLEX
 
-    assert_phlex expected, html do
+    assert_phlex_template expected, html do
       assert_locals "some_method_super_long_method_which_should_be_split_up"
     end
   end
@@ -36,7 +36,7 @@ class Phlexing::Converter::ErbTest < Minitest::Spec
       div { "\#{some_method}_text" }
     PHLEX
 
-    assert_phlex expected, html do
+    assert_phlex_template expected, html do
       assert_locals "some_method"
     end
   end
@@ -51,7 +51,7 @@ class Phlexing::Converter::ErbTest < Minitest::Spec
       end
     PHLEX
 
-    assert_phlex expected, html do
+    assert_phlex_template expected, html do
       assert_locals "some_method"
     end
   end
@@ -69,7 +69,7 @@ class Phlexing::Converter::ErbTest < Minitest::Spec
       end
     PHLEX
 
-    assert_phlex expected, html do
+    assert_phlex_template expected, html do
       assert_ivars "articles"
       assert_locals
     end
@@ -96,7 +96,7 @@ class Phlexing::Converter::ErbTest < Minitest::Spec
       end
     PHLEX
 
-    assert_phlex expected, html do
+    assert_phlex_template expected, html do
       assert_locals "some_condition", "another_condition"
     end
   end
@@ -111,7 +111,7 @@ class Phlexing::Converter::ErbTest < Minitest::Spec
       end
     PHLEX
 
-    assert_phlex expected, html
+    assert_phlex_template expected, html
   end
 
   it "ERB HTML safe output" do
@@ -121,7 +121,7 @@ class Phlexing::Converter::ErbTest < Minitest::Spec
       div { unsafe_raw "<p>Some safe HTML</p>" }
     PHLEX
 
-    assert_phlex expected, html
+    assert_phlex_template expected, html
   end
 
   it "ERB HTML safe output with siblings" do
@@ -135,7 +135,7 @@ class Phlexing::Converter::ErbTest < Minitest::Spec
       end
     PHLEX
 
-    assert_phlex expected, html do
+    assert_phlex_template expected, html do
       assert_locals "some_method"
     end
   end
@@ -150,7 +150,7 @@ class Phlexing::Converter::ErbTest < Minitest::Spec
       end
     PHLEX
 
-    assert_phlex expected, html
+    assert_phlex_template expected, html
   end
 
   it "ERB capture" do
@@ -168,7 +168,7 @@ class Phlexing::Converter::ErbTest < Minitest::Spec
       end
     PHLEX
 
-    assert_phlex expected, html do
+    assert_phlex_template expected, html do
       assert_ivars "greeting"
     end
   end

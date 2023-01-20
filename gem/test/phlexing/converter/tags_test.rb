@@ -4,39 +4,39 @@ require_relative "../../test_helper"
 
 class Phlexing::Converter::CustomElementsTest < Minitest::Spec
   it "basic tags" do
-    assert_phlex "div", %(<div></div>)
-    assert_phlex "span", %(<span></span>)
-    assert_phlex "p", %(<p></p>)
-    assert_phlex "template_tag", %(<template></template>)
+    assert_phlex_template "div", %(<div></div>)
+    assert_phlex_template "span", %(<span></span>)
+    assert_phlex_template "p", %(<p></p>)
+    assert_phlex_template "template_tag", %(<template></template>)
   end
 
   it "basic self closing tag" do
-    assert_phlex %(img), %(<img />)
-    assert_phlex %(br), %(<br />)
+    assert_phlex_template %(img), %(<img />)
+    assert_phlex_template %(br), %(<br />)
   end
 
   it "tag with one attribute" do
-    assert_phlex %(div class: "app"), %(<div class="app"></div>)
+    assert_phlex_template %(div class: "app"), %(<div class="app"></div>)
   end
 
   it "tag with multiple attributes" do
-    assert_phlex %(div class: "app", id: "body"), %(<div class="app" id="body"></div>)
+    assert_phlex_template %(div class: "app", id: "body"), %(<div class="app" id="body"></div>)
   end
 
   it "tag with attributes and single text node child" do
-    assert_phlex %{div(class: "app", id: "body") { "Text" }}, %(<div class="app" id="body">Text</div>)
+    assert_phlex_template %{div(class: "app", id: "body") { "Text" }}, %(<div class="app" id="body">Text</div>)
   end
 
   it "tag with one text node child" do
-    assert_phlex %(div { "Text" }), %(<div>Text</div>)
+    assert_phlex_template %(div { "Text" }), %(<div>Text</div>)
   end
 
   it "tag with one text node child with single quotes" do
-    assert_phlex %(div { "Text with 'single quotes'" }), %(<div>Text with 'single quotes'</div>)
+    assert_phlex_template %(div { "Text with 'single quotes'" }), %(<div>Text with 'single quotes'</div>)
   end
 
   it "tag with one text node child with double quotes" do
-    assert_phlex %(div { 'Text with "double quotes"' }), %(<div>Text with "double quotes"</div>)
+    assert_phlex_template %(div { 'Text with "double quotes"' }), %(<div>Text with "double quotes"</div>)
   end
 
   it "tag with one text node child with single and double quotes" do
@@ -48,7 +48,7 @@ class Phlexing::Converter::CustomElementsTest < Minitest::Spec
       end
     PHLEX
 
-    assert_phlex expected, html
+    assert_phlex_template expected, html
   end
 
   it "tag with one text node child and long content" do
@@ -60,7 +60,7 @@ class Phlexing::Converter::CustomElementsTest < Minitest::Spec
       end
     PHLEX
 
-    assert_phlex expected, html
+    assert_phlex_template expected, html
   end
 
   it "tag with attributes and mulitple children" do
@@ -76,7 +76,7 @@ class Phlexing::Converter::CustomElementsTest < Minitest::Spec
       end
     PHLEX
 
-    assert_phlex expected, html
+    assert_phlex_template expected, html
   end
 
   it "tag with multiple text and element children" do
@@ -90,7 +90,7 @@ class Phlexing::Converter::CustomElementsTest < Minitest::Spec
       end
     PHLEX
 
-    assert_phlex expected, html
+    assert_phlex_template expected, html
   end
 
   it "tag with long text gets wrapped into parenthesis" do
@@ -103,7 +103,7 @@ class Phlexing::Converter::CustomElementsTest < Minitest::Spec
       end
     PHLEX
 
-    assert_phlex expected, html
+    assert_phlex_template expected, html
   end
 
   it "tag with long erb interpolation gets wrapped into parenthesis" do
@@ -116,7 +116,7 @@ class Phlexing::Converter::CustomElementsTest < Minitest::Spec
       end
     PHLEX
 
-    assert_phlex expected, html
+    assert_phlex_template expected, html
   end
 
   it "tag with one tag node child" do
@@ -128,6 +128,6 @@ class Phlexing::Converter::CustomElementsTest < Minitest::Spec
       end
     PHLEX
 
-    assert_phlex expected, html
+    assert_phlex_template expected, html
   end
 end

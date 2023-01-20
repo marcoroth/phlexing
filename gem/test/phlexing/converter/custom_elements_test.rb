@@ -12,7 +12,7 @@ class Phlexing::Converter::CustomElementsTest < Minitest::Spec
       end
     PHLEX
 
-    assert_phlex expected, html do
+    assert_phlex_template expected, html do
       assert_custom_elements "c", "d"
     end
   end
@@ -26,7 +26,7 @@ class Phlexing::Converter::CustomElementsTest < Minitest::Spec
       end
     PHLEX
 
-    assert_phlex expected, html do
+    assert_phlex_template expected, html do
       assert_custom_elements "custom_element_one", "custom_element_two"
     end
   end
@@ -40,7 +40,7 @@ class Phlexing::Converter::CustomElementsTest < Minitest::Spec
       end
     PHLEX
 
-    assert_phlex expected, html do
+    assert_phlex_template expected, html do
       assert_custom_elements "first_element", "second_element"
     end
   end
@@ -62,7 +62,9 @@ class Phlexing::Converter::CustomElementsTest < Minitest::Spec
       end
     PHLEX
 
-    assert_equal expected, Phlexing::Converter.new(html, phlex_class: true).component_code.strip
+    assert_phlex expected, html do
+      assert_custom_elements "another_custom", "my_custom"
+    end
   end
 
   it "should generate phlex class with custom elements and attr_accessors in alphabetical order" do
@@ -90,6 +92,9 @@ class Phlexing::Converter::CustomElementsTest < Minitest::Spec
       end
     PHLEX
 
-    assert_equal expected, Phlexing::Converter.new(html, phlex_class: true).component_code.strip
+    assert_phlex expected, html do
+      assert_custom_elements "c", "d"
+      assert_locals "abc", "users"
+    end
   end
 end

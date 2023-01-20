@@ -8,23 +8,28 @@ module Phlexing
 
     using Refinements::StringRefinements
 
-    attr_accessor :html, :custom_elements, :options, :analyzer
+    attr_accessor :custom_elements, :options, :analyzer
 
     def self.convert(html, **options)
-      new(html, **options).component_code
+      new(**options).convert(html)
     end
 
-    def initialize(html, **options)
-      @html = html
+    def convert(html)
       @template_code = StringIO.new
+      analyzer.analyze(html)
+
+      document = Parser.parse(html)
+      handle_node(document)
+
+      component_code
+    end
+
+    def initialize(html = nil, **options)
       @custom_elements = Set.new
       @options = options
       @analyzer = RubyAnalyzer.new
 
-      @analyzer.analyze(html)
-
-      document = Parser.parse(html)
-      handle_node(document)
+      convert(html)
     end
 
     def handle_text(node, level, newline: true)
@@ -152,12 +157,10 @@ module Phlexing
       else
         @template_code << ("UNKNOWN#{node.class}")
       end
-
-      @template_code.string
     end
 
     def template_code
-      Formatter.format(@template_code.string.strip)
+      Formatter.format(@template_code.string.strip).strip
     end
 
     def component_code

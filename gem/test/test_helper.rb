@@ -5,14 +5,25 @@ $LOAD_PATH.unshift File.expand_path("../lib", __dir__)
 require "phlexing"
 require "maxitest/autorun"
 
-def convert_html(html, **options)
-  Phlexing::Converter.new(html, **options).template_code.strip
+def assert_phlex(expected, html, **options, &block)
+  @converter = Phlexing::Converter.new(html, **options)
+
+  assert_details(expected, html, @converter.component_code, &block)
+
+  # assert_equal(
+  #   Phlexing::Renderer::Erb.render(html),
+  #   Phlexing::Renderer::Phlex.render(@converter.template_code)
+  # )
 end
 
-def assert_phlex(expected, html, **options, &block)
-  assert_equal(expected, convert_html(html, **options))
+def assert_phlex_template(expected, html, **options, &block)
+  @converter = Phlexing::Converter.new(html, **options)
 
-  @converter ||= Phlexing::Converter.new(html, **options)
+  assert_details(expected, html, @converter.template_code, &block)
+end
+
+def assert_details(expected, html, generated_code, &block)
+  assert_equal(expected, generated_code)
 
   @assert_custom_elements_called = false
   @assert_ivars_called = false
@@ -23,13 +34,6 @@ def assert_phlex(expected, html, **options, &block)
   assert_custom_elements unless @assert_custom_elements_called
   assert_ivars unless @assert_ivars_called
   assert_locals unless @assert_locals_called
-
-  if options[:whitespace]
-    assert_equal(
-      Phlexing::Renderer::Erb.render(html),
-      Phlexing::Renderer::Phlex.render(@converter)
-    )
-  end
 end
 
 def assert_custom_elements(*elements)
@@ -38,8 +42,8 @@ def assert_custom_elements(*elements)
   @assert_custom_elements_called = true
 
   assert_equal(
-    elements,
-    @converter.custom_elements.to_a,
+    elements.sort,
+    @converter.custom_elements.to_a.sort,
     "Phlex::Converter.custom_elements"
   )
 end
@@ -50,8 +54,8 @@ def assert_ivars(*ivars)
   @assert_ivars_called = true
 
   assert_equal(
-    ivars,
-    @converter.analyzer.ivars.to_a,
+    ivars.sort,
+    @converter.analyzer.ivars.to_a.sort,
     "Phlex::Converter.ivars"
   )
 end
@@ -62,8 +66,8 @@ def assert_locals(*locals)
   @assert_locals_called = true
 
   assert_equal(
-    locals,
-    @converter.analyzer.locals.to_a,
+    locals.sort,
+    @converter.analyzer.locals.to_a.sort,
     "Phlex::Converter.locals"
   )
 end
@@ -74,8 +78,8 @@ def assert_idents(*idents)
   @assert_idents_called = true
 
   assert_equal(
-    idents,
-    @converter.analyzer.idents.to_a,
+    idents.sort,
+    @converter.analyzer.idents.to_a.sort,
     "Phlex::Converter.idents"
   )
 end

@@ -15,7 +15,7 @@ class Phlexing::ConverterTest < Minitest::Spec
       text "Hello"
     PHLEX
 
-    assert_phlex expected, html
+    assert_phlex_template expected, html
   end
 
   it "should generate phlex class with component name" do
@@ -29,9 +29,7 @@ class Phlexing::ConverterTest < Minitest::Spec
       end
     PHLEX
 
-    converter = Phlexing::Converter.new(html, phlex_class: true, component_name: "TestComponent")
-
-    assert_equal expected, converter.component_code.strip
+    assert_phlex expected, html, component_name: "TestComponent"
   end
 
   it "should generate phlex class with parent class name" do
@@ -45,9 +43,7 @@ class Phlexing::ConverterTest < Minitest::Spec
       end
     PHLEX
 
-    converter = Phlexing::Converter.new(html, phlex_class: true, parent_component: "ApplicationView")
-
-    assert_equal expected, converter.component_code.strip
+    assert_phlex expected, html, parent_component: "ApplicationView"
   end
 
   it "should generate phlex class with parent class name and component name" do
@@ -61,9 +57,7 @@ class Phlexing::ConverterTest < Minitest::Spec
       end
     PHLEX
 
-    converter = Phlexing::Converter.new(html, phlex_class: true, component_name: "TestComponent", parent_component: "ApplicationView")
-
-    assert_equal expected, converter.component_code.strip
+    assert_phlex expected, html, component_name: "TestComponent", parent_component: "ApplicationView"
   end
 
   it "should generate phlex class with ivars" do
@@ -86,9 +80,9 @@ class Phlexing::ConverterTest < Minitest::Spec
       end
     PHLEX
 
-    converter = Phlexing::Converter.new(html, phlex_class: true)
-
-    assert_equal expected, converter.component_code.strip
+    assert_phlex expected, html do
+      assert_ivars "firstname", "lastname"
+    end
   end
 
   it "should generate phlex class with ivars, locals and ifs" do
@@ -126,8 +120,9 @@ class Phlexing::ConverterTest < Minitest::Spec
       end
     PHLEX
 
-    converter = Phlexing::Converter.new(html, phlex_class: true)
-
-    assert_equal expected, converter.component_code.strip
+    assert_phlex expected, html do
+      assert_ivars "company", "user"
+      assert_locals "show_company", "some_method"
+    end
   end
 end

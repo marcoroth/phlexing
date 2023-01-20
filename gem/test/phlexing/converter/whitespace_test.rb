@@ -15,7 +15,7 @@ class Phlexing::Converter::WhitespaceTest < Minitest::Spec
       end
     PHLEX
 
-    assert_phlex expected, html
+    assert_phlex_template expected, html
   end
 
   it "whitespace between HTML tags" do
@@ -31,7 +31,7 @@ class Phlexing::Converter::WhitespaceTest < Minitest::Spec
       end
     PHLEX
 
-    assert_phlex expected, html
+    assert_phlex_template expected, html
   end
 
   it "no whitespace between HTML tags when whitespace option disabled" do
@@ -46,7 +46,7 @@ class Phlexing::Converter::WhitespaceTest < Minitest::Spec
       end
     PHLEX
 
-    assert_phlex expected, html, whitespace: false
+    assert_phlex_template expected, html, whitespace: false
   end
 
   it "whitespace between ERB interpolations" do
@@ -62,7 +62,7 @@ class Phlexing::Converter::WhitespaceTest < Minitest::Spec
       end
     PHLEX
 
-    assert_phlex expected, html do
+    assert_phlex_template expected, html do
       assert_ivars "user"
     end
   end
@@ -79,7 +79,7 @@ class Phlexing::Converter::WhitespaceTest < Minitest::Spec
       end
     PHLEX
 
-    assert_phlex expected, html, whitespace: false do
+    assert_phlex_template expected, html, whitespace: false do
       assert_ivars "user"
     end
   end
@@ -99,7 +99,7 @@ class Phlexing::Converter::WhitespaceTest < Minitest::Spec
       end
     PHLEX
 
-    assert_phlex expected, html
+    assert_phlex_template expected, html
   end
 
   it "no whitespace around and in tags when whitespace option disabled" do
@@ -114,6 +114,6 @@ class Phlexing::Converter::WhitespaceTest < Minitest::Spec
       end
     PHLEX
 
-    assert_phlex expected, html, whitespace: false
+    assert_phlex_template expected, html, whitespace: false
   end
 end
