@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "rufo"
-
 module Phlexing
   class OutputGenerator
     using Refinements::StringRefinements
@@ -61,9 +59,7 @@ module Phlexing
         out << converter.buffer
       end
 
-      Rufo::Formatter.format(out.string.strip)
-    rescue Rufo::SyntaxError
-      out.string.strip
+      Formatter.format(out.string.strip)
     end
 
     private

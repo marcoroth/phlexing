@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "nokogiri"
-require "rufo"
 require "erb_parser"
 
 module Phlexing
@@ -164,9 +163,7 @@ module Phlexing
     end
 
     def buffer
-      Rufo::Formatter.format(@buffer.string.strip)
-    rescue Rufo::SyntaxError
-      @buffer.string.strip
+      Formatter.format(@buffer.string.strip)
     end
 
     def output
