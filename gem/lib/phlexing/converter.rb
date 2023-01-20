@@ -169,7 +169,7 @@ module Phlexing
     end
 
     def output
-      buffer = StringIO.new
+      out = StringIO.new
 
       if @options.fetch(:phlex_class, false)
         component_name = @options.fetch(:component_name, "Component")
@@ -178,54 +178,54 @@ module Phlexing
         parent_component = @options.fetch(:parent_component, "Phlex::HTML")
         parent_component = "A#{parent_component}" if parent_component[0] == "0" || parent_component[0].to_i != 0
 
-        buffer << "class #{component_name}"
-        buffer << "< #{parent_component}\n"
+        out << "class #{component_name}"
+        out << "< #{parent_component}\n"
 
         if locals.any?
-          buffer << indent(1)
-          buffer << "attr_accessor "
-          buffer << locals.sort.map { |local| ":#{local}" }.join(", ")
-          buffer << "\n\n"
+          out << indent(1)
+          out << "attr_accessor "
+          out << locals.sort.map { |local| ":#{local}" }.join(", ")
+          out << "\n\n"
         end
 
         @custom_elements.sort.each do |element|
-          buffer << indent(1)
-          buffer << "register_element :#{element}\n"
+          out << indent(1)
+          out << "register_element :#{element}\n"
         end
 
         kwargs = Set.new(ivars + locals).sort
 
         if kwargs.any?
-          buffer << indent(1)
-          buffer << "def initialize("
-          buffer << kwargs.map { |kwarg| "#{kwarg}: " }.join(", ")
-          buffer << ")\n"
+          out << indent(1)
+          out << "def initialize("
+          out << kwargs.map { |kwarg| "#{kwarg}: " }.join(", ")
+          out << ")\n"
 
           kwargs.each do |dep|
-            buffer << indent(2)
-            buffer << "@#{dep} = #{dep}\n"
+            out << indent(2)
+            out << "@#{dep} = #{dep}\n"
           end
 
-          buffer << indent(1)
-          buffer << "end\n"
+          out << indent(1)
+          out << "end\n"
         end
 
-        buffer << indent(1)
-        buffer << "def template\n"
+        out << indent(1)
+        out << "def template\n"
 
-        buffer << indent(2)
-        buffer << @buffer.string
+        out << indent(2)
+        out << @buffer.string
 
-        buffer << indent(1)
-        buffer << "end\n"
-        buffer << "end\n"
+        out << indent(1)
+        out << "end\n"
+        out << "end\n"
       else
-        buffer << @buffer.string
+        out << @buffer.string
       end
 
-      Rufo::Formatter.format(buffer.string.strip)
+      Rufo::Formatter.format(out.string.strip)
     rescue Rufo::SyntaxError
-      buffer.string.strip
+      out.string.strip
     end
 
     def analyze_ruby
