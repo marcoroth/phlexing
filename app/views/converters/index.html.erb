@@ -45,17 +45,19 @@
             </div>
 
             <div class="hidden" data-phlex-class-target="toggle">
-              <div class="sm:col-span-4 ml-6 mb-3">
-                <label for="component_name" class="block text-sm font-medium text-gray-700">Component Name</label>
-                <div class="mt-1">
-                  <input placeholder="Component" id="component_name" name="component_name" data-action="keyup->converter#submit" type="text" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+              <div class="grid sm:grid-cols-1 md:grid-cols-2 gap-2 mt-6">
+                <div class="ml-6">
+                  <label for="component_name" class="block text-sm font-medium text-gray-700">Component Name</label>
+                  <div class="mt-1">
+                    <input placeholder="Component" autocomplete="off" id="component_name" name="component_name" data-action="keyup->converter#submit" type="text" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                  </div>
                 </div>
-              </div>
 
-              <div class="sm:col-span-4 ml-6 mb-3">
-                <label for="email" class="block text-sm font-medium text-gray-700">Parent Component</label>
-                <div class="mt-1">
-                  <input placeholder="Phlex::HTML" id="parent_component" name="parent_component" data-action="keyup->converter#submit" type="text" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                <div class="ml-6">
+                  <label for="email" class="block text-sm font-medium text-gray-700">Parent Component</label>
+                  <div class="mt-1">
+                    <input placeholder="Phlex::HTML" autocomplete="off" id="parent_component" name="parent_component" data-action="keyup->converter#submit" type="text" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                  </div>
                 </div>
               </div>
             </div>
@@ -65,7 +67,7 @@
       </div>
 
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-        <div id="layout" class="m-2 sm:grid sm:grid-cols-2 gap-2">
+        <div id="layout" class="mx-2 sm:grid sm:grid-cols-2 gap-2">
           <div class="mt-6">
             <div class="flex items-center">
               <div class="text-gray-900 rounded-md px-3 py-1.5 text-sm font-medium" aria-controls="tabs-1-panel-1">ERB</div>
