@@ -63,7 +63,9 @@ module Phlexing
       end
 
       if erb_interpolation?(node) && node.parent.children.count > 1
-        if node.text.length >= 24
+        if node.text.strip.starts_with?("render")
+          @buffer << node.text
+        elsif node.text.length >= 24
           @buffer << "text("
           @buffer << node.text
           @buffer << ")"

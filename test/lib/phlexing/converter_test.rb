@@ -456,6 +456,21 @@ module Phlexing
       assert_phlex expected, html
     end
 
+    test "shouldn't pass render method call into the text method" do
+      expected = <<~HTML.strip
+        render SomeView.new
+
+        text "Hello"
+      HTML
+
+      html = <<~HTML.strip
+        <%= render SomeView.new %>
+        Hello
+      HTML
+
+      assert_phlex expected, html
+    end
+
     test "should generate phlex class with component name" do
       html = %(<h1>Hello World</h1>)
 
