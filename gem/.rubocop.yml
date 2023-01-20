@@ -1,0 +1,11 @@
+inherit_from: "https://www.goodcop.style"
+
+AllCops:
+  TargetRubyVersion: 2.7
+  SuggestExtensions: false
+
+Lint/EmptyClass:
+  Enabled: false
+
+Style/OpenStructUse:
+  Enabled: false

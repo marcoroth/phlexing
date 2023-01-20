@@ -5,12 +5,14 @@ require "ostruct"
 require "rufo"
 require "html_press"
 require "erb_parser"
+require "active_support"
+require "active_support/core_ext"
 
 module Phlexing
   class Converter
     include Helpers
 
-    using ::Phlexing::Refinements::StringRefinements
+    using Refinements::StringRefinements
 
     attr_accessor :html, :custom_elements, :ivars, :locals, :idents
 

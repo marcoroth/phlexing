@@ -4,6 +4,9 @@ source "https://rubygems.org"
 
 gemspec
 
+gem "maxitest", "~> 4.4"
 gem "minitest", "~> 5.0"
 gem "rake", "~> 13.0"
 gem "rubocop", require: false, github: "joeldrapper/rubocop", branch: "rubocop-user-agent"
+
+gem "activesupport", "~> 7.0"

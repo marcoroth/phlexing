@@ -4,6 +4,8 @@ require "syntax_tree"
 
 module Phlexing
   class Visitor < SyntaxTree::Visitor
+    using Refinements::StringRefinements
+
     def initialize(converter)
       @converter = converter
     end
