@@ -156,10 +156,10 @@ module Phlexing
     end
 
     def parsed
-      return @parsed if @parsed
+      transformed_erb = ErbTransformer.transform(html)
+      minified_erb = Minifier.minify(transformed_erb)
 
-      minified_erb = Minifier.minify(converted_erb)
-      @parsed = Nokogiri::HTML.fragment(minified_erb)
+      Nokogiri::HTML.fragment(minified_erb)
     end
 
     def buffer
@@ -168,12 +168,6 @@ module Phlexing
 
     def output
       OutputGenerator.new(self).generate
-    end
-
-    def converted_erb
-      ErbParser.transform_xml(html).gsub("\n", "").gsub("\r", "")
-    rescue StandardError
-      html
     end
   end
 end
