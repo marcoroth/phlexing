@@ -11,12 +11,12 @@ module Phlexing
     attr_accessor :html, :custom_elements, :options, :analyzer
 
     def self.convert(html, **options)
-      new(html, **options).output
+      new(html, **options).component_code
     end
 
     def initialize(html, **options)
       @html = html
-      @buffer = StringIO.new
+      @template_code = StringIO.new
       @custom_elements = Set.new
       @options = options
       @analyzer = RubyAnalyzer.new
@@ -31,56 +31,56 @@ module Phlexing
       text = node.text
 
       if text.squish.empty? && text.length.positive?
-        @buffer << indent(level)
-        @buffer << whitespace(@options)
+        @template_code << indent(level)
+        @template_code << whitespace(@options)
 
         text.strip!
       end
 
       if text.length.positive?
-        @buffer << indent(level)
+        @template_code << indent(level)
 
         if siblings?(node)
-          @buffer << "text "
+          @template_code << "text "
         end
 
-        @buffer << quote(text)
-        @buffer << "\n" if newline
+        @template_code << quote(text)
+        @template_code << "\n" if newline
       end
     end
 
     def handle_erb_element(node, level, newline: true)
       if erb_safe_output?(node)
-        @buffer << "unsafe_raw "
-        @buffer << node.text.from(1)
-        @buffer << "\n" if newline
+        @template_code << "unsafe_raw "
+        @template_code << node.text.from(1)
+        @template_code << "\n" if newline
 
         return
       end
 
       if erb_interpolation?(node) && node.parent.children.count > 1
         if node.text.strip.start_with?("render")
-          @buffer << node.text
+          @template_code << node.text
         elsif node.text.length >= 24
-          @buffer << "text("
-          @buffer << node.text
-          @buffer << ")"
+          @template_code << "text("
+          @template_code << node.text
+          @template_code << ")"
         else
-          @buffer << "text "
-          @buffer << node.text
+          @template_code << "text "
+          @template_code << node.text
         end
       elsif erb_comment?(node)
-        @buffer << "#"
-        @buffer << node.text
+        @template_code << "#"
+        @template_code << node.text
       else
-        @buffer << node.text
+        @template_code << node.text
       end
 
-      @buffer << "\n" if newline
+      @template_code << "\n" if newline
     end
 
     def handle_element(node, level)
-      @buffer << (indent(level) + node_name(node) + handle_attributes(node))
+      @template_code << (indent(level) + node_name(node) + handle_attributes(node))
 
       if node.children.any?
         if node.children.one? && text_node?(node.children.first) && node.text.length <= 32
@@ -97,15 +97,15 @@ module Phlexing
           }
         end
       else
-        @buffer << "\n"
+        @template_code << "\n"
       end
     end
 
     def handle_comment_node(node, level)
-      @buffer << indent(level)
-      @buffer << "comment "
-      @buffer << quote(node.text.strip)
-      @buffer << "\n"
+      @template_code << indent(level)
+      @template_code << "comment "
+      @template_code << quote(node.text.strip)
+      @template_code << "\n"
     end
 
     def handle_children(node, level)
@@ -144,23 +144,23 @@ module Phlexing
           handle_element(node, level)
         end
 
-        @buffer << "\n" if level == 1
+        @template_code << "\n" if level == 1
       when Nokogiri::HTML4::DocumentFragment
         handle_children(node, level)
       when Nokogiri::XML::Comment
         handle_comment_node(node, level)
       else
-        @buffer << ("UNKNOWN#{node.class}")
+        @template_code << ("UNKNOWN#{node.class}")
       end
 
-      @buffer.string
+      @template_code.string
     end
 
-    def buffer
-      Formatter.format(@buffer.string.strip)
+    def template_code
+      Formatter.format(@template_code.string.strip)
     end
 
-    def output
+    def component_code
       OutputGenerator.new(self).generate
     end
   end

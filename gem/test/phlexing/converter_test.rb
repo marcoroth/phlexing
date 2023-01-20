@@ -31,7 +31,7 @@ class Phlexing::ConverterTest < Minitest::Spec
 
     converter = Phlexing::Converter.new(html, phlex_class: true, component_name: "TestComponent")
 
-    assert_equal expected, converter.output.strip
+    assert_equal expected, converter.component_code.strip
   end
 
   it "should generate phlex class with parent class name" do
@@ -47,7 +47,7 @@ class Phlexing::ConverterTest < Minitest::Spec
 
     converter = Phlexing::Converter.new(html, phlex_class: true, parent_component: "ApplicationView")
 
-    assert_equal expected, converter.output.strip
+    assert_equal expected, converter.component_code.strip
   end
 
   it "should generate phlex class with parent class name and component name" do
@@ -63,7 +63,7 @@ class Phlexing::ConverterTest < Minitest::Spec
 
     converter = Phlexing::Converter.new(html, phlex_class: true, component_name: "TestComponent", parent_component: "ApplicationView")
 
-    assert_equal expected, converter.output.strip
+    assert_equal expected, converter.component_code.strip
   end
 
   it "should generate phlex class with ivars" do
@@ -88,7 +88,7 @@ class Phlexing::ConverterTest < Minitest::Spec
 
     converter = Phlexing::Converter.new(html, phlex_class: true)
 
-    assert_equal expected, converter.output.strip
+    assert_equal expected, converter.component_code.strip
   end
 
   it "should generate phlex class with ivars, locals and ifs" do
@@ -128,6 +128,6 @@ class Phlexing::ConverterTest < Minitest::Spec
 
     converter = Phlexing::Converter.new(html, phlex_class: true)
 
-    assert_equal expected, converter.output.strip
+    assert_equal expected, converter.component_code.strip
   end
 end

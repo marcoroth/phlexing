@@ -50,13 +50,13 @@ module Phlexing
         out << "def template\n"
 
         out << indent(2)
-        out << converter.buffer
+        out << converter.template_code
 
         out << indent(1)
         out << "end\n"
         out << "end\n"
       else
-        out << converter.buffer
+        out << converter.template_code
       end
 
       Formatter.format(out.string.strip)

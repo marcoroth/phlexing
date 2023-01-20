@@ -6,7 +6,7 @@ require "phlexing"
 require "maxitest/autorun"
 
 def convert_html(html, **options)
-  Phlexing::Converter.new(html, **options).buffer.strip
+  Phlexing::Converter.new(html, **options).template_code.strip
 end
 
 def assert_phlex(expected, html, **options, &block)

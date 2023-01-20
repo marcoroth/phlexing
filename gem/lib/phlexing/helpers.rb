@@ -54,15 +54,15 @@ module Phlexing
     end
 
     def multi_line_block(level)
-      @buffer << " do\n"
+      @template_code << " do\n"
       yield
-      @buffer << ("#{indent(level)}end\n")
+      @template_code << ("#{indent(level)}end\n")
     end
 
     def single_line_block
-      @buffer << " { "
+      @template_code << " { "
       yield
-      @buffer << " }\n"
+      @template_code << " }\n"
     end
 
     def erb_node?(node)

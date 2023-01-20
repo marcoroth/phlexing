@@ -62,7 +62,7 @@ class Phlexing::Converter::CustomElementsTest < Minitest::Spec
       end
     PHLEX
 
-    assert_equal expected, Phlexing::Converter.new(html, phlex_class: true).output.strip
+    assert_equal expected, Phlexing::Converter.new(html, phlex_class: true).component_code.strip
   end
 
   it "should generate phlex class with custom elements and attr_accessors in alphabetical order" do
@@ -90,6 +90,6 @@ class Phlexing::Converter::CustomElementsTest < Minitest::Spec
       end
     PHLEX
 
-    assert_equal expected, Phlexing::Converter.new(html, phlex_class: true).output.strip
+    assert_equal expected, Phlexing::Converter.new(html, phlex_class: true).component_code.strip
   end
 end
