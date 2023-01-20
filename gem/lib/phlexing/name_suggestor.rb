@@ -7,8 +7,8 @@ module Phlexing
     def self.suggest(html)
       converter = Phlexing::Converter.new(html)
 
-      ivars  = converter.ivars
-      locals = converter.locals
+      ivars  = converter.analyzer.ivars
+      locals = converter.analyzer.locals
 
       ids     = extract(converter, :extract_id_from_element)
       classes = extract(converter, :extract_class_from_element)

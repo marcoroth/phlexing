@@ -51,7 +51,7 @@ def assert_ivars(*ivars)
 
   assert_equal(
     ivars,
-    @converter.ivars.to_a,
+    @converter.analyzer.ivars.to_a,
     "Phlex::Converter.ivars"
   )
 end
@@ -63,7 +63,7 @@ def assert_locals(*locals)
 
   assert_equal(
     locals,
-    @converter.locals.to_a,
+    @converter.analyzer.locals.to_a,
     "Phlex::Converter.locals"
   )
 end
@@ -75,7 +75,7 @@ def assert_idents(*idents)
 
   assert_equal(
     idents,
-    @converter.idents.to_a,
+    @converter.analyzer.idents.to_a,
     "Phlex::Converter.idents"
   )
 end

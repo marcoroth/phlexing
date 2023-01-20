@@ -21,10 +21,10 @@ module Phlexing
         out << "class #{component_name} "
         out << "< #{parent_component}\n"
 
-        if converter.locals.any?
+        if locals.any?
           out << indent(1)
           out << "attr_accessor "
-          out << converter.locals.sort.map { |local| ":#{local}" }.join(", ")
+          out << locals.sort.map { |local| ":#{local}" }.join(", ")
           out << "\n\n"
         end
 
@@ -73,7 +73,15 @@ module Phlexing
     end
 
     def kwargs
-      Set.new(converter.ivars + converter.locals).sort
+      Set.new(ivars + locals).sort
+    end
+
+    def ivars
+      converter.analyzer.ivars
+    end
+
+    def locals
+      converter.analyzer.locals
     end
 
     def component_name

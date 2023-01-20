@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 require "nokogiri"
-require "ostruct"
 require "rufo"
-require "html_press"
 require "erb_parser"
 
 module Phlexing
@@ -12,7 +10,7 @@ module Phlexing
 
     using Refinements::StringRefinements
 
-    attr_accessor :html, :custom_elements, :ivars, :locals, :idents, :options
+    attr_accessor :html, :custom_elements, :options, :analyzer
 
     def self.convert(html, **options)
       new(html, **options).output
@@ -22,12 +20,10 @@ module Phlexing
       @html = html
       @buffer = StringIO.new
       @custom_elements = Set.new
-      @ivars = Set.new
-      @locals = Set.new
-      @includes = Set.new
-      @idents = Set.new
       @options = options
-      analyze_ruby
+      @analyzer = RubyAnalyzer.new
+
+      @analyzer.analyze(html)
       handle_node
     end
 
@@ -175,16 +171,6 @@ module Phlexing
 
     def output
       OutputGenerator.new(self).generate
-    end
-
-    def analyze_ruby
-      ruby_code = ErbParser.parse(html).tokens.map { |tag| tag.is_a?(ErbParser::ErbTag) && !tag.to_s.start_with?("<%#") ? tag.ruby_code.delete_prefix("=") : nil }.join("\n")
-      visitor = Phlexing::Visitor.new(self)
-      program = SyntaxTree.parse(ruby_code)
-      # puts program.construct_keys
-      visitor.visit(program)
-    rescue StandardError => e
-      puts e.inspect
     end
 
     def converted_erb
