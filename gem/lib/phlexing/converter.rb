@@ -12,7 +12,7 @@ module Phlexing
 
     using Refinements::StringRefinements
 
-    attr_accessor :html, :custom_elements, :ivars, :locals, :idents
+    attr_accessor :html, :custom_elements, :ivars, :locals, :idents, :options
 
     def self.convert(html, **options)
       new(html, **options).output
@@ -171,63 +171,7 @@ module Phlexing
     end
 
     def output
-      out = StringIO.new
-
-      if @options.fetch(:phlex_class, false)
-        component_name = @options.fetch(:component_name, "Component")
-        component_name = "A#{component_name}" if component_name[0] == "0" || component_name[0].to_i != 0
-
-        parent_component = @options.fetch(:parent_component, "Phlex::HTML")
-        parent_component = "A#{parent_component}" if parent_component[0] == "0" || parent_component[0].to_i != 0
-
-        out << "class #{component_name}"
-        out << "< #{parent_component}\n"
-
-        if locals.any?
-          out << indent(1)
-          out << "attr_accessor "
-          out << locals.sort.map { |local| ":#{local}" }.join(", ")
-          out << "\n\n"
-        end
-
-        @custom_elements.sort.each do |element|
-          out << indent(1)
-          out << "register_element :#{element}\n"
-        end
-
-        kwargs = Set.new(ivars + locals).sort
-
-        if kwargs.any?
-          out << indent(1)
-          out << "def initialize("
-          out << kwargs.map { |kwarg| "#{kwarg}: " }.join(", ")
-          out << ")\n"
-
-          kwargs.each do |dep|
-            out << indent(2)
-            out << "@#{dep} = #{dep}\n"
-          end
-
-          out << indent(1)
-          out << "end\n"
-        end
-
-        out << indent(1)
-        out << "def template\n"
-
-        out << indent(2)
-        out << @buffer.string
-
-        out << indent(1)
-        out << "end\n"
-        out << "end\n"
-      else
-        out << @buffer.string
-      end
-
-      Rufo::Formatter.format(out.string.strip)
-    rescue Rufo::SyntaxError
-      out.string.strip
+      OutputGenerator.new(self).generate
     end
 
     def analyze_ruby
