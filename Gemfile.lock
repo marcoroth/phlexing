@@ -31,7 +31,7 @@ PATH
       nokogiri (~> 1.0)
       phlex (~> 1.1)
       rufo (~> 0.13.0)
-      syntax_tree
+      syntax_tree (~> 5.2)
 
 GEM
   remote: https://rubygems.org/
