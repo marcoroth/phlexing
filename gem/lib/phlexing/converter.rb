@@ -21,13 +21,18 @@ module Phlexing
       document = Parser.parse(html)
       handle_node(document)
 
-      component_code
+      code
+    end
+
+    def code
+      options.component? ? component_code : template_code
     end
 
     def initialize(html = nil, **options)
       @custom_elements = Set.new
       @options = options
       @analyzer = RubyAnalyzer.new
+      @options = Options.new(**options)
 
       convert(html)
     end

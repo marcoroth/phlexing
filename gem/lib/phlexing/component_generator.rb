@@ -15,13 +15,13 @@ module Phlexing
     def generate
       out = StringIO.new
 
-      out << "class #{component_name} "
-      out << "< #{parent_component}\n"
+      out << "class #{options.component_name} "
+      out << "< #{options.parent_component}\n"
 
-      if locals.any?
+      if analyzer.locals.any?
         out << indent(1)
         out << "attr_accessor "
-        out << locals.sort.map { |local| ":#{local}" }.join(", ")
+        out << analyzer.locals.sort.map { |local| ":#{local}" }.join(", ")
         out << "\n\n"
       end
 
@@ -61,28 +61,16 @@ module Phlexing
 
     private
 
-    def should_generate_class?
-      converter.options.fetch(:phlex_class, false)
-    end
-
     def kwargs
-      Set.new(ivars + locals).sort
+      Set.new(analyzer.ivars + analyzer.locals).sort
     end
 
-    def ivars
-      converter.analyzer.ivars
+    def analyzer
+      converter.analyzer
     end
 
-    def locals
-      converter.analyzer.locals
-    end
-
-    def component_name
-      safe_constant_name(converter.options.fetch(:component_name, "Component"))
-    end
-
-    def parent_component
-      safe_constant_name(converter.options.fetch(:parent_component, "Phlex::HTML"))
+    def options
+      converter.options
     end
   end
 end

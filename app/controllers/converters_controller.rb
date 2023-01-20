@@ -7,7 +7,7 @@ class ConvertersController < ApplicationController
   def create
     content = params["input"] || ""
     whitespace = params["whitespace"] ? true : false
-    phlex_class = params["phlex_class"] ? true : false
+    component = params["component"] ? true : false
 
     component_name = params["component_name"].presence || Phlexing::NameSuggestor.suggest(content)
     component_name = component_name.gsub(" ", "_").camelize.squeeze("Component")
@@ -18,7 +18,7 @@ class ConvertersController < ApplicationController
     @converter = Phlexing::Converter.new(
       content,
       whitespace: whitespace,
-      phlex_class: phlex_class,
+      component: component,
       component_name: component_name,
       parent_component: parent_component
     )

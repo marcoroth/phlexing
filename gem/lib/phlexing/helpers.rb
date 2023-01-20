@@ -13,7 +13,7 @@ module Phlexing
     end
 
     def whitespace(options)
-      options.fetch(:whitespace, true) ? "whitespace\n" : ""
+      options.whitespace? ? "whitespace\n" : ""
     end
 
     def double_quote(string)
@@ -101,14 +101,6 @@ module Phlexing
 
     def erb_comment?(node)
       node.attributes["comment"]
-    end
-
-    def safe_constant_name(name)
-      if name[0] == "0" || name[0].to_i != 0
-        "A#{name}"
-      else
-        name
-      end
     end
   end
 end
