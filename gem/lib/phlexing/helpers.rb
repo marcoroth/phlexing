@@ -12,7 +12,7 @@ module Phlexing
       "  " * level
     end
 
-    def whitespace(options)
+    def whitespace
       options.whitespace? ? "whitespace\n" : ""
     end
 
@@ -40,7 +40,7 @@ module Phlexing
 
       name = node.name.gsub("-", "_")
 
-      @custom_elements << name unless KNOWN_ELEMENTS.include?(name)
+      @converter.custom_elements << name unless KNOWN_ELEMENTS.include?(name)
 
       name
     end
@@ -54,15 +54,15 @@ module Phlexing
     end
 
     def multi_line_block(level)
-      @template_code << " do\n"
+      out << " do\n"
       yield
-      @template_code << ("#{indent(level)}end\n")
+      out << ("#{indent(level)}end\n")
     end
 
     def single_line_block
-      @template_code << " { "
+      out << " { "
       yield
-      @template_code << " }\n"
+      out << " }\n"
     end
 
     def erb_node?(node)

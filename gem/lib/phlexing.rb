@@ -10,9 +10,10 @@ require_relative "phlexing/minifier"
 require_relative "phlexing/ruby_analyzer"
 require_relative "phlexing/erb_transformer"
 require_relative "phlexing/parser"
-require_relative "phlexing/converter"
 require_relative "phlexing/name_suggestor"
+require_relative "phlexing/template_generator"
 require_relative "phlexing/component_generator"
+require_relative "phlexing/converter"
 require_relative "phlexing/visitor"
 
 module Phlexing

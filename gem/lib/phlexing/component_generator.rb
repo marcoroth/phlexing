@@ -8,6 +8,10 @@ module Phlexing
 
     attr_accessor :converter
 
+    def self.generate(converter)
+      new(converter).generate
+    end
+
     def initialize(converter)
       @converter = converter
     end
