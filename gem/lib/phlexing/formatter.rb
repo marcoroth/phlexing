@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-require "rufo"
+require "syntax_tree"
 
 module Phlexing
   class Formatter
     def self.format(code)
-      Rufo::Formatter.format(code).strip
-    rescue Rufo::SyntaxError
+      SyntaxTree.format(code).strip
+    rescue SyntaxTree::Parser::ParseError
       code
     end
   end

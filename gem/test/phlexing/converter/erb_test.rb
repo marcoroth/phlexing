@@ -19,9 +19,7 @@ class Phlexing::Converter::ErbTest < Minitest::Spec
     html = %(<div><%= some_method_super_long_method_which_should_be_split_up %></div>)
 
     expected = <<~PHLEX.strip
-      div do
-        some_method_super_long_method_which_should_be_split_up
-      end
+      div { some_method_super_long_method_which_should_be_split_up }
     PHLEX
 
     assert_phlex_template expected, html do
@@ -64,9 +62,7 @@ class Phlexing::Converter::ErbTest < Minitest::Spec
     HTML
 
     expected = <<~PHLEX.strip
-      @articles.each do |article|
-        h1 { article.title }
-      end
+      @articles.each { |article| h1 { article.title } }
     PHLEX
 
     assert_phlex_template expected, html do
@@ -162,10 +158,11 @@ class Phlexing::Converter::ErbTest < Minitest::Spec
     HTML
 
     expected = <<~PHLEX.strip
-      @greeting = capture do
-        text " Welcome to my shiny new web page! The date and time is "
-        text Time.now
-      end
+      @greeting =
+        capture do
+          text " Welcome to my shiny new web page! The date and time is "
+          text Time.now
+        end
     PHLEX
 
     assert_phlex_template expected, html do

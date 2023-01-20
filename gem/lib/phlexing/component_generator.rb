@@ -34,6 +34,8 @@ module Phlexing
         out << "register_element :#{element}\n"
       end
 
+      out << "\n" if converter.custom_elements.any?
+
       if kwargs.any?
         out << indent(1)
         out << "def initialize("
@@ -46,7 +48,7 @@ module Phlexing
         end
 
         out << indent(1)
-        out << "end\n"
+        out << "end\n\n"
       end
 
       out << indent(1)

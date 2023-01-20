@@ -43,9 +43,7 @@ class Phlexing::Converter::CustomElementsTest < Minitest::Spec
     html = %(<div>Text with 'single quotes' and "double quotes"</div>)
 
     expected = <<~PHLEX.strip
-      div do
-        %(Text with 'single quotes' and "double quotes")
-      end
+      div { %(Text with 'single quotes' and "double quotes") }
     PHLEX
 
     assert_phlex_template expected, html
@@ -55,9 +53,7 @@ class Phlexing::Converter::CustomElementsTest < Minitest::Spec
     html = %(<div>This is a super long text which exceeds the single line block limit</div>)
 
     expected = <<~PHLEX.strip
-      div do
-        "This is a super long text which exceeds the single line block limit"
-      end
+      div { "This is a super long text which exceeds the single line block limit" }
     PHLEX
 
     assert_phlex_template expected, html
@@ -123,9 +119,7 @@ class Phlexing::Converter::CustomElementsTest < Minitest::Spec
     html = %(<div><span></span></div>)
 
     expected = <<~PHLEX.strip
-      div do
-        span
-      end
+      div { span }
     PHLEX
 
     assert_phlex_template expected, html
