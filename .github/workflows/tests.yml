@@ -20,7 +20,12 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
-          bundler-cache: true
+
+      - name: Switch Context
+        run: cd gem
+
+      - name: Bundle install
+        run: bundle install
 
       - name: Run Rails tests
-        run: bundle exec rails test
+        run: bundle exec rake

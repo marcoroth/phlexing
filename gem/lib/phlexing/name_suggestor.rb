@@ -2,6 +2,8 @@
 
 module Phlexing
   class NameSuggestor
+    using Refinements::StringRefinements
+
     def self.suggest(html)
       converter = Phlexing::Converter.new(html)
 
@@ -37,7 +39,7 @@ module Phlexing
       return if element.nil?
       return if element.is_a?(Nokogiri::XML::Text)
 
-      id_attribute = element.attributes.try(:[], "id")
+      id_attribute = element.attributes && element.attributes["id"]
       return if id_attribute.nil?
 
       id = id_attribute.value.to_s.strip
@@ -50,7 +52,7 @@ module Phlexing
       return if element.nil?
       return if element.is_a?(Nokogiri::XML::Text)
 
-      class_attribute = element.attributes.try(:[], "class")
+      class_attribute = element.attributes && element.attributes["class"]
 
       return if class_attribute.nil?
 

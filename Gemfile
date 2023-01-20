@@ -47,9 +47,6 @@ gem "cssbundling-rails"
 # Simple ERB to Phlex converter
 gem "phlexing", path: "gem"
 
-# A framework for building object-oriented views in Ruby
-gem "phlex", "~> 1.1"
-
 # A pure Ruby code highlighter that is compatible with Pygments
 gem "rouge", "~> 4.0"
 

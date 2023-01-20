@@ -29,8 +29,9 @@ PATH
       erb_parser (~> 0.0.2)
       html_press (~> 0.8.2)
       nokogiri (~> 1.0)
+      phlex (~> 1.1)
       rufo (~> 0.13.0)
-      syntax_tree
+      syntax_tree (~> 5.2)
 
 GEM
   remote: https://rubygems.org/
@@ -262,7 +263,6 @@ DEPENDENCIES
   cssbundling-rails
   debug
   jsbundling-rails
-  phlex (~> 1.1)
   phlexing!
   puma (~> 6.0)
   rack-rewrite (~> 1.5)

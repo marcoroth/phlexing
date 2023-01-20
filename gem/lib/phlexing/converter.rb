@@ -10,7 +10,7 @@ module Phlexing
   class Converter
     include Helpers
 
-    using ::Phlexing::Refinements::StringRefinements
+    using Refinements::StringRefinements
 
     attr_accessor :html, :custom_elements, :ivars, :locals, :idents
 
