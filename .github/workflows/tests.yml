@@ -21,11 +21,8 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby }}
 
-      - name: Switch Context
-        run: cd gem
-
-      - name: Bundle install
-        run: bundle install
-
-      - name: Run Rails tests
-        run: bundle exec rake
+      - name: Run tests
+        run: |
+          cd gem
+          bundle install
+          bundle exec rake
