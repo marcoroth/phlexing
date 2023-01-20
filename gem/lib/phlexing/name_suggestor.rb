@@ -5,14 +5,15 @@ module Phlexing
     using Refinements::StringRefinements
 
     def self.suggest(html)
-      converter = Phlexing::Converter.new(html)
+      document = Parser.parse(html)
+      analyzer = RubyAnalyzer.analyze(html)
 
-      ivars  = converter.analyzer.ivars
-      locals = converter.analyzer.locals
+      ivars  = analyzer.ivars
+      locals = analyzer.locals
 
-      ids     = extract(converter, :extract_id_from_element)
-      classes = extract(converter, :extract_class_from_element)
-      tags    = extract(converter, :extract_tag_name_from_element)
+      ids     = extract(document, :extract_id_from_element)
+      classes = extract(document, :extract_class_from_element)
+      tags    = extract(document, :extract_tag_name_from_element)
 
       return wrap(ivars.first) if ivars.one? && locals.none?
       return wrap(locals.first) if locals.one? && ivars.none?
@@ -29,10 +30,10 @@ module Phlexing
       "#{name}_component".gsub("-", "_").gsub(" ", "_").camelize
     end
 
-    def self.extract(converter, method)
-      return [] unless converter.parsed
+    def self.extract(document, method)
+      return [] unless document
 
-      converter.parsed.children.map { |element| send(method, element) }.compact
+      document.children.map { |element| send(method, element) }.compact
     end
 
     def self.extract_id_from_element(element)

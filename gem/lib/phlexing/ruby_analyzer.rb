@@ -9,6 +9,10 @@ module Phlexing
 
     attr_accessor :ivars, :locals, :idents
 
+    def self.analyze(html)
+      new.analyze(html)
+    end
+
     def initialize
       @ivars = Set.new
       @locals = Set.new
