@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Phlexing
-  class OutputGenerator
+  class ComponentGenerator
     using Refinements::StringRefinements
 
     include Helpers
@@ -51,12 +51,14 @@ module Phlexing
 
         out << indent(2)
         out << converter.template_code
+        out << "\n"
 
         out << indent(1)
         out << "end\n"
         out << "end\n"
       else
         out << converter.template_code
+        out << "\n"
       end
 
       Formatter.format(out.string.strip)

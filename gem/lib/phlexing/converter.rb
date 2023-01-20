@@ -161,7 +161,7 @@ module Phlexing
     end
 
     def component_code
-      OutputGenerator.new(self).generate
+      ComponentGenerator.new(self).generate.strip
     end
   end
 end
