@@ -40,27 +40,33 @@ class Phlexing::Converter::CustomElementsTest < Minitest::Spec
   end
 
   it "tag with one text node child with single and double quotes" do
-    expected = <<~HTML.strip
+    html = %(<div>Text with 'single quotes' and "double quotes"</div>)
+
+    expected = <<~PHLEX.strip
       div do
         %(Text with 'single quotes' and "double quotes")
       end
-    HTML
+    PHLEX
 
-    assert_phlex expected, %(<div>Text with 'single quotes' and "double quotes"</div>)
+    assert_phlex expected, html
   end
 
   it "tag with one text node child and long content" do
-    expected = <<~HTML.strip
+    html = %(<div>This is a super long text which exceeds the single line block limit</div>)
+
+    expected = <<~PHLEX.strip
       div do
         "This is a super long text which exceeds the single line block limit"
       end
-    HTML
+    PHLEX
 
-    assert_phlex expected, %(<div>This is a super long text which exceeds the single line block limit</div>)
+    assert_phlex expected, html
   end
 
   it "tag with attributes and mulitple children" do
-    expected = <<~HTML.strip
+    html = %(<div class="app" id="body"><h1>Title 1</h1><h2>Title 2<span>Small Addition</span></h2></div>)
+
+    expected = <<~PHLEX.strip
       div(class: "app", id: "body") do
         h1 { "Title 1" }
         h2 do
@@ -68,52 +74,60 @@ class Phlexing::Converter::CustomElementsTest < Minitest::Spec
           span { "Small Addition" }
         end
       end
-    HTML
+    PHLEX
 
-    assert_phlex expected, %(<div class="app" id="body"><h1>Title 1</h1><h2>Title 2<span>Small Addition</span></h2></div>)
+    assert_phlex expected, html
   end
 
   it "tag with multiple text and element children" do
-    expected = <<~HTML.strip
+    html = %(<div>Text<br />Line 2</div>)
+
+    expected = <<~PHLEX.strip
       div do
         text "Text"
         br
         text "Line 2"
       end
-    HTML
+    PHLEX
 
-    assert_phlex expected, %(<div>Text<br />Line 2</div>)
+    assert_phlex expected, html
   end
 
   it "tag with long text gets wrapped into parenthesis" do
-    expected = <<~HTML.strip
+    html = %(<div>Text<%= "A super long text which gets wrapped in parenthesis" %></div>)
+
+    expected = <<~PHLEX.strip
       div do
         text "Text"
         text("A super long text which gets wrapped in parenthesis")
       end
-    HTML
+    PHLEX
 
-    assert_phlex expected, %(<div>Text<%= "A super long text which gets wrapped in parenthesis" %></div>)
+    assert_phlex expected, html
   end
 
   it "tag with long erb interpolation gets wrapped into parenthesis" do
-    expected = <<~HTML.strip
+    html = %(<div>Text<%= long_method_name(with: "a bunch", of: :arguments) %></div>)
+
+    expected = <<~PHLEX.strip
       div do
         text "Text"
         text(long_method_name(with: "a bunch", of: :arguments))
       end
-    HTML
+    PHLEX
 
-    assert_phlex expected, %(<div>Text<%= long_method_name(with: "a bunch", of: :arguments) %></div>)
+    assert_phlex expected, html
   end
 
   it "tag with one tag node child" do
-    expected = <<~HTML.strip
+    html = %(<div><span></span></div>)
+
+    expected = <<~PHLEX.strip
       div do
         span
       end
-    HTML
+    PHLEX
 
-    assert_phlex expected, %(<div><span></span></div>)
+    assert_phlex expected, html
   end
 end

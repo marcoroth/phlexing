@@ -4,16 +4,16 @@ require_relative "../test_helper"
 
 class Phlexing::ConverterTest < Minitest::Spec
   it "shouldn't pass render method call into the text method" do
-    expected = <<~HTML.strip
-      render SomeView.new
-
-      text "Hello"
-    HTML
-
     html = <<~HTML.strip
       <%= render SomeView.new %>
       Hello
     HTML
+
+    expected = <<~PHLEX.strip
+      render SomeView.new
+
+      text "Hello"
+    PHLEX
 
     assert_phlex expected, html
   end
@@ -21,49 +21,55 @@ class Phlexing::ConverterTest < Minitest::Spec
   it "should generate phlex class with component name" do
     html = %(<h1>Hello World</h1>)
 
-    expected = <<~HTML.strip
+    expected = <<~PHLEX.strip
       class TestComponent < Phlex::HTML
         def template
           h1 { "Hello World" }
         end
       end
-    HTML
+    PHLEX
 
-    assert_equal expected, Phlexing::Converter.new(html, phlex_class: true, component_name: "TestComponent").output.strip
+    converter = Phlexing::Converter.new(html, phlex_class: true, component_name: "TestComponent")
+
+    assert_equal expected, converter.output.strip
   end
 
   it "should generate phlex class with parent class name" do
     html = %(<h1>Hello World</h1>)
 
-    expected = <<~HTML.strip
+    expected = <<~PHLEX.strip
       class Component < ApplicationView
         def template
           h1 { "Hello World" }
         end
       end
-    HTML
+    PHLEX
 
-    assert_equal expected, Phlexing::Converter.new(html, phlex_class: true, parent_component: "ApplicationView").output.strip
+    converter = Phlexing::Converter.new(html, phlex_class: true, parent_component: "ApplicationView")
+
+    assert_equal expected, converter.output.strip
   end
 
   it "should generate phlex class with parent class name and component name" do
     html = %(<h1>Hello World</h1>)
 
-    expected = <<~HTML.strip
+    expected = <<~PHLEX.strip
       class TestComponent < ApplicationView
         def template
           h1 { "Hello World" }
         end
       end
-    HTML
+    PHLEX
 
-    assert_equal expected, Phlexing::Converter.new(html, phlex_class: true, component_name: "TestComponent", parent_component: "ApplicationView").output.strip
+    converter = Phlexing::Converter.new(html, phlex_class: true, component_name: "TestComponent", parent_component: "ApplicationView")
+
+    assert_equal expected, converter.output.strip
   end
 
   it "should generate phlex class with ivars" do
     html = %(<h1><%= @firstname %> <%= @lastname %></h1>)
 
-    expected = <<~HTML.strip
+    expected = <<~PHLEX.strip
       class Component < Phlex::HTML
         def initialize(firstname:, lastname:)
           @firstname = firstname
@@ -78,9 +84,11 @@ class Phlexing::ConverterTest < Minitest::Spec
           end
         end
       end
-    HTML
+    PHLEX
 
-    assert_equal expected, Phlexing::Converter.new(html, phlex_class: true).output.strip
+    converter = Phlexing::Converter.new(html, phlex_class: true)
+
+    assert_equal expected, converter.output.strip
   end
 
   it "should generate phlex class with ivars, locals and ifs" do
@@ -94,7 +102,7 @@ class Phlexing::ConverterTest < Minitest::Spec
       <%= some_method %>
     HTML
 
-    expected = <<~HTML.strip
+    expected = <<~PHLEX.strip
       class Component < Phlex::HTML
         attr_accessor :show_company, :some_method
 
@@ -116,8 +124,10 @@ class Phlexing::ConverterTest < Minitest::Spec
           text some_method
         end
       end
-    HTML
+    PHLEX
 
-    assert_equal expected, Phlexing::Converter.new(html, phlex_class: true).output.strip
+    converter = Phlexing::Converter.new(html, phlex_class: true)
+
+    assert_equal expected, converter.output.strip
   end
 end
