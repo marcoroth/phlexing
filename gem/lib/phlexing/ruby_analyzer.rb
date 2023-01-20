@@ -17,7 +17,7 @@ module Phlexing
       @ivars = Set.new
       @locals = Set.new
       @idents = Set.new
-      @visitor = Phlexing::Visitor.new(self)
+      @visitor = Visitor.new(self)
     end
 
     def analyze(html)

@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "html_press"
-
 module Phlexing
   class Options
     attr_accessor :component, :component_name, :parent_component, :whitespace

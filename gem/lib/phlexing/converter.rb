@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "nokogiri"
-
 module Phlexing
   class Converter
     attr_accessor :html, :custom_elements, :options, :analyzer

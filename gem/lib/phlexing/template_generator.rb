@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "nokogiri"
+
 module Phlexing
   class TemplateGenerator
     using Refinements::StringRefinements
