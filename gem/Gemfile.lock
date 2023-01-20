@@ -23,18 +23,12 @@ PATH
       nokogiri (~> 1.0)
       phlex (~> 1.1)
       rufo (~> 0.13.0)
-      syntax_tree
+      syntax_tree (~> 5.2)
 
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (7.0.4.1)
-      concurrent-ruby (~> 1.0, >= 1.0.2)
-      i18n (>= 1.6, < 2)
-      minitest (>= 5.1)
-      tzinfo (~> 2.0)
     ast (2.4.2)
-    concurrent-ruby (1.1.10)
     css_press (0.3.2)
       csspool-st (= 3.1.2)
       json
@@ -47,8 +41,6 @@ GEM
       multi_css (>= 0.1.0)
       multi_js (>= 0.1.0)
     htmlentities (4.3.4)
-    i18n (1.12.0)
-      concurrent-ruby (~> 1.0)
     json (2.6.2)
     maxitest (4.4.0)
       minitest (>= 5.0.0, < 5.18.0)
@@ -81,8 +73,6 @@ GEM
       prettier_print (>= 1.2.0)
     treetop (1.6.12)
       polyglot (~> 0.3)
-    tzinfo (2.0.5)
-      concurrent-ruby (~> 1.0)
     uglifier (2.7.2)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
@@ -94,7 +84,6 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  activesupport (~> 7.0)
   maxitest (~> 4.4)
   minitest (~> 5.0)
   phlexing!

@@ -5,8 +5,6 @@ require "ostruct"
 require "rufo"
 require "html_press"
 require "erb_parser"
-require "active_support"
-require "active_support/core_ext"
 
 module Phlexing
   class Converter
