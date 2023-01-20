@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "nokogiri"
-require "erb_parser"
 
 module Phlexing
   class Converter
@@ -23,7 +22,9 @@ module Phlexing
       @analyzer = RubyAnalyzer.new
 
       @analyzer.analyze(html)
-      handle_node
+
+      document = Parser.parse(html)
+      handle_node(document)
     end
 
     def handle_text(node, level, newline: true)
@@ -132,7 +133,7 @@ module Phlexing
       end
     end
 
-    def handle_node(node = parsed, level = 0)
+    def handle_node(node, level = 0)
       case node
       when Nokogiri::XML::Text
         handle_text(node, level)
@@ -153,13 +154,6 @@ module Phlexing
       end
 
       @buffer.string
-    end
-
-    def parsed
-      transformed_erb = ErbTransformer.transform(html)
-      minified_erb = Minifier.minify(transformed_erb)
-
-      Nokogiri::HTML.fragment(minified_erb)
     end
 
     def buffer

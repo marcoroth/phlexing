@@ -6,6 +6,7 @@ require_relative "phlexing/version"
 
 require_relative "phlexing/ruby_analyzer"
 require_relative "phlexing/erb_transformer"
+require_relative "phlexing/parser"
 require_relative "phlexing/converter"
 require_relative "phlexing/formatter"
 require_relative "phlexing/minifier"
