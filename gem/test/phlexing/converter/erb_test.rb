@@ -16,14 +16,16 @@ class Phlexing::Converter::ErbTest < Minitest::Spec
   end
 
   it "ERB method call with long method name" do
-    html = %(<div><%= some_method_super_long_method_which_should_be_split_up %></div>)
+    html = %(<div><%= some_method_super_long_method_which_should_be_split_up_and_wrapped_in_a_block %></div>)
 
     expected = <<~PHLEX.strip
-      div { some_method_super_long_method_which_should_be_split_up }
+      div do
+        some_method_super_long_method_which_should_be_split_up_and_wrapped_in_a_block
+      end
     PHLEX
 
     assert_phlex_template expected, html do
-      assert_locals "some_method_super_long_method_which_should_be_split_up"
+      assert_locals "some_method_super_long_method_which_should_be_split_up_and_wrapped_in_a_block"
     end
   end
 

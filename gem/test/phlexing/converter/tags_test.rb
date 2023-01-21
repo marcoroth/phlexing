@@ -50,10 +50,12 @@ class Phlexing::Converter::CustomElementsTest < Minitest::Spec
   end
 
   it "tag with one text node child and long content" do
-    html = %(<div>This is a super long text which exceeds the single line block limit</div>)
+    html = %(<div>This is a super long text which exceeds the single line block limit and therefore is wrapped in a block</div>)
 
     expected = <<~PHLEX.strip
-      div { "This is a super long text which exceeds the single line block limit" }
+      div do
+        "This is a super long text which exceeds the single line block limit and therefore is wrapped in a block"
+      end
     PHLEX
 
     assert_phlex_template expected, html
