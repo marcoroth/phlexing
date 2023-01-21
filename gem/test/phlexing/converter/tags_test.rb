@@ -16,11 +16,19 @@ class Phlexing::Converter::CustomElementsTest < Minitest::Spec
   end
 
   it "tag with one attribute" do
-    assert_phlex_template %(div class: "app"), %(<div class="app"></div>)
+    assert_phlex_template %(div(class: "app")), %(<div class="app"></div>)
   end
 
   it "tag with multiple attributes" do
-    assert_phlex_template %(div class: "app", id: "body"), %(<div class="app" id="body"></div>)
+    assert_phlex_template %(div(class: "app", id: "body")), %(<div class="app" id="body"></div>)
+  end
+
+  it "tag with dasherized attributes" do
+    assert_phlex_template %(div(custom_class: "app", custom_id: "body")), %(<div custom-class="app" custom-id="body"></div>)
+  end
+
+  it "tag with data attributes" do
+    assert_phlex_template %(div(data_class: "app", data_id: "body")), %(<div data-class="app" data-id="body"></div>)
   end
 
   it "tag with attributes and single text node child" do
@@ -36,7 +44,7 @@ class Phlexing::Converter::CustomElementsTest < Minitest::Spec
   end
 
   it "tag with one text node child with double quotes" do
-    assert_phlex_template %(div { 'Text with "double quotes"' }), %(<div>Text with "double quotes"</div>)
+    assert_phlex_template %(div { %(Text with "double quotes") }), %(<div>Text with "double quotes"</div>)
   end
 
   it "tag with one text node child with single and double quotes" do
@@ -85,32 +93,6 @@ class Phlexing::Converter::CustomElementsTest < Minitest::Spec
         text "Text"
         br
         text "Line 2"
-      end
-    PHLEX
-
-    assert_phlex_template expected, html
-  end
-
-  it "tag with long text gets wrapped into parenthesis" do
-    html = %(<div>Text<%= "A super long text which gets wrapped in parenthesis" %></div>)
-
-    expected = <<~PHLEX.strip
-      div do
-        text "Text"
-        text("A super long text which gets wrapped in parenthesis")
-      end
-    PHLEX
-
-    assert_phlex_template expected, html
-  end
-
-  it "tag with long erb interpolation gets wrapped into parenthesis" do
-    html = %(<div>Text<%= long_method_name(with: "a bunch", of: :arguments) %></div>)
-
-    expected = <<~PHLEX.strip
-      div do
-        text "Text"
-        text(long_method_name(with: "a bunch", of: :arguments))
       end
     PHLEX
 

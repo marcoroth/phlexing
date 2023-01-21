@@ -103,8 +103,7 @@ class Phlexing::Converter::ErbTest < Minitest::Spec
     html = %(<div><%# The Next line has text on it %> More Text</div>)
 
     expected = <<~PHLEX.strip
-      div do
-        # The Next line has text on it
+      div do # The Next line has text on it
         text " More Text"
       end
     PHLEX
@@ -170,5 +169,19 @@ class Phlexing::Converter::ErbTest < Minitest::Spec
     assert_phlex_template expected, html do
       assert_ivars "greeting"
     end
+  end
+
+  it "tag with text next to string erb output" do
+    html = %(<div>Text<%= "ERB Text" %><%= "#{"interpolate"} text" %></div>)
+
+    expected = <<~PHLEX.strip
+      div do
+        text "Text"
+        text "ERB Text"
+        text "#{"interpolate"} text"
+      end
+    PHLEX
+
+    assert_phlex_template expected, html
   end
 end

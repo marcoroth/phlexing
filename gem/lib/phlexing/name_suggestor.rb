@@ -27,7 +27,7 @@ module Phlexing
     end
 
     def self.wrap(name)
-      "#{name}_component".gsub("-", "_").gsub(" ", "_").camelize
+      "#{name}_component".underscore.camelize
     end
 
     def self.extract(document, method)

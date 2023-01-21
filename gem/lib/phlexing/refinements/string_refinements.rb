@@ -25,6 +25,14 @@ module Phlexing
         def camelize
           split("_").collect(&:capitalize).join
         end
+
+        def dasherize
+          tr("_", "-").tr(" ", "-")
+        end
+
+        def underscore
+          tr("-", "_").tr(" ", "_")
+        end
       end
     end
   end

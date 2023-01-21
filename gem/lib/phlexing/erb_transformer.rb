@@ -5,7 +5,7 @@ require "erb_parser"
 module Phlexing
   class ErbTransformer
     def self.transform(html)
-      ErbParser.transform_xml(html).gsub("\n", "").gsub("\r", "")
+      ErbParser.transform_xml(html).tr("\n", "").tr("\r", "")
     rescue StandardError
       html
     end

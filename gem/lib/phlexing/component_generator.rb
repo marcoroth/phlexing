@@ -2,8 +2,6 @@
 
 module Phlexing
   class ComponentGenerator
-    using Refinements::StringRefinements
-
     include Helpers
 
     attr_accessor :converter
@@ -19,48 +17,50 @@ module Phlexing
     def generate
       out = StringIO.new
 
-      out << "class #{options.component_name} "
-      out << "< #{options.parent_component}\n"
+      out << "class "
+      out << options.component_name
+      out << " < "
+      out << options.parent_component
+      out << newline
 
       if analyzer.locals.any?
-        out << indent(1)
         out << "attr_accessor "
-        out << analyzer.locals.sort.map { |local| ":#{local}" }.join(", ")
-        out << "\n\n"
+        out << build_accessors
+        out << newline
+        out << newline
       end
 
       converter.custom_elements.sort.each do |element|
-        out << indent(1)
-        out << "register_element :#{element}\n"
+        out << "register_element :"
+        out << element
+        out << newline
       end
 
-      out << "\n" if converter.custom_elements.any?
+      out << newline if converter.custom_elements.any?
 
       if kwargs.any?
-        out << indent(1)
         out << "def initialize("
-        out << kwargs.map { |kwarg| "#{kwarg}: " }.join(", ")
-        out << ")\n"
+        out << build_kwargs
+        out << ")"
+        out << newline
 
         kwargs.each do |dep|
-          out << indent(2)
           out << "@#{dep} = #{dep}\n"
         end
 
-        out << indent(1)
-        out << "end\n\n"
+        out << "end"
+        out << newline
+        out << newline
       end
 
-      out << indent(1)
-      out << "def template\n"
-
-      out << indent(2)
+      out << "def template"
+      out << newline
       out << converter.template_code
-      out << "\n"
-
-      out << indent(1)
-      out << "end\n"
-      out << "end\n"
+      out << newline
+      out << "end"
+      out << newline
+      out << "end"
+      out << newline
 
       Formatter.format(out.string.strip)
     end
@@ -69,6 +69,14 @@ module Phlexing
 
     def kwargs
       Set.new(analyzer.ivars + analyzer.locals).sort
+    end
+
+    def build_kwargs
+      kwargs.map { |kwarg| arg(kwarg) }.join(", ")
+    end
+
+    def build_accessors
+      analyzer.locals.sort.map { |local| symbol(local) }.join(", ")
     end
 
     def analyzer
