@@ -26,8 +26,8 @@ module Phlexing
       @visitor.visit(program)
 
       self
-    rescue StandardError => e
-      puts e.inspect
+    rescue SyntaxTree::Parser::ParseError
+      self
     end
 
     def extract_ruby_from_erb(html)

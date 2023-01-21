@@ -90,5 +90,12 @@ module Phlexing
       assert_equal "ContentComponent", Phlexing::NameSuggestor.suggest(%(<% if render_content? %><%= @content %><% else %><%= no_content %><% end %>))
       assert_equal "ContentComponent", Phlexing::NameSuggestor.suggest(%(<% if render_content? %><%= @content %><% else %><%= @no_content %><% end %>))
     end
+
+    it "should handle invalid syntax" do
+      assert_equal "Component", Phlexing::NameSuggestor.suggest(%(<%= tag.div %><% end %>))
+      assert_equal "Component", Phlexing::NameSuggestor.suggest(%(<%= %><% end %>))
+      assert_equal "Component", Phlexing::NameSuggestor.suggest(%(<% end %>))
+      assert_equal "Component", Phlexing::NameSuggestor.suggest(%(<% if %>))
+    end
   end
 end

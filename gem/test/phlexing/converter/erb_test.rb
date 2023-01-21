@@ -171,17 +171,19 @@ class Phlexing::Converter::ErbTest < Minitest::Spec
     end
   end
 
+  # rubocop:disable Lint/LiteralInInterpolation
   it "tag with text next to string erb output" do
-    html = %(<div>Text<%= "ERB Text" %><%= "#{"interpolate"} text" %></div>)
+    html = %(<div>Text<%= "ERB Text" %><%= "#{'interpolate'} text" %></div>)
 
     expected = <<~PHLEX.strip
       div do
         text "Text"
         text "ERB Text"
-        text "#{"interpolate"} text"
+        text "#{'interpolate'} text"
       end
     PHLEX
 
     assert_phlex_template expected, html
   end
+  # rubocop:enable Lint/LiteralInInterpolation
 end
