@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "erb_parser"
+require "deface"
 
 module Phlexing
   class ErbTransformer
@@ -9,7 +9,7 @@ module Phlexing
       transformed = transform_remove_newlines(transformed)
       transformed = transform_template_tag(transformed)
 
-      ErbParser.transform_xml(transformed)
+      Deface::Parser.convert(transformed).to_html
     rescue StandardError
       html
     end

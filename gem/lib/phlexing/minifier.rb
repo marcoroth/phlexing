@@ -5,7 +5,11 @@ require "html_press"
 module Phlexing
   class Minifier
     def self.minify(html)
-      HtmlPress.press(html.to_s)
+      puts html
+      puts "---"
+      x = HtmlPress.press(html.to_s)
+      puts x
+      x
     rescue StandardError
       html
     end

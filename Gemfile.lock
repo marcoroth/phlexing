@@ -26,6 +26,7 @@ PATH
   remote: gem
   specs:
     phlexing (0.3.0)
+      deface (~> 1.9)
       erb_parser (~> 0.0.2)
       html_press (~> 0.8.2)
       nokogiri (~> 1.0)
@@ -117,6 +118,12 @@ GEM
     debug (1.7.1)
       irb (>= 1.5.0)
       reline (>= 0.3.1)
+    deface (1.9.0)
+      actionview (>= 5.2)
+      nokogiri (>= 1.6)
+      polyglot
+      railties (>= 5.2)
+      rainbow (>= 2.1.0)
     erb_parser (0.0.2)
       treetop
     erubi (1.12.0)

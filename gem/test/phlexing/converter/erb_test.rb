@@ -103,7 +103,8 @@ class Phlexing::Converter::ErbTest < Minitest::Spec
     html = %(<div><%# The Next line has text on it %> More Text</div>)
 
     expected = <<~PHLEX.strip
-      div do # The Next line has text on it
+      div do
+        # The Next line has text on it
         text " More Text"
       end
     PHLEX

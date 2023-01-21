@@ -8,7 +8,13 @@ module Phlexing
       transformed_erb = ErbTransformer.transform(html.to_s)
       minified_erb = Minifier.minify(transformed_erb)
 
-      Nokogiri::HTML.fragment(minified_erb)
+      parsed = Nokogiri::HTML5.parse(minified_erb)
+
+      if html.include?("<html")
+        parsed
+      else
+        parsed.css("body")[0]
+      end
     end
   end
 end

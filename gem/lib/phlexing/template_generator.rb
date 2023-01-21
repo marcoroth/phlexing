@@ -39,33 +39,49 @@ module Phlexing
       return if text.length.zero?
 
       if siblings?(node)
-        output("text", quote(text))
+        handle_text_output(quote(node.text))
       else
         output("", quote(text))
       end
     end
 
-    def handle_comment_output(node)
-      output("#", node.text.strip)
+    def handle_erb_comment_output(text)
+      output("#", text)
     end
 
-    def handle_comment_node(node, level)
-      output("comment", quote(node.text.strip))
+    def handle_html_comment_output(text)
+      output("comment", quote(text))
     end
 
-    def handle_output(node)
-      output("", node.text)
+    def handle_text_output(text)
+      output("text", text)
     end
 
-    def handle_erb_interpolation(node)
-      if node.text.strip.start_with?("=")
-        output("unsafe_raw", node.text.from(1))
-      elsif multiple_children?(node.parent) && !node.text.strip.start_with?("render")
-        output("text", node.text)
+    def handle_output(text)
+      output("", unescape(text).strip)
+    end
+
+    def handle_erb_unsafe_output(text)
+      output("unsafe_raw", text)
+    end
+
+    def handle_erb_safe_node(node)
+      if multiple_children?(node.parent) && !node.text.strip.start_with?("render")
+        handle_text_output(node.text.strip)
       else
-        handle_output(node)
+        handle_output(node.text.strip)
       end
     end
+
+    # def handle_erb_interpolation(node)
+    #   if node.text.strip.start_with?("=")
+    #     handle_erb_unsafe_output(node)
+    #   elsif multiple_children?(node.parent) && !node.text.strip.start_with?("render")
+    #     handle_text_output(node)
+    #   else
+    #     handle_output(node)
+    #   end
+    # end
 
     def handle_tag(node, level)
       out << tag_name(node)
@@ -99,19 +115,43 @@ module Phlexing
       parens(attributes.join(", "))
     end
 
+    def handle_loud_erb(node)
+      if node.text.start_with?("=")
+        handle_erb_unsafe_output(node.text.from(1).strip)
+      else
+        handle_erb_safe_node(node)
+      end
+    end
+
+    def handle_silent_erb(node)
+      if node.text.start_with?("#")
+        handle_erb_comment_output(node.text.from(1).strip)
+      elsif node.text.start_with?("-")
+        handle_output(node.text.from(1).strip)
+      else
+        handle_output(node.text.strip)
+      end
+    end
+
     def handle_element(node, level)
       case node
-      in name: "erb", attributes: [{ name: "interpolated", value: "true" }]
-        handle_erb_interpolation(node)
-      in name: "erb", attributes: [{ name: "comment", value: "true" }]
-        handle_comment_output(node)
+      in name: "body"
+        handle_children(node, level)
+      in name: "erb", attributes: [{ name: "loud", value: "" }]
+        handle_loud_erb(node)
+      in name: "erb", attributes: [{ name: "silent", value: "" }]
+        handle_silent_erb(node)
       in name: "erb"
-        handle_output(node)
+        handle_output(node.text.strip)
       else
         handle_tag(node, level)
       end
 
       out << newline if level == 1
+    end
+
+    def handle_body(node, level)
+      handle_children(node, level)
     end
 
     def handle_document(node, level)
@@ -124,10 +164,12 @@ module Phlexing
         handle_text(node, level)
       in Nokogiri::XML::Element
         handle_element(node, level)
-      in Nokogiri::HTML4::DocumentFragment
-        handle_document(node, level)
+      in Nokogiri::HTML5::Document
+        handle_children(node, level)
+      in Nokogiri::XML::NodeSet
+        handle_children(node, level)
       in Nokogiri::XML::Comment
-        handle_comment_node(node, level)
+        handle_html_comment_output(node, level)
       end
     end
   end

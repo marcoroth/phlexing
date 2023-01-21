@@ -34,4 +34,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency "nokogiri", "~> 1.0"
   spec.add_dependency "phlex", "~> 1.1"
   spec.add_dependency "syntax_tree", "~> 5.2"
+  spec.add_dependency "deface", "~> 1.9"
 end
