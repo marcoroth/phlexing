@@ -2,6 +2,7 @@
 
 require_relative "phlexing/version"
 require_relative "phlexing/refinements/string_refinements"
+require_relative "phlexing/patches/html_press"
 
 require_relative "phlexing/erb_transformer"
 require_relative "phlexing/formatter"
