@@ -21,6 +21,7 @@ module Phlexing
     end
 
     def analyze(html)
+      html = html.to_s
       ruby = extract_ruby_from_erb(html)
       program = SyntaxTree.parse(ruby)
       @visitor.visit(program)
@@ -35,7 +36,7 @@ module Phlexing
       lines = tokens.map { |tag| tag.is_a?(ErbParser::ErbTag) && !tag.to_s.start_with?("<%#") ? tag.ruby_code.delete_prefix("=") : nil }
 
       lines.join("\n")
-    rescue StandardError
+    rescue ErbParser::TreetopRunner::ParseError
       ""
     end
   end

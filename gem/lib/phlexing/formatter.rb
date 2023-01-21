@@ -5,7 +5,7 @@ require "syntax_tree"
 module Phlexing
   class Formatter
     def self.format(code, max: 80)
-      SyntaxTree.format(code, max).strip
+      SyntaxTree.format(code.to_s, max).strip
     rescue SyntaxTree::Parser::ParseError
       code
     end

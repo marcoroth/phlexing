@@ -31,7 +31,7 @@ module Phlexing
     end
 
     def tag_name(node)
-      return "template_tag" if node.name == "template"
+      return "template_tag" if node.name == "template-tag"
 
       name = node.name.tr("-", "_")
 
