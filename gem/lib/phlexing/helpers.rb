@@ -57,6 +57,36 @@ module Phlexing
       out << newline
     end
 
+    def blocklist
+      [
+        "render",
+        "tag",
+        "form_with",
+        "link_to"
+      ]
+    end
+
+    def regex_filter
+      [
+        /\w+_field/,
+        /\w+_tag/,
+        /\w+_select/,
+        /\w+_for/,
+        /select_\w+/
+      ]
+    end
+
+    def string_output?(node)
+      word = node.text.strip.scan(/^\w+/)[0]
+
+      return true if word.nil?
+
+      blocklist_matched = blocklist.include?(word)
+      filter_matched = regex_filter.map { |regex| word.scan(regex).any? }.reduce(:|)
+
+      !(blocklist_matched || filter_matched)
+    end
+
     def multiple_children?(node)
       node.children.length > 1
     end
