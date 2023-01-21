@@ -9,8 +9,8 @@ module Phlexing
 
     attr_accessor :ivars, :locals, :idents
 
-    def self.analyze(html)
-      new.analyze(html)
+    def self.analyze(source)
+      new.analyze(source)
     end
 
     def initialize
@@ -20,9 +20,9 @@ module Phlexing
       @visitor = Visitor.new(self)
     end
 
-    def analyze(html)
-      html = html.to_s
-      ruby = extract_ruby_from_erb(html)
+    def analyze(source)
+      source = source.to_s
+      ruby = extract_ruby_from_erb(source)
       program = SyntaxTree.parse(ruby)
       @visitor.visit(program)
 
@@ -31,8 +31,8 @@ module Phlexing
       self
     end
 
-    def extract_ruby_from_erb(html)
-      tokens = ErbParser.parse(html).tokens
+    def extract_ruby_from_erb(source)
+      tokens = ErbParser.parse(source).tokens
       lines = tokens.map { |tag| tag.is_a?(ErbParser::ErbTag) && !tag.to_s.start_with?("<%#") ? tag.ruby_code.delete_prefix("=") : nil }
 
       lines.join("\n")

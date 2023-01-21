@@ -2,25 +2,25 @@
 
 module Phlexing
   class Converter
-    attr_accessor :html, :custom_elements, :options, :analyzer
+    attr_accessor :source, :custom_elements, :options, :analyzer
 
-    def self.convert(html, **options)
-      new(**options).convert(html)
+    def self.convert(source, **options)
+      new(**options).convert(source)
     end
 
-    def convert(html)
-      @html = html
-      analyzer.analyze(html)
+    def convert(source)
+      @source = source
+      analyzer.analyze(source)
 
       code
     end
 
-    def initialize(html = nil, **options)
+    def initialize(source = nil, **options)
       @custom_elements = Set.new
       @analyzer = RubyAnalyzer.new
       @options = Options.new(**options)
 
-      convert(html)
+      convert(source)
     end
 
     def code
@@ -28,7 +28,7 @@ module Phlexing
     end
 
     def template_code
-      TemplateGenerator.generate(self, html)
+      TemplateGenerator.generate(self, source)
     end
 
     def component_code

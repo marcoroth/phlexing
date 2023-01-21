@@ -4,14 +4,17 @@ require "html_press"
 
 module Phlexing
   class Minifier
-    def self.minify(html)
-      puts html
-      puts "---"
-      x = HtmlPress.press(html.to_s)
-      puts x
-      x
+    def self.minify(source)
+      pressed = HtmlPress.press(source.to_s)
+      pressed = press_more(pressed)
+
+      pressed
     rescue StandardError
-      html
+      source
+    end
+
+    def self.press_more(source)
+      source.gsub(" <erb", "<erb")
     end
   end
 end

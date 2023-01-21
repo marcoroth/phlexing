@@ -30,8 +30,8 @@ module Phlexing
       "(#{string})"
     end
 
-    def unescape(html)
-      CGI.unescapeHTML(html)
+    def unescape(source)
+      CGI.unescapeHTML(source)
     end
 
     def tag_name(node)

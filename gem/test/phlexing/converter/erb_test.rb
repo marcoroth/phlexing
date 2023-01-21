@@ -15,6 +15,28 @@ class Phlexing::Converter::ErbTest < Minitest::Spec
     end
   end
 
+  it "ERB method call using <%- and -%>" do
+    html = %(<div><%- some_method -%></div>)
+
+    expected = <<~PHLEX.strip
+      div { some_method }
+    PHLEX
+
+    assert_phlex_template expected, html
+  end
+
+  it "ERB method call using <%- and %>" do
+    html = %(<div><%- some_method %></div>)
+
+    expected = <<~PHLEX.strip
+      div { some_method }
+    PHLEX
+
+    assert_phlex_template expected, html do
+      assert_locals "some_method"
+    end
+  end
+
   it "ERB method call with long method name" do
     html = %(<div><%= some_method_super_long_method_which_should_be_split_up_and_wrapped_in_a_block %></div>)
 
@@ -103,8 +125,7 @@ class Phlexing::Converter::ErbTest < Minitest::Spec
     html = %(<div><%# The Next line has text on it %> More Text</div>)
 
     expected = <<~PHLEX.strip
-      div do
-        # The Next line has text on it
+      div do # The Next line has text on it
         text " More Text"
       end
     PHLEX
@@ -162,7 +183,7 @@ class Phlexing::Converter::ErbTest < Minitest::Spec
     expected = <<~PHLEX.strip
       @greeting =
         capture do
-          text " Welcome to my shiny new web page! The date and time is "
+          text " Welcome to my shiny new web page! The date and time is"
           text Time.now
         end
     PHLEX

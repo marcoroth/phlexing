@@ -29,10 +29,10 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
+  spec.add_dependency "deface", "~> 1.9"
   spec.add_dependency "erb_parser", "~> 0.0.2"
   spec.add_dependency "html_press", "~> 0.8.2"
   spec.add_dependency "nokogiri", "~> 1.0"
   spec.add_dependency "phlex", "~> 1.1"
   spec.add_dependency "syntax_tree", "~> 5.2"
-  spec.add_dependency "deface", "~> 1.9"
 end

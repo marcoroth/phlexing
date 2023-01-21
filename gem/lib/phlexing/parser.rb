@@ -4,16 +4,28 @@ require "nokogiri"
 
 module Phlexing
   class Parser
-    def self.parse(html)
-      transformed_erb = ErbTransformer.transform(html.to_s)
-      minified_erb = Minifier.minify(transformed_erb)
+    def self.parse(source)
+      source = ErbTransformer.transform(source.to_s)
+      source = Minifier.minify(source)
 
-      parsed = Nokogiri::HTML5.parse(minified_erb)
+      # Credit:
+      # https://github.com/spree/deface/blob/6bf18df76715ee3eb3d0cd1b6eda822817ace91c/lib/deface/parser.rb#L105-L111
+      #
 
-      if html.include?("<html")
-        parsed
+      html_tag = /<html.*?(?:(?!>)[\s\S])*>/
+      head_tag = /<head.*?(?:(?!>)[\s\S])*>/
+      body_tag = /<body.*?(?:(?!>)[\s\S])*>/
+
+      if source =~ html_tag
+        Nokogiri::HTML::Document.parse(source)
+      elsif source =~ head_tag && source =~ body_tag
+        Nokogiri::HTML::Document.parse(source).css("html")
+      elsif source =~ head_tag
+        Nokogiri::HTML::Document.parse(source).css("head").first
+      elsif source =~ body_tag
+        Nokogiri::HTML::Document.parse(source).css("body").first
       else
-        parsed.css("body")[0]
+        Nokogiri::HTML::DocumentFragment.parse(source)
       end
     end
   end
