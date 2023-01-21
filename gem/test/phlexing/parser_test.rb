@@ -11,7 +11,7 @@ module Phlexing
     def extract_children(node)
       @nodes << node.name
 
-      if node && node.children
+      if node&.children
         node.children.each do |node|
           extract_children(node)
         end
