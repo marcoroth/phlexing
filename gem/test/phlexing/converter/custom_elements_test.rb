@@ -7,9 +7,7 @@ class Phlexing::Converter::CustomElementsTest < Minitest::Spec
     html = %(<c><d>Custom Element</d></c>)
 
     expected = <<~PHLEX.strip
-      c do
-        d { "Custom Element" }
-      end
+      c { d { "Custom Element" } }
     PHLEX
 
     assert_phlex_template expected, html do
@@ -21,9 +19,7 @@ class Phlexing::Converter::CustomElementsTest < Minitest::Spec
     html = %(<custom-element-one><custom-element-two>Custom Element</custom-element-two></custom-element-one>)
 
     expected = <<~PHLEX.strip
-      custom_element_one do
-        custom_element_two { "Custom Element" }
-      end
+      custom_element_one { custom_element_two { "Custom Element" } }
     PHLEX
 
     assert_phlex_template expected, html do
@@ -35,9 +31,7 @@ class Phlexing::Converter::CustomElementsTest < Minitest::Spec
     html = %(<first-element><second-element>Custom Element</second-element></first-element>)
 
     expected = <<~PHLEX.strip
-      first_element do
-        second_element { "Custom Element" }
-      end
+      first_element { second_element { "Custom Element" } }
     PHLEX
 
     assert_phlex_template expected, html do
