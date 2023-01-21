@@ -46,11 +46,11 @@ module Phlexing
     end
 
     def handle_comment_output(node)
-      output("#", node.text)
+      output("#", node.text.strip)
     end
 
     def handle_comment_node(node, level)
-      output("comment", quote(node.text))
+      output("comment", quote(node.text.strip))
     end
 
     def handle_output(node)
