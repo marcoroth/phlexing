@@ -133,8 +133,6 @@ module Phlexing
         handle_loud_erb_node(node)
       in name: "erb", attributes: [{ name: "silent", value: "" }]
         handle_silent_erb_node(node)
-      in name: "erb"
-        handle_output(node.text.strip)
       else
         handle_tag(node, level)
       end
