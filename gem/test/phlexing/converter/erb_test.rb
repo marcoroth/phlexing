@@ -183,7 +183,7 @@ class Phlexing::Converter::ErbTest < Minitest::Spec
     expected = <<~PHLEX.strip
       @greeting =
         capture do
-          text " Welcome to my shiny new web page! The date and time is"
+          text " Welcome to my shiny new web page! The date and time is "
           text Time.now
         end
     PHLEX

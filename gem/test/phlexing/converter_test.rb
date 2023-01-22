@@ -110,7 +110,10 @@ class Phlexing::ConverterTest < Minitest::Spec
         def template
           text @user.name
 
-          text @company.name if show_company && @company
+          if show_company && @company
+            whitespace
+            text @company.name
+          end
 
           text some_method
         end
