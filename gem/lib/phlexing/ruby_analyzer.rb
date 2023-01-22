@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "syntax_tree"
-require "erb_parser"
 
 module Phlexing
   class RubyAnalyzer
@@ -32,11 +31,16 @@ module Phlexing
     end
 
     def extract_ruby_from_erb(source)
-      tokens = ErbParser.parse(source).tokens
-      lines = tokens.map { |tag| tag.is_a?(ErbParser::ErbTag) && !tag.to_s.start_with?("<%#") ? tag.ruby_code.delete_prefix("=") : nil }
+      document = Parser.parse(source)
+      nodes = document.css("erb")
+
+      lines = nodes.map { |node| node.text.to_s.strip }
+      lines = lines.map { |line| line.delete_prefix("=") }
+      lines = lines.map { |line| line.delete_prefix("-") }
+      lines = lines.map { |line| line.delete_suffix("-") }
 
       lines.join("\n")
-    rescue ErbParser::TreetopRunner::ParseError
+    rescue StandardError
       ""
     end
   end

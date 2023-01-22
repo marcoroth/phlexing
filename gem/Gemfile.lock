@@ -19,7 +19,6 @@ PATH
   specs:
     phlexing (0.3.0)
       deface (~> 1.9)
-      erb_parser (~> 0.0.2)
       html_press (~> 0.8.2)
       nokogiri (~> 1.0)
       phlex (~> 1.1)
@@ -60,8 +59,6 @@ GEM
       polyglot
       railties (>= 5.2)
       rainbow (>= 2.1.0)
-    erb_parser (0.0.2)
-      treetop
     erubi (1.12.0)
     execjs (2.8.1)
     html_press (0.8.2)
@@ -120,8 +117,6 @@ GEM
     syntax_tree (5.2.0)
       prettier_print (>= 1.2.0)
     thor (1.2.1)
-    treetop (1.6.12)
-      polyglot (~> 0.3)
     tzinfo (2.0.5)
       concurrent-ruby (~> 1.0)
     uglifier (2.7.2)
