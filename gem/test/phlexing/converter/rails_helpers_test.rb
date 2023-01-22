@@ -230,4 +230,38 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
       assert_locals "post"
     end
   end
+
+  it "Rails content_for helper" do
+    html = <<~ERB.strip
+      <ul><%= content_for :navigation %></ul>
+      Text
+    ERB
+
+    expected = <<~PHLEX.strip
+      ul { content_for :navigation }
+
+      text "Text"
+    PHLEX
+
+    assert_phlex_template expected, html
+  end
+
+  it "Rails content_for helper with block" do
+    html = <<~ERB.strip
+      <% content_for :navigation do %>
+        <li><%= link_to 'Home', action: 'index' %></li>
+      <% end %>
+      Text
+    ERB
+
+    expected = <<~PHLEX.strip
+      content_for :navigation do
+        li { link_to "Home", action: "index" }
+      end
+
+      text "Text"
+    PHLEX
+
+    assert_phlex_template expected, html
+  end
 end
