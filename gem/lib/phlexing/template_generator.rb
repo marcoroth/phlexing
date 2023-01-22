@@ -73,7 +73,7 @@ module Phlexing
       end
     end
 
-    def handle_tag(node, level)
+    def handle_html_element_node(node, level)
       out << tag_name(node)
       out << handle_attributes(node)
 
@@ -134,7 +134,7 @@ module Phlexing
       in name: "erb", attributes: [{ name: "silent", value: "" }]
         handle_silent_erb_node(node)
       else
-        handle_tag(node, level)
+        handle_html_element_node(node, level)
       end
 
       out << newline if level == 1
