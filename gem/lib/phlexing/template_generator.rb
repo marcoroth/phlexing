@@ -129,8 +129,6 @@ module Phlexing
 
     def handle_element_node(node, level)
       case node
-      in name: "body"
-        handle_children(node, level)
       in name: "erb", attributes: [{ name: "loud", value: "" }]
         handle_loud_erb_node(node)
       in name: "erb", attributes: [{ name: "silent", value: "" }]
@@ -154,7 +152,7 @@ module Phlexing
         handle_text_node(node)
       in Nokogiri::XML::Element
         handle_element_node(node, level)
-      in Nokogiri::HTML4::DocumentFragment
+      in Nokogiri::HTML4::Document | Nokogiri::HTML4::DocumentFragment | Nokogiri::XML::DTD
         handle_document_node(node, level)
       in Nokogiri::XML::Comment
         handle_html_comment_node(node)

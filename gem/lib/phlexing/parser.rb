@@ -5,6 +5,7 @@ require "nokogiri"
 module Phlexing
   class Parser
     def self.parse(source)
+      initial = source
       source = ErbTransformer.transform(source.to_s)
       source = Minifier.minify(source)
 
@@ -18,9 +19,9 @@ module Phlexing
 
       if source =~ html_tag
         Nokogiri::HTML::Document.parse(source)
-      elsif source =~ head_tag && source =~ body_tag
-        Nokogiri::HTML::Document.parse(source).css("html")
-      elsif source =~ head_tag
+      elsif initial =~ head_tag && source =~ body_tag
+        Nokogiri::HTML::Document.parse(source).css("html").first
+      elsif initial =~ head_tag
         Nokogiri::HTML::Document.parse(source).css("head").first
       elsif source =~ body_tag
         Nokogiri::HTML::Document.parse(source).css("body").first
