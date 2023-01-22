@@ -30,6 +30,10 @@ module Phlexing
       "(#{string})"
     end
 
+    def unescape(source)
+      CGI.unescapeHTML(source)
+    end
+
     def tag_name(node)
       return "template_tag" if node.name == "template-tag"
 

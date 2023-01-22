@@ -4,10 +4,10 @@ require "html_press"
 
 module Phlexing
   class Minifier
-    def self.minify(html)
-      HtmlPress.press(html.to_s)
+    def self.minify(source)
+      HtmlPress.press(source.to_s)
     rescue StandardError
-      html
+      source
     end
   end
 end

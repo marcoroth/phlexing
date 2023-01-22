@@ -3,7 +3,19 @@
 require_relative "../../test_helper"
 
 class Phlexing::Converter::ErbTest < Minitest::Spec
-  it "ERB method call" do
+  it "ERB method call using <% and %>" do
+    html = %(<div><% some_method %></div>)
+
+    expected = <<~PHLEX.strip
+      div { some_method }
+    PHLEX
+
+    assert_phlex_template expected, html do
+      assert_locals "some_method"
+    end
+  end
+
+  it "ERB method call using <%= and %>" do
     html = %(<div><%= some_method %></div>)
 
     expected = <<~PHLEX.strip
@@ -13,6 +25,52 @@ class Phlexing::Converter::ErbTest < Minitest::Spec
     assert_phlex_template expected, html do
       assert_locals "some_method"
     end
+  end
+
+  it "ERB method call using <%- and -%>" do
+    html = %(<div><%- some_method -%></div>)
+
+    expected = <<~PHLEX.strip
+      div { some_method }
+    PHLEX
+
+    assert_phlex_template expected, html do
+      assert_locals "some_method"
+    end
+  end
+
+  it "ERB method call using <%- and %>" do
+    html = %(<div><%- some_method %></div>)
+
+    expected = <<~PHLEX.strip
+      div { some_method }
+    PHLEX
+
+    assert_phlex_template expected, html do
+      assert_locals "some_method"
+    end
+  end
+
+  it "ERB no method call using <%# and %>" do
+    html = %(<div><%# some_method %></div>)
+
+    expected = <<~PHLEX.strip
+      div do # some_method
+      end
+    PHLEX
+
+    assert_phlex_template expected, html
+  end
+
+  it "ERB no method call using <% # and %>" do
+    html = %(<div><% # some_method %></div>)
+
+    expected = <<~PHLEX.strip
+      div do # some_method
+      end
+    PHLEX
+
+    assert_phlex_template expected, html
   end
 
   it "ERB method call with long method name" do

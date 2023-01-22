@@ -1,25 +1,35 @@
 # frozen_string_literal: true
 
-require "erb_parser"
+require "deface"
 
 module Phlexing
   class ErbTransformer
-    def self.transform(html)
-      transformed = html.to_s
+    def self.transform(source)
+      transformed = source.to_s
+      transformed = transform_template_tags(transformed)
+      transformed = transform_erb_tags(transformed)
       transformed = transform_remove_newlines(transformed)
-      transformed = transform_template_tag(transformed)
+      transformed = transform_whitespace(transformed)
 
-      ErbParser.transform_xml(transformed)
+      transformed
     rescue StandardError
-      html
+      source
     end
 
-    def self.transform_remove_newlines(html)
-      html.tr("\n", "").tr("\r", "")
+    def self.transform_remove_newlines(source)
+      source.tr("\n", "").tr("\r", "")
     end
 
-    def self.transform_template_tag(html)
-      html.gsub("<template", "<template-tag").gsub("</template", "</template-tag")
+    def self.transform_template_tags(source)
+      source.gsub("<template", "<template-tag").gsub("</template", "</template-tag")
+    end
+
+    def self.transform_erb_tags(source)
+      Deface::Parser.convert(source).to_html
+    end
+
+    def self.transform_whitespace(source)
+      source.strip
     end
   end
 end

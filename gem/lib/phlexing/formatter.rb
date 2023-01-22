@@ -4,10 +4,10 @@ require "syntax_tree"
 
 module Phlexing
   class Formatter
-    def self.format(code, max: 80)
-      SyntaxTree.format(code.to_s, max).strip
+    def self.format(source, max: 80)
+      SyntaxTree.format(source.to_s, max).strip
     rescue SyntaxTree::Parser::ParseError
-      code
+      source
     end
   end
 end
