@@ -27,6 +27,49 @@ module Phlexing
       Formatter.format(out.string.strip)
     end
 
+    def handle_text_output(text)
+      output("text", text)
+    end
+
+    def handle_html_comment_output(text)
+      output("comment", quote(text))
+    end
+
+    def handle_erb_comment_output(text)
+      output("#", text)
+    end
+
+    def handle_erb_unsafe_output(text)
+      output("unsafe_raw", text)
+    end
+
+    def handle_output(text)
+      output("", unescape(text).strip)
+    end
+
+    def handle_attributes(node)
+      return "" if node.attributes.keys.none?
+
+      attributes = []
+
+      node.attributes.each_value do |attribute|
+        attributes << String.new.tap { |s|
+          s << arg(attribute.name.underscore)
+          s << quote(attribute.value)
+        }
+      end
+
+      parens(attributes.join(", "))
+    end
+
+    def handle_erb_safe_node(node)
+      if siblings?(node) && string_output?(node)
+        handle_text_output(node.text.strip)
+      else
+        handle_output(node.text.strip)
+      end
+    end
+
     def handle_text_node(node)
       text = node.text
 
@@ -45,34 +88,6 @@ module Phlexing
       end
     end
 
-    def handle_erb_comment_output(text)
-      output("#", text)
-    end
-
-    def handle_html_comment_output(text)
-      output("comment", quote(text))
-    end
-
-    def handle_text_output(text)
-      output("text", text)
-    end
-
-    def handle_output(text)
-      output("", unescape(text).strip)
-    end
-
-    def handle_erb_unsafe_output(text)
-      output("unsafe_raw", text)
-    end
-
-    def handle_erb_safe_node(node)
-      if siblings?(node) && string_output?(node)
-        handle_text_output(node.text.strip)
-      else
-        handle_output(node.text.strip)
-      end
-    end
-
     def handle_html_element_node(node, level)
       out << tag_name(node)
       out << handle_attributes(node)
@@ -82,27 +97,6 @@ module Phlexing
       end
 
       out << newline
-    end
-
-    def handle_children(node, level)
-      node.children.each do |child|
-        handle_node(child, level + 1)
-      end
-    end
-
-    def handle_attributes(node)
-      return "" if node.attributes.keys.none?
-
-      attributes = []
-
-      node.attributes.each_value do |attribute|
-        attributes << String.new.tap { |s|
-          s << arg(attribute.name.underscore)
-          s << quote(attribute.value)
-        }
-      end
-
-      parens(attributes.join(", "))
     end
 
     def handle_loud_erb_node(node)
@@ -142,6 +136,12 @@ module Phlexing
 
     def handle_document_node(node, level)
       handle_children(node, level)
+    end
+
+    def handle_children(node, level)
+      node.children.each do |child|
+        handle_node(child, level + 1)
+      end
     end
 
     def handle_node(node, level = 0)
