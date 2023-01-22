@@ -47,6 +47,19 @@ class Phlexing::Converter::CustomElementsTest < Minitest::Spec
     assert_phlex_template %(div { %(Text with "double quotes") }), %(<div>Text with "double quotes"</div>)
   end
 
+  it "tag with two children, one text node with double quotes and regular element" do
+    html = %(<div>Text with 'single quotes' and "double quotes"<span>Text with "double quotes" and 'single quotes'</span></div>)
+
+    expected = <<~PHLEX.strip
+      div do
+        text %(Text with 'single quotes' and "double quotes")
+        span { %(Text with "double quotes" and 'single quotes') }
+      end
+    PHLEX
+
+    assert_phlex_template expected, html
+  end
+
   it "tag with one text node child with single and double quotes" do
     html = %(<div>Text with 'single quotes' and "double quotes"</div>)
 

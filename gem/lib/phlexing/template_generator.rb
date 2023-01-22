@@ -84,7 +84,7 @@ module Phlexing
       if siblings?(node)
         handle_text_output(quote(node.text))
       else
-        output("", quote(text))
+        handle_output(quote(text))
       end
     end
 
