@@ -66,7 +66,7 @@ module Phlexing
     end
 
     def handle_erb_safe_node(node)
-      if multiple_children?(node.parent) && string_output?(node)
+      if siblings?(node) && string_output?(node)
         handle_text_output(node.text.strip)
       else
         handle_output(node.text.strip)
