@@ -4,8 +4,6 @@ require "syntax_tree"
 
 module Phlexing
   class RubyAnalyzer
-    extend Forwardable
-
     attr_accessor :ivars, :locals, :idents
 
     def self.analyze(source)
