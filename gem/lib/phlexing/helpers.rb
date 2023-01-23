@@ -34,6 +34,19 @@ module Phlexing
       CGI.unescapeHTML(source)
     end
 
+    def unwrap_erb(source)
+      source
+        .delete_prefix("<%==")
+        .delete_prefix("<%=")
+        .delete_prefix("<%-")
+        .delete_prefix("<%#")
+        .delete_prefix("<% #")
+        .delete_prefix("<%")
+        .delete_suffix("-%>")
+        .delete_suffix("%>")
+        .strip
+    end
+
     def tag_name(node)
       return "template_tag" if node.name == "template-tag"
 
@@ -85,6 +98,10 @@ module Phlexing
       filter_matched = regex_filter.map { |regex| word.scan(regex).any? }.reduce(:|)
 
       !(blocklist_matched || filter_matched)
+    end
+
+    def children?(node)
+      node.children.length >= 1
     end
 
     def multiple_children?(node)
