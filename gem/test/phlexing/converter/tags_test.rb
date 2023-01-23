@@ -121,4 +121,62 @@ class Phlexing::Converter::CustomElementsTest < Minitest::Spec
 
     assert_phlex_template expected, html
   end
+
+  it "basic html document" do
+    html = <<~HTML.strip
+      <head></head>
+      <body></body>
+    HTML
+
+    expected = <<~PHLEX.strip
+      html do
+        head
+
+        body
+      end
+    PHLEX
+
+    assert_phlex_template expected, html
+  end
+
+  it "standlone head and body tag" do
+    html = <<~HTML.strip
+      <head></head>
+      <body></body>
+    HTML
+
+    expected = <<~PHLEX.strip
+      html do
+        head
+
+        body
+      end
+    PHLEX
+
+    assert_phlex_template expected, html
+  end
+
+  it "standlone head tag" do
+    html = <<~HTML.strip
+      <head></head>
+    HTML
+
+    expected = <<~PHLEX.strip
+      head
+    PHLEX
+
+    assert_phlex_template expected, html
+  end
+
+  it "standlone body tag" do
+    html = <<~HTML.strip
+      <body></body>
+    HTML
+
+    expected = <<~PHLEX.strip
+      body
+    PHLEX
+
+    assert_phlex_template expected, html
+  end
 end
