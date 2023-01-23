@@ -36,7 +36,7 @@
           <div data-controller="phlex-class">
             <div class="relative flex items-start mb-3">
               <div class="flex h-5 items-center">
-                <input id="component" name="component" type="checkbox" data-action="click->converter#submit click->phlex-class#toggle" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                <input checked id="component" name="component" type="checkbox" data-action="click->converter#submit click->phlex-class#toggle" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
               </div>
               <div class="ml-3 text-sm">
                 <label for="component" class="font-medium text-gray-700">Generate Phlex class</label>
@@ -44,7 +44,7 @@
               </div>
             </div>
 
-            <div class="hidden" data-phlex-class-target="toggle">
+            <div class="" data-phlex-class-target="toggle">
               <div class="grid sm:grid-cols-1 md:grid-cols-2 gap-2 mt-6">
                 <div class="ml-6">
                   <label for="component_name" class="block text-sm font-medium text-gray-700">Component Name</label>
