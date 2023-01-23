@@ -27,6 +27,8 @@ module Phlexing
       options.component? ? component_code : template_code
     end
 
+    # private
+
     def template_code
       TemplateGenerator.generate(self, source)
     end

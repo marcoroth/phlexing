@@ -3,33 +3,44 @@
 require "deface"
 
 module Phlexing
-  class ErbTransformer
-    def self.transform(source)
-      transformed = source.to_s
-      transformed = transform_template_tags(transformed)
-      transformed = transform_erb_tags(transformed)
-      transformed = transform_remove_newlines(transformed)
-      transformed = transform_whitespace(transformed)
-
-      transformed
-    rescue StandardError
-      source
+  # Takes ERB and transforms it to Nokogiri-compatible HTML.
+  class ERBTransformer
+    def self.call(...)
+      new(...).call
     end
 
-    def self.transform_remove_newlines(source)
-      source.tr("\n", "").tr("\r", "")
+    def initialize(source)
+      @source = source.to_s.dup
     end
 
-    def self.transform_template_tags(source)
-      source.gsub(/<template/i, "<template-tag").gsub(%r{</template}i, "</template-tag")
+    def call
+      remove_newlines
+      strip_whitespace
+      transform_erb_tags
+      transform_template_tags
+
+      @source
     end
 
-    def self.transform_erb_tags(source)
-      Deface::Parser.erb_markup!(source)
+    private
+
+    def remove_newlines
+      @source.tr!("\n\r", "")
     end
 
-    def self.transform_whitespace(source)
-      source.strip
+    def strip_whitespace
+      @source.strip!
+    end
+
+    # Replace ERB tags with Nokogiri-compatible HTML.
+    def transform_erb_tags
+      @source = Deface::Parser.erb_markup!(@source)
+    end
+
+    # Phlex uses `template_tag` in place of `template` for `<template>` tags.
+    def transform_template_tags
+      @source.gsub!(/<template/i, "<template-tag")
+      @source.gsub!(%r{</template}i, "</template-tag")
     end
   end
 end
