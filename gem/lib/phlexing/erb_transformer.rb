@@ -21,7 +21,7 @@ module Phlexing
     end
 
     def self.transform_template_tags(source)
-      source.gsub("<template", "<template-tag").gsub("</template", "</template-tag")
+      source.gsub(/<template/i, "<template-tag").gsub(/<\/template/i, "</template-tag")
     end
 
     def self.transform_erb_tags(source)
