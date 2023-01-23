@@ -53,13 +53,43 @@ module Phlexing
       attributes = []
 
       node.attributes.each_value do |attribute|
-        attributes << String.new.tap { |s|
-          s << arg(attribute.name.underscore)
-          s << quote(attribute.value)
-        }
+        attributes << handle_attribute(attribute)
       end
 
       parens(attributes.join(", "))
+    end
+
+    def handle_attribute(attribute)
+      if attribute.name.start_with?(/data-erb-(\d+)+/)
+        handle_erb_interpolation_in_tag(attribute)
+      elsif attribute.name.start_with?("data-erb-")
+        handle_erb_attribute_output(attribute)
+      else
+        handle_html_attribute_output(attribute)
+      end
+    end
+
+    def handle_html_attribute_output(attribute)
+      String.new.tap { |s|
+        s << arg(attribute.name.underscore)
+        s << quote(attribute.value)
+      }
+    end
+
+    def handle_erb_attribute_output(attribute)
+      String.new.tap { |s|
+        s << arg(attribute.name.delete_prefix("data-erb-").underscore)
+
+        s << if attribute.value.start_with?("<%=")
+          parens(unwrap_erb(attribute.value))
+        else
+          quote("FIXME: #{unwrap_erb(attribute.value)}")
+        end
+      }
+    end
+
+    def handle_erb_interpolation_in_tag(attribute)
+      "**#{parens("#{unwrap_erb(unescape(attribute.value))}: true")}"
     end
 
     def handle_erb_safe_node(node)
