@@ -25,6 +25,8 @@ module Phlexing
       handle_node(document)
 
       Formatter.format(out.string.strip)
+    rescue StandardError
+      out.string.strip
     end
 
     def handle_text_output(text)

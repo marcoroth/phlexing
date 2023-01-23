@@ -63,6 +63,8 @@ module Phlexing
       out << newline
 
       Formatter.format(out.string.strip)
+    rescue StandardError
+      out.string.strip
     end
 
     private

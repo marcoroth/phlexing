@@ -24,7 +24,7 @@ module Phlexing
       @visitor.visit(program)
 
       self
-    rescue SyntaxTree::Parser::ParseError
+    rescue SyntaxTree::Parser::ParseError, NoMethodError
       self
     end
 

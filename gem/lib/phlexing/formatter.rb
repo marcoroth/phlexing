@@ -6,7 +6,7 @@ module Phlexing
   class Formatter
     def self.format(source, max: 80)
       SyntaxTree.format(source.to_s, max).strip
-    rescue SyntaxTree::Parser::ParseError
+    rescue SyntaxTree::Parser::ParseError, NoMethodError
       source
     end
   end
