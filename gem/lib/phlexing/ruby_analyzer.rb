@@ -18,9 +18,13 @@ module Phlexing
     end
 
     def analyze(source)
-      source = source.to_s
-      ruby = extract_ruby_from_erb(source)
-      program = SyntaxTree.parse(ruby)
+      code = extract_ruby_from_erb(source.to_s)
+
+      analyze_ruby(code)
+    end
+
+    def analyze_ruby(code)
+      program = SyntaxTree.parse(code)
       @visitor.visit(program)
 
       self

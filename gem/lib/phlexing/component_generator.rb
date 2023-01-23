@@ -4,7 +4,7 @@ module Phlexing
   class ComponentGenerator
     include Helpers
 
-    attr_accessor :converter
+    attr_accessor :converter, :analyzer
 
     def self.generate(converter)
       new(converter).generate
@@ -12,6 +12,8 @@ module Phlexing
 
     def initialize(converter)
       @converter = converter
+      @analyzer = RubyAnalyzer.new
+      @analyzer.analyze(converter.source)
     end
 
     def generate
@@ -79,10 +81,6 @@ module Phlexing
 
     def build_accessors
       analyzer.locals.sort.map { |local| symbol(local) }.join(", ")
-    end
-
-    def analyzer
-      converter.analyzer
     end
 
     def options
