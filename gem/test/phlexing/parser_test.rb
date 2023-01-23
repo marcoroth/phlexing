@@ -29,6 +29,7 @@ module Phlexing
 
       assert_equal "#document-fragment", extract_children(parser).join(",")
       assert_dom_equal "", parser.to_xml
+      assert_equal "#document-fragment", parser.name
       assert_equal Nokogiri::HTML4::DocumentFragment, parser.class
     end
 
@@ -37,6 +38,7 @@ module Phlexing
 
       assert_equal "#document-fragment", extract_children(parser).join(",")
       assert_dom_equal "", parser.to_xml
+      assert_equal "#document-fragment", parser.name
       assert_equal Nokogiri::HTML4::DocumentFragment, parser.class
     end
 
@@ -45,6 +47,7 @@ module Phlexing
 
       assert_equal "#document-fragment,div", extract_children(parser).join(",")
       assert_dom_equal %(<div></div>), parser.to_html
+      assert_equal "#document-fragment", parser.name
       assert_equal Nokogiri::HTML4::DocumentFragment, parser.class
     end
 
@@ -53,22 +56,34 @@ module Phlexing
 
       assert_equal "#document-fragment,div,erb,text", extract_children(parser).join(",")
       assert_dom_equal %(<div> <erb loud=""> some_method </erb> </div>), parser.to_xml
+      assert_equal "#document-fragment", parser.name
       assert_equal Nokogiri::HTML4::DocumentFragment, parser.class
+    end
+
+    it "should handle html" do
+      parser = Parser.parse("<html></html>")
+
+      assert_equal "document,html,html", extract_children(parser).join(",")
+      assert_dom_equal %(<html></html>), parser.to_xml
+      assert_equal "document", parser.name
+      assert_equal Nokogiri::HTML4::Document, parser.class
     end
 
     it "should handle html, head and body" do
       parser = Parser.parse("<html><head><title>Title</title></head><body><h1>Hello</h1></body></html>")
 
-      assert_equal "document,html,html,head,meta,title,text,body,h1,text", extract_children(parser).join(",")
+      assert_equal "document,html,html,head,title,text,body,h1,text", extract_children(parser).join(",")
       assert_dom_equal %(<html> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <title>Title</title> </head> <body><h1>Hello</h1></body> </html>), parser.to_xml
+      assert_equal "document", parser.name
       assert_equal Nokogiri::HTML4::Document, parser.class
     end
 
     it "should handle html and head" do
       parser = Parser.parse("<html><head><title>Title</title></head></html>")
 
-      assert_equal "document,html,html,head,meta,title,text", extract_children(parser).join(",")
+      assert_equal "document,html,html,head,title,text", extract_children(parser).join(",")
       assert_dom_equal %(<html><head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <title>Title</title> </head></html>), parser.to_xml
+      assert_equal "document", parser.name
       assert_equal Nokogiri::HTML4::Document, parser.class
     end
 
@@ -77,30 +92,52 @@ module Phlexing
 
       assert_equal "document,html,html,body,h1,text", extract_children(parser).join(",")
       assert_dom_equal %(<html><body><h1>Hello</h1></body></html>), parser.to_xml
+      assert_equal "document", parser.name
       assert_equal Nokogiri::HTML4::Document, parser.class
     end
 
-    xit "should handle head and body" do
+    it "should handle head and body" do
       parser = Parser.parse("<head><title>Title</title></head><body><h1>Hello</h1></body>")
 
-      assert_equal "head,meta,title,text,body,h1,text", extract_children(parser).join(",")
-      assert_dom_equal %(<head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <title>Title</title> </head> <body> <h1>Hello</h1> </body>), parser.to_xml
-      assert_equal Nokogiri::HTML4::Document, parser.class
+      assert_equal "html,head,title,text,body,h1,text", extract_children(parser).join(",")
+      assert_dom_equal %(<html> <head> <title>Title</title> </head> <body> <h1>Hello</h1> </body> </html>), parser.to_xml
+      assert_equal "html", parser.name
+      assert_equal Nokogiri::XML::Element, parser.class
     end
 
-    it "should handle head" do
+    it "should handle head with title" do
       parser = Parser.parse("<head><title>Title</title></head>")
 
       assert_equal "head,title,text", extract_children(parser).join(",")
       assert_dom_equal %(<head> <title>Title</title> </head>), parser.to_xml
+      assert_equal "head", parser.name
       assert_equal Nokogiri::XML::Element, parser.class
     end
 
-    it "should handle body" do
+    it "should handle head" do
+      parser = Parser.parse("<head></head>")
+
+      assert_equal "head", extract_children(parser).join(",")
+      assert_dom_equal %(<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head>), parser.to_html
+      assert_equal "head", parser.name
+      assert_equal Nokogiri::XML::Element, parser.class
+    end
+
+    it "should handle body with h1" do
       parser = Parser.parse("<body><h1>Hello</h1></body>")
 
       assert_equal "body,h1,text", extract_children(parser).join(",")
       assert_dom_equal %(<body> <h1>Hello</h1> </body>), parser.to_xml
+      assert_equal "body", parser.name
+      assert_equal Nokogiri::XML::Element, parser.class
+    end
+
+    it "should handle body" do
+      parser = Parser.parse("<body></body>")
+
+      assert_equal "body", extract_children(parser).join(",")
+      assert_dom_equal %(<body></body>), parser.to_html
+      assert_equal "body", parser.name
       assert_equal Nokogiri::XML::Element, parser.class
     end
   end

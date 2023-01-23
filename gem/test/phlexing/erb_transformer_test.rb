@@ -25,14 +25,14 @@ module Phlexing
 
     it "should transform erb" do
       input = %(<div><% "The Next line has text on it" %> More Text</div>  )
-      expected = %(<div><erb silent> "The Next line has text on it" </erb> More Text</div>)
+      expected = %(<div><erb silent> &quot;The Next line has text on it&quot; </erb> More Text</div>)
 
       assert_equal expected, ErbTransformer.transform(input)
     end
 
     it "should transform erb output" do
       input = %(<div><%= "The Next line has text on it" %> More Text</div>  )
-      expected = %(<div><erb loud> "The Next line has text on it" </erb> More Text</div>)
+      expected = %(<div><erb loud> &quot;The Next line has text on it&quot; </erb> More Text</div>)
 
       assert_equal expected, ErbTransformer.transform(input)
     end
