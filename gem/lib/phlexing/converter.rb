@@ -2,7 +2,7 @@
 
 module Phlexing
   class Converter
-    attr_accessor :source, :custom_elements, :options, :analyzer
+    attr_accessor :source, :custom_elements, :options
 
     def self.convert(source, **options)
       new(**options).convert(source)
@@ -10,14 +10,12 @@ module Phlexing
 
     def convert(source)
       @source = source
-      analyzer.analyze(source)
 
       code
     end
 
     def initialize(source = nil, **options)
       @custom_elements = Set.new
-      @analyzer = RubyAnalyzer.new
       @options = Options.new(**options)
 
       convert(source)
