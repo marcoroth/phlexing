@@ -2,12 +2,15 @@
 
 require_relative "../../test_helper"
 
-class Phlexing::Converter::CustomElementsTest < Minitest::Spec
+class Phlexing::Converter::TagsTest < Minitest::Spec
   it "basic tags" do
     assert_phlex_template "div", %(<div></div>)
     assert_phlex_template "span", %(<span></span>)
     assert_phlex_template "p", %(<p></p>)
     assert_phlex_template "template_tag", %(<template></template>)
+    assert_phlex_template "html", %(<html></html>)
+    assert_phlex_template "head", %(<head></head>)
+    assert_phlex_template "body", %(<body></body>)
   end
 
   it "basic self closing tag" do
