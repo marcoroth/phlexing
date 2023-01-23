@@ -25,7 +25,7 @@ module Phlexing
     end
 
     def self.transform_erb_tags(source)
-      Deface::Parser.convert(source).to_html
+      Deface::Parser.erb_markup!(source)
     end
 
     def self.transform_whitespace(source)
