@@ -83,7 +83,8 @@ module Phlexing
         s << arg(attribute.name.delete_prefix("data-erb-").underscore)
 
         s << if attribute.value.start_with?("<%=")
-          parens(unwrap_erb(attribute.value))
+          value = unwrap_erb(attribute.value)
+          value.include?(" ") ? parens(value) : value
         else
           quote("FIXME: #{unwrap_erb(attribute.value)}")
         end

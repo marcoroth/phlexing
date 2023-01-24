@@ -9,7 +9,7 @@ class Phlexing::Converter::AttributesTest < Minitest::Spec
     HTML
 
     expected = <<~PHLEX.strip
-      div(class: (classes_helper)) { "Text" }
+      div(class: classes_helper) { "Text" }
     PHLEX
 
     assert_phlex_template expected, html
@@ -22,7 +22,7 @@ class Phlexing::Converter::AttributesTest < Minitest::Spec
 
     expected = <<~PHLEX.strip
       div(
-        class: (classes_helper),
+        class: classes_helper,
         style: (true? ? "background: red" : "background: blue")
       ) { "Text" }
     PHLEX
