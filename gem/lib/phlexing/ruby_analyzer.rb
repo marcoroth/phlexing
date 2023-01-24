@@ -4,7 +4,7 @@ require "syntax_tree"
 
 module Phlexing
   class RubyAnalyzer
-    attr_accessor :ivars, :locals, :idents
+    attr_accessor :ivars, :locals, :idents, :calls, :consts, :instance_methods
 
     def self.analyze(source)
       new.analyze(source)
@@ -14,6 +14,9 @@ module Phlexing
       @ivars = Set.new
       @locals = Set.new
       @idents = Set.new
+      @calls = Set.new
+      @consts = Set.new
+      @instance_methods = Set.new
       @visitor = Visitor.new(self)
     end
 

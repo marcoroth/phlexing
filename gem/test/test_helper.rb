@@ -32,6 +32,9 @@ def assert_details(expected, source, generated_code, &block)
   @assert_ivars_called = false
   @assert_locals_called = false
   @assert_idents_called = false
+  @assert_calls_called = false
+  @assert_consts_called = false
+  @assert_instance_methods_called = false
 
   block&.call(self)
 
@@ -39,6 +42,9 @@ def assert_details(expected, source, generated_code, &block)
   assert_ivars unless @assert_ivars_called
   assert_locals unless @assert_locals_called
   # assert_idents unless @assert_idents_called
+  assert_consts unless @assert_consts_called
+  # assert_calls unless @assert_calls_called
+  assert_instance_methods unless @assert_instance_methods_called
 end
 
 def assert_custom_elements(*elements)
@@ -86,5 +92,41 @@ def assert_idents(*idents)
     idents.sort,
     @analyzer.idents.to_a.sort,
     "assert_idents"
+  )
+end
+
+def assert_calls(*calls)
+  raise "Make sure assert_calls is called within the block passed to assert_phlex" if @analyzer.nil?
+
+  @assert_calls_called = true
+
+  assert_equal(
+    calls.sort,
+    @analyzer.calls.to_a.sort,
+    "assert_calls"
+  )
+end
+
+def assert_consts(*consts)
+  raise "Make sure assert_consts is called within the block passed to assert_phlex" if @analyzer.nil?
+
+  @assert_consts_called = true
+
+  assert_equal(
+    consts.sort,
+    @analyzer.consts.to_a.sort,
+    "assert_consts"
+  )
+end
+
+def assert_instance_methods(*instance_methods)
+  raise "Make sure assert_instance_methods is called within the block passed to assert_phlex" if @analyzer.nil?
+
+  @assert_instance_methods_called = true
+
+  assert_equal(
+    instance_methods.sort,
+    @analyzer.instance_methods.to_a.sort,
+    "assert_instance_methods"
   )
 end
