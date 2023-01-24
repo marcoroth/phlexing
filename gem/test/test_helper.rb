@@ -25,10 +25,17 @@ end
 def assert_details(expected, source, generated_code, &block)
   assert_equal(expected, generated_code)
 
+  @assert_custom_elements_called = false
+
+  assert_analyzed(source, all: false, &block)
+
+  assert_custom_elements unless @assert_custom_elements_called
+end
+
+def assert_analyzed(source, all: true, &block)
   @analyzer = Phlexing::RubyAnalyzer.new
   @analyzer.analyze(source)
 
-  @assert_custom_elements_called = false
   @assert_ivars_called = false
   @assert_locals_called = false
   @assert_idents_called = false
@@ -38,13 +45,15 @@ def assert_details(expected, source, generated_code, &block)
 
   block&.call(self)
 
-  assert_custom_elements unless @assert_custom_elements_called
   assert_ivars unless @assert_ivars_called
   assert_locals unless @assert_locals_called
-  # assert_idents unless @assert_idents_called
   assert_consts unless @assert_consts_called
-  # assert_calls unless @assert_calls_called
   assert_instance_methods unless @assert_instance_methods_called
+
+  if all
+    assert_idents unless @assert_idents_called
+    assert_calls unless @assert_calls_called
+  end
 end
 
 def assert_custom_elements(*elements)
