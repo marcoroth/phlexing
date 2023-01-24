@@ -226,6 +226,7 @@ class Phlexing::Converter::ErbTest < Minitest::Spec
 
     assert_phlex_template expected, html do
       assert_ivars "greeting"
+      assert_consts "Time"
     end
   end
 

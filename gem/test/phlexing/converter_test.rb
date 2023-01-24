@@ -15,7 +15,10 @@ class Phlexing::ConverterTest < Minitest::Spec
       text "Hello"
     PHLEX
 
-    assert_phlex_template expected, html
+    assert_phlex_template expected, html do
+      assert_consts "SomeView"
+      assert_instance_methods "render"
+    end
   end
 
   it "should generate phlex class with component name" do

@@ -36,7 +36,9 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
       end
     PHLEX
 
-    assert_phlex_template expected, html
+    assert_phlex_template expected, html do
+      assert_instance_methods "content_tag"
+    end
   end
 
   it "Rails content_tag helper with block and attributes" do
@@ -48,20 +50,8 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
       end
     PHLEX
 
-    assert_phlex_template expected, html
-  end
-
-  it "Rails content_tag helper with block and ERB output" do
-    html = %(<%= content_tag :div do %><%= content %><% end %>)
-
-    expected = <<~PHLEX.strip
-      content_tag :div do
-        text content
-      end
-    PHLEX
-
     assert_phlex_template expected, html do
-      assert_locals "content"
+      assert_instance_methods "content_tag"
     end
   end
 
@@ -76,6 +66,22 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
 
     assert_phlex_template expected, html do
       assert_locals "content"
+      assert_instance_methods "content_tag"
+    end
+  end
+
+  it "Rails content_tag helper with block and ERB output" do
+    html = %(<%= content_tag :div do %><%= content %><% end %>)
+
+    expected = <<~PHLEX.strip
+      content_tag :div do
+        text content
+      end
+    PHLEX
+
+    assert_phlex_template expected, html do
+      assert_locals "content"
+      assert_instance_methods "content_tag"
     end
   end
 
@@ -90,6 +96,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
 
     assert_phlex_template expected, html do
       assert_ivars "article"
+      assert_instance_methods "form_for"
     end
   end
 
@@ -104,6 +111,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
 
     assert_phlex_template expected, html do
       assert_ivars "article"
+      assert_instance_methods "form_with"
     end
   end
 
@@ -116,7 +124,9 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
       text "Text"
     PHLEX
 
-    assert_phlex_template expected, html
+    assert_phlex_template expected, html do
+      assert_instance_methods "image_tag", "image_path"
+    end
   end
 
   it "Rails check_box_tag helper" do
@@ -128,7 +138,9 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
       text "Text"
     PHLEX
 
-    assert_phlex_template expected, html
+    assert_phlex_template expected, html do
+      assert_instance_methods "check_box_tag"
+    end
   end
 
   it "Rails text_field helper" do
@@ -140,7 +152,9 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
       text "Text"
     PHLEX
 
-    assert_phlex_template expected, html
+    assert_phlex_template expected, html do
+      assert_instance_methods "text_field"
+    end
   end
 
   it "Rails options_for_select helper" do
@@ -152,7 +166,9 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
       text "Text"
     PHLEX
 
-    assert_phlex_template expected, html
+    assert_phlex_template expected, html do
+      assert_instance_methods "options_for_select"
+    end
   end
 
   it "Rails collection_select helper" do
@@ -164,7 +180,9 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
       text "Text"
     PHLEX
 
-    assert_phlex_template expected, html
+    assert_phlex_template expected, html do
+      assert_instance_methods "collection_select"
+    end
   end
 
   it "Rails options_from_collection_for_select helper" do
@@ -176,7 +194,9 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
       text "Text"
     PHLEX
 
-    assert_phlex_template expected, html
+    assert_phlex_template expected, html do
+      assert_instance_methods "options_from_collection_for_select"
+    end
   end
 
   it "Rails select_date helper" do
@@ -188,7 +208,10 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
       text "Text"
     PHLEX
 
-    assert_phlex_template expected, html
+    assert_phlex_template expected, html do
+      assert_instance_methods "select_date"
+      assert_consts "Date"
+    end
   end
 
   it "Rails select_year helper" do
@@ -200,7 +223,9 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
       text "Text"
     PHLEX
 
-    assert_phlex_template expected, html
+    assert_phlex_template expected, html do
+      assert_instance_methods "select_year"
+    end
   end
 
   it "Rails link_to helper" do
@@ -214,6 +239,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
 
     assert_phlex_template expected, html do
       assert_locals "user_path"
+      assert_instance_methods "link_to"
     end
   end
 
@@ -228,6 +254,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
 
     assert_phlex_template expected, html do
       assert_locals "post"
+      assert_instance_methods "url_for"
     end
   end
 
@@ -243,7 +270,9 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
       text "Text"
     PHLEX
 
-    assert_phlex_template expected, html
+    assert_phlex_template expected, html do
+      assert_instance_methods "content_for"
+    end
   end
 
   it "Rails content_for helper with block" do
@@ -262,6 +291,8 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
       text "Text"
     PHLEX
 
-    assert_phlex_template expected, html
+    assert_phlex_template expected, html do
+      assert_instance_methods "content_for", "link_to"
+    end
   end
 end
