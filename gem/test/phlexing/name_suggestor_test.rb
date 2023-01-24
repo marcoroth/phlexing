@@ -15,6 +15,7 @@ module Phlexing
       assert_equal "ArticleComponent", Phlexing::NameSuggestor.suggest(%(<article>...</article>))
       assert_equal "SectionComponent", Phlexing::NameSuggestor.suggest(%(<section>...</section>))
       assert_equal "H1Component", Phlexing::NameSuggestor.suggest(%(<h1>...</h1>))
+      assert_equal "ButtonComponent", Phlexing::NameSuggestor.suggest(%(<button>...</button>))
     end
 
     it "should suggest name for id" do
