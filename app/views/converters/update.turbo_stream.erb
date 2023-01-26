@@ -1,0 +1,7 @@
+<% formatter = Rouge::Formatters::HTML.new %>
+<% lexer = Rouge::Lexers::Ruby.new %>
+
+<%= turbo_stream.update("refactored-output", formatter.format(lexer.lex(@code))) %>
+<%= turbo_stream.update("refactored-output-copy", @code) %>
+
+<%= turbo_stream.remove_css_class("#refactored-output", "bg-gray-100 animate-pulse duration-75") %>

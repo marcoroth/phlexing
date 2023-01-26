@@ -1,34 +1,40 @@
 import { Controller } from "@hotwired/stimulus"
+import { patch } from "@rails/request.js"
 
 export default class extends Controller {
   static targets = ["input", "output", "form"]
 
-  connect() {
-    if (this.inputValue === "") {
-      this.inputTarget.value = this.sessionStorageValue
-    }
+  refactor(event) {
+    event.preventDefault()
+    this.outputTarget.classList.remove("hidden")
 
-    if (this.inputValue !== "") {
-      this.submit()
-    }
+    this.layoutElement.classList.remove("sm:grid-cols-2")
+    this.layoutElement.classList.add("sm:grid-cols-3")
+
+    this.submit()
   }
 
-  convert(event) {
-    if (this.inputValue !== this.sessionStorageValue) {
-      this.submit()
-    }
+  close(event) {
+    event.preventDefault()
+
+    this.outputTarget.classList.add("hidden")
+    this.layoutElement.classList.add("sm:grid-cols-2")
+    this.layoutElement.classList.remove("sm:grid-cols-3")
   }
 
-  submit(event) {
-    this.save()
+  submit() {
     this.outputTarget.querySelector("pre").classList.add("bg-gray-100", "animate-pulse", "duration-75")
-    this.formTarget.requestSubmit()
+
+    patch(this.formTarget.action, {
+      body: { code: this.inputValue },
+      responseKind: "turbo-stream"
+    })
   }
 
   async copy(event) {
     event.preventDefault()
 
-    await navigator.clipboard.writeText(document.getElementById("output-copy").value)
+    await navigator.clipboard.writeText(document.getElementById("refactored-output-copy").value)
 
     const button = (event.target instanceof HTMLButtonElement) ? event.target : event.target.closest("button")
 
@@ -41,15 +47,11 @@ export default class extends Controller {
     }, 1000)
   }
 
-  save() {
-    sessionStorage.setItem("input", this.inputValue)
-  }
-
   get inputValue() {
     return this.inputTarget.value.trim()
   }
 
-  get sessionStorageValue() {
-    return sessionStorage.getItem("input")
+  get layoutElement() {
+    return document.querySelector("#layout")
   }
 }

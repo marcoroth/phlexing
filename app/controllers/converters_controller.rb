@@ -15,12 +15,36 @@ class ConvertersController < ApplicationController
     parent_component = params["parent_component"].presence || "Phlex::HTML"
     parent_component = parent_component.gsub(" ", "_").camelize
 
-    @converter = Phlexing::Converter.new(
+    converter = Phlexing::Converter.new(
       source,
       whitespace: whitespace,
       component: component,
       component_name: component_name,
       parent_component: parent_component
     )
+
+    @code = converter.code
+  end
+
+  def update
+    code = params["code"]
+
+    sleep 3 # TODO
+
+    if code && false
+      client = OpenAI::Client.new
+
+      response = client.edits(
+        parameters: {
+          model: "text-davinci-edit-001",
+          instruction: "Extract private methods from this Ruby code",
+          input: code
+        }
+      )
+
+      @code = response.dig("choices", 0, "text")
+    else
+      @code = "# Refactored \n\n#{code}"
+    end
   end
 end
