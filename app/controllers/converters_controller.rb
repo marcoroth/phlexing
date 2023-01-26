@@ -29,8 +29,6 @@ class ConvertersController < ApplicationController
   def update
     code = params["code"]
 
-    sleep 3 # TODO
-
     if code && false
       client = OpenAI::Client.new
 
@@ -42,7 +40,11 @@ class ConvertersController < ApplicationController
         }
       )
 
-      @code = response.dig("choices", 0, "text")
+      @code = response.dig("choices", 0, "text") || ""
+
+      if (error = response.dig("error", "message"))
+        @code = "# #{error}"
+      end
     else
       @code = "# Refactored #{Time.now} \n\n#{code}"
     end
