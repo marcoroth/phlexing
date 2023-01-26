@@ -44,7 +44,7 @@ class ConvertersController < ApplicationController
 
       @code = response.dig("choices", 0, "text")
     else
-      @code = "# Refactored \n\n#{code}"
+      @code = "# Refactored #{Time.now} \n\n#{code}"
     end
   end
 end

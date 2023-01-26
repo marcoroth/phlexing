@@ -20,6 +20,8 @@ export default class extends Controller {
     this.outputTarget.classList.add("hidden")
     this.layoutElement.classList.add("sm:grid-cols-2")
     this.layoutElement.classList.remove("sm:grid-cols-3")
+
+    this.outputTarget.querySelector("#refactored-output").innerHTML = ""
   }
 
   submit() {
