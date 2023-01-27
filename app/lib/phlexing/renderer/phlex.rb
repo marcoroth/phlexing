@@ -53,7 +53,7 @@ module Phlexing
         }
 
         begin
-          # puts Rufo::Formatter.format(ruby)
+          # puts Rufo::Formatter.call(ruby)
           clazz = eval(ruby) # rubocop:disable Security/Eval
 
           HtmlPress.press(clazz.new.call)

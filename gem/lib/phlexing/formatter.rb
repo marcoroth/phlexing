@@ -4,10 +4,19 @@ require "syntax_tree"
 
 module Phlexing
   class Formatter
-    def self.format(source, max: 80)
-      SyntaxTree.format(source.to_s, max).strip
+    def self.call(...)
+      new(...).call
+    end
+
+    def initialize(source, max: 80)
+      @source = source.to_s.dup
+      @max = max
+    end
+
+    def call
+      SyntaxTree.format(@source, @max).strip
     rescue SyntaxTree::Parser::ParseError, NoMethodError
-      source
+      @source
     end
   end
 end

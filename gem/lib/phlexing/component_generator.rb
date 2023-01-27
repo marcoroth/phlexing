@@ -64,7 +64,7 @@ module Phlexing
       out << "end"
       out << newline
 
-      Formatter.format(out.string.strip)
+      Formatter.call(out.string.strip)
     rescue StandardError
       out.string.strip
     end

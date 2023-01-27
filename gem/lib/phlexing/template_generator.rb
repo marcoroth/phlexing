@@ -24,7 +24,7 @@ module Phlexing
       document = Parser.parse(source)
       handle_node(document)
 
-      Formatter.format(out.string.strip)
+      Formatter.call(out.string.strip)
     rescue StandardError
       out.string.strip
     end
