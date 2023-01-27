@@ -295,4 +295,32 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
       assert_instance_methods "content_for", "link_to"
     end
   end
+
+  it "Rails t helper" do
+    html = %(<%= t("hello") %>Text)
+
+    expected = <<~PHLEX.strip
+      t("hello")
+
+      text "Text"
+    PHLEX
+
+    assert_phlex_template expected, html do
+      assert_instance_methods "t"
+    end
+  end
+
+  it "Rails translate helper" do
+    html = %(<%= translate("hello") %>Text)
+
+    expected = <<~PHLEX.strip
+      translate("hello")
+
+      text "Text"
+    PHLEX
+
+    assert_phlex_template expected, html do
+      assert_instance_methods "translate"
+    end
+  end
 end
