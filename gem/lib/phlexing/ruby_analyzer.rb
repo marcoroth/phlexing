@@ -35,7 +35,7 @@ module Phlexing
       self
     end
 
-    private 
+    private
 
     def extract_ruby_from_erb(source)
       document = Parser.call(source)
