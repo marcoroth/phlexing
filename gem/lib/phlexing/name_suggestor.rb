@@ -6,7 +6,7 @@ module Phlexing
 
     def self.call(source)
       document = Parser.call(source)
-      analyzer = RubyAnalyzer.analyze(source)
+      analyzer = RubyAnalyzer.call(source)
 
       ivars  = analyzer.ivars
       locals = analyzer.locals

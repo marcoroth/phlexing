@@ -6,7 +6,7 @@ module Phlexing
   class RubyAnalyzer
     attr_accessor :ivars, :locals, :idents, :calls, :consts, :instance_methods
 
-    def self.analyze(source)
+    def self.call(source)
       new.analyze(source)
     end
 
@@ -34,6 +34,8 @@ module Phlexing
     rescue SyntaxTree::Parser::ParseError, NoMethodError
       self
     end
+
+    private 
 
     def extract_ruby_from_erb(source)
       document = Parser.call(source)
