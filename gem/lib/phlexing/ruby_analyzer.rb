@@ -36,7 +36,7 @@ module Phlexing
     end
 
     def extract_ruby_from_erb(source)
-      document = Parser.parse(source)
+      document = Parser.call(source)
       nodes = document.css("erb")
 
       lines = nodes.map { |node| node.text.to_s.strip }

@@ -4,7 +4,7 @@ require "nokogiri"
 
 module Phlexing
   class Parser
-    def self.parse(source)
+    def self.call(source)
       source = ERBTransformer.call(source)
       source = Minifier.call(source)
 

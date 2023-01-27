@@ -5,7 +5,7 @@ module Phlexing
     using Refinements::StringRefinements
 
     def self.suggest(source)
-      document = Parser.parse(source)
+      document = Parser.call(source)
       analyzer = RubyAnalyzer.analyze(source)
 
       ivars  = analyzer.ivars

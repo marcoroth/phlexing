@@ -25,7 +25,7 @@ module Phlexing
     end
 
     it "should handle nil" do
-      parser = Parser.parse(nil)
+      parser = Parser.call(nil)
 
       assert_equal "#document-fragment", extract_children(parser).join(",")
       assert_dom_equal "", parser.to_xml
@@ -34,7 +34,7 @@ module Phlexing
     end
 
     it "should handle empty string" do
-      parser = Parser.parse("")
+      parser = Parser.call("")
 
       assert_equal "#document-fragment", extract_children(parser).join(",")
       assert_dom_equal "", parser.to_xml
@@ -43,7 +43,7 @@ module Phlexing
     end
 
     it "should handle simple div" do
-      parser = Parser.parse("<div></div>")
+      parser = Parser.call("<div></div>")
 
       assert_equal "#document-fragment,div", extract_children(parser).join(",")
       assert_dom_equal %(<div></div>), parser.to_html
@@ -52,7 +52,7 @@ module Phlexing
     end
 
     it "should handle ERB" do
-      parser = Parser.parse("<div><%= some_method %></div>")
+      parser = Parser.call("<div><%= some_method %></div>")
 
       assert_equal "#document-fragment,div,erb,text", extract_children(parser).join(",")
       assert_dom_equal %(<div> <erb loud=""> some_method </erb> </div>), parser.to_xml
@@ -61,7 +61,7 @@ module Phlexing
     end
 
     it "should handle html" do
-      parser = Parser.parse("<html></html>")
+      parser = Parser.call("<html></html>")
 
       assert_equal "document,html,html", extract_children(parser).join(",")
       assert_dom_equal %(<html></html>), parser.to_xml
@@ -70,7 +70,7 @@ module Phlexing
     end
 
     it "should handle html, head and body" do
-      parser = Parser.parse("<html><head><title>Title</title></head><body><h1>Hello</h1></body></html>")
+      parser = Parser.call("<html><head><title>Title</title></head><body><h1>Hello</h1></body></html>")
 
       assert_equal "document,html,html,head,title,text,body,h1,text", extract_children(parser).join(",")
       assert_dom_equal %(<html> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <title>Title</title> </head> <body><h1>Hello</h1></body> </html>), parser.to_xml
@@ -79,7 +79,7 @@ module Phlexing
     end
 
     it "should handle html and head" do
-      parser = Parser.parse("<html><head><title>Title</title></head></html>")
+      parser = Parser.call("<html><head><title>Title</title></head></html>")
 
       assert_equal "document,html,html,head,title,text", extract_children(parser).join(",")
       assert_dom_equal %(<html><head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <title>Title</title> </head></html>), parser.to_xml
@@ -88,7 +88,7 @@ module Phlexing
     end
 
     it "should handle html and body" do
-      parser = Parser.parse("<html><body><h1>Hello</h1></body></html>")
+      parser = Parser.call("<html><body><h1>Hello</h1></body></html>")
 
       assert_equal "document,html,html,body,h1,text", extract_children(parser).join(",")
       assert_dom_equal %(<html><body><h1>Hello</h1></body></html>), parser.to_xml
@@ -97,7 +97,7 @@ module Phlexing
     end
 
     it "should handle head and body" do
-      parser = Parser.parse("<head><title>Title</title></head><body><h1>Hello</h1></body>")
+      parser = Parser.call("<head><title>Title</title></head><body><h1>Hello</h1></body>")
 
       assert_equal "html,head,title,text,body,h1,text", extract_children(parser).join(",")
       assert_dom_equal %(<html> <head> <title>Title</title> </head> <body> <h1>Hello</h1> </body> </html>), parser.to_xml
@@ -106,7 +106,7 @@ module Phlexing
     end
 
     it "should handle head with title" do
-      parser = Parser.parse("<head><title>Title</title></head>")
+      parser = Parser.call("<head><title>Title</title></head>")
 
       assert_equal "head,title,text", extract_children(parser).join(",")
       assert_dom_equal %(<head> <title>Title</title> </head>), parser.to_xml
@@ -115,7 +115,7 @@ module Phlexing
     end
 
     it "should handle head" do
-      parser = Parser.parse("<head></head>")
+      parser = Parser.call("<head></head>")
 
       assert_equal "head", extract_children(parser).join(",")
       assert_dom_equal %(<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head>), parser.to_html
@@ -124,7 +124,7 @@ module Phlexing
     end
 
     it "should handle body with h1" do
-      parser = Parser.parse("<body><h1>Hello</h1></body>")
+      parser = Parser.call("<body><h1>Hello</h1></body>")
 
       assert_equal "body,h1,text", extract_children(parser).join(",")
       assert_dom_equal %(<body> <h1>Hello</h1> </body>), parser.to_xml
@@ -133,7 +133,7 @@ module Phlexing
     end
 
     it "should handle body" do
-      parser = Parser.parse("<body></body>")
+      parser = Parser.call("<body></body>")
 
       assert_equal "body", extract_children(parser).join(",")
       assert_dom_equal %(<body></body>), parser.to_html

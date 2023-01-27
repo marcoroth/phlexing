@@ -21,7 +21,7 @@ module Phlexing
     end
 
     def generate(source)
-      document = Parser.parse(source)
+      document = Parser.call(source)
       handle_node(document)
 
       Formatter.call(out.string.strip)
