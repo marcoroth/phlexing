@@ -4,7 +4,7 @@ module Phlexing
   class NameSuggestor
     using Refinements::StringRefinements
 
-    def self.suggest(source)
+    def self.call(source)
       document = Parser.call(source)
       analyzer = RubyAnalyzer.analyze(source)
 

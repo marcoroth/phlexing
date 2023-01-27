@@ -9,7 +9,7 @@ class ConvertersController < ApplicationController
     whitespace = params["whitespace"] ? true : false
     component = params["component"] ? true : false
 
-    component_name = params["component_name"].presence || Phlexing::NameSuggestor.suggest(source)
+    component_name = params["component_name"].presence || Phlexing::NameSuggestor.call(source)
     component_name = component_name.gsub(" ", "_").camelize
 
     parent_component = params["parent_component"].presence || "Phlex::HTML"
