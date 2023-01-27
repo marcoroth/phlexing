@@ -6,8 +6,8 @@ module Phlexing
 
     attr_accessor :converter, :analyzer
 
-    def self.generate(converter)
-      new(converter).generate
+    def self.call(converter)
+      new(converter).call
     end
 
     def initialize(converter)
@@ -16,7 +16,7 @@ module Phlexing
       @analyzer.analyze(converter.source)
     end
 
-    def generate
+    def call
       out = StringIO.new
 
       out << "class "

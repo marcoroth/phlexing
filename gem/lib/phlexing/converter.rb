@@ -36,7 +36,7 @@ module Phlexing
     end
 
     def component_code
-      ComponentGenerator.generate(self)
+      ComponentGenerator.call(self)
     end
   end
 end
