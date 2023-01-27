@@ -75,7 +75,9 @@ module Phlexing
         "render",
         "tag",
         "form_with",
-        "link_to"
+        "link_to",
+        "t",
+        "translate"
       ]
     end
 
