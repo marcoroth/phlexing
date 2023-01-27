@@ -32,7 +32,7 @@ module Phlexing
     # private
 
     def template_code
-      TemplateGenerator.generate(self, source)
+      TemplateGenerator.call(self, source)
     end
 
     def component_code

@@ -10,8 +10,8 @@ module Phlexing
 
     attr_accessor :converter, :out, :options
 
-    def self.generate(converter, source)
-      new(converter).generate(source)
+    def self.call(converter, source)
+      new(converter).call(source)
     end
 
     def initialize(converter)
@@ -20,7 +20,7 @@ module Phlexing
       @out = StringIO.new
     end
 
-    def generate(source)
+    def call(source)
       document = Parser.call(source)
       handle_node(document)
 
