@@ -4,11 +4,15 @@ module Phlexing
   class Converter
     attr_accessor :source, :custom_elements, :options
 
-    def self.convert(source, **options)
-      new(**options).convert(source)
+    def self.call(source, **options)
+      new(**options).call(source)
     end
 
-    def convert(source)
+    def self.convert(source, **options)
+      new(**options).call(source)
+    end
+
+    def call(source)
       @source = source
 
       code
@@ -18,7 +22,7 @@ module Phlexing
       @custom_elements = Set.new
       @options = Options.new(**options)
 
-      convert(source)
+      call(source)
     end
 
     def code
