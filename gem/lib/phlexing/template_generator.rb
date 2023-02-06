@@ -82,11 +82,27 @@ module Phlexing
       String.new.tap { |s|
         s << arg(attribute.name.delete_prefix("data-erb-").underscore)
 
-        s << if attribute.value.start_with?("<%=")
+        s << if attribute.value.start_with?("<%=") && attribute.value.scan("<%").one? && attribute.value.end_with?("%>")
           value = unwrap_erb(attribute.value)
           value.include?(" ") ? parens(value) : value
         else
-          quote("FIXME: #{unwrap_erb(attribute.value)}")
+          transformed = Parser.call(attribute.value)
+          attribute = StringIO.new
+
+          transformed.children.each do |node|
+            case node
+            when Nokogiri::XML::Text
+              attribute << node.text
+            when Nokogiri::XML::Node
+              if node.attributes["loud"]
+                attribute << interpolate(node.text.strip)
+              else
+                attribute << interpolate("#{node.text.strip} && nil")
+              end
+            end
+          end
+
+          quote(attribute.string)
         end
       }
     end

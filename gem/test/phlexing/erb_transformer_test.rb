@@ -64,5 +64,26 @@ module Phlexing
 
       assert_equal expected, ERBTransformer.call(input)
     end
+
+    it "should transform erb in attribute" do
+      input = %(<div class="<%= @class %>"></div>)
+      expected = %(<div  data-erb-class="&lt;%= @class %&gt;"></div>)
+
+      assert_equal expected, ERBTransformer.call(input)
+    end
+
+    it "should transform multiple erb in attribute" do
+      input = %(<div class="<%= @class %> <%= @display %>"></div>)
+      expected = %(<div  data-erb-class="&lt;%= @class %&gt; &lt;%= @display %&gt;"></div>)
+
+      assert_equal expected, ERBTransformer.call(input)
+    end
+
+    xit "should transform multiple interpolated erb strings in attribute" do
+      input = %(<div style="<%= "background: red;" %> <%= "display: block;" %>"></div>)
+      expected = %(<div  data-erb-style="&lt;%= &quot;background: red;&quot; %&gt; &lt;%= &quot;display: block;&quot; %&gt;"></div>)
+
+      assert_equal expected, ERBTransformer.call(input)
+    end
   end
 end
