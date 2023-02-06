@@ -82,7 +82,7 @@ module Phlexing
       String.new.tap { |s|
         s << arg(attribute.name.delete_prefix("data-erb-").underscore)
 
-        s << if attribute.value.start_with?("<%=") && attribute.value.scan("<%=").one? && attribute.value.end_with?("%>")
+        s << if attribute.value.start_with?("<%=") && attribute.value.scan("<%").one? && attribute.value.end_with?("%>")
           value = unwrap_erb(attribute.value)
           value.include?(" ") ? parens(value) : value
         else
