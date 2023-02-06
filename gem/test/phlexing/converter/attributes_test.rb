@@ -36,7 +36,7 @@ class Phlexing::Converter::AttributesTest < Minitest::Spec
     HTML
 
     expected = <<~PHLEX.strip
-      div(class: "FIXME: classes_helper") { "Text" }
+      div(class: %(\#\{classes_helper && nil\})) { "Text" }
     PHLEX
 
     assert_phlex_template expected, html
@@ -90,6 +90,46 @@ class Phlexing::Converter::AttributesTest < Minitest::Spec
   xit "should interpolate ERB in tag with conditional" do
     html = %(<input type="checkbox" <%= "selected" if true %> />)
     expected = %(input(type: %(checkbox), **(" selected": true)))
+
+    assert_phlex_template expected, html
+  end
+
+  it "ERB attribute interpolation with one static and one dynamic string" do
+    html = %(<div style="background: <%= blue? ? "blue" : "red" %>"></div>)
+
+    expected = <<~PHLEX.strip
+      div(style: %(background: \#\{blue? ? "blue" : "red"\}))
+    PHLEX
+
+    assert_phlex_template expected, html
+  end
+
+  it "ERB attribute interpolation with one dynamic string and one static string" do
+    html = %(<div style="<%= "background: blue" %>; display: none;"></div>)
+
+    expected = <<~PHLEX.strip
+      div(style: %(\#\{"background: blue"\}; display: none;))
+    PHLEX
+
+    assert_phlex_template expected, html
+  end
+
+  xit "multiple ERB attribute string interpolations in one attribute" do
+    html = %(<div style="<%= "background: red;" %> <%= "display: block;" %>"></div>)
+
+    expected = <<~PHLEX.strip
+      div(style: %(background: red; display: block;))
+    PHLEX
+
+    assert_phlex_template expected, html
+  end
+
+  it "multiple ERB attribute method interpolations in one attribute" do
+    html = %(<div style="<%= background %><%= display %>"></div>)
+
+    expected = <<~PHLEX.strip
+      div(style: %(\#\{background\}\#\{display\}))
+    PHLEX
 
     assert_phlex_template expected, html
   end

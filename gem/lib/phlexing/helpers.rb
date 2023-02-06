@@ -30,6 +30,10 @@ module Phlexing
       "(#{string})"
     end
 
+    def interpolate(string)
+      "\#\{#{string}\}"
+    end
+
     def unescape(source)
       CGI.unescapeHTML(source)
     end
