@@ -12,7 +12,9 @@ class Phlexing::Converter::AttributesTest < Minitest::Spec
       div(class: classes_helper) { "Text" }
     PHLEX
 
-    assert_phlex_template expected, html
+    assert_phlex_template expected, html do
+      assert_locals "classes_helper"
+    end
   end
 
   it "should interpolate ERB in multiple attributes using <%=" do
@@ -27,7 +29,10 @@ class Phlexing::Converter::AttributesTest < Minitest::Spec
       ) { "Text" }
     PHLEX
 
-    assert_phlex_template expected, html
+    assert_phlex_template expected, html do
+      assert_locals "classes_helper"
+      assert_instance_methods "true?"
+    end
   end
 
   it "should not interpolate ERB in attributes using <%" do
@@ -39,7 +44,9 @@ class Phlexing::Converter::AttributesTest < Minitest::Spec
       div(class: %(\#\{classes_helper && nil\})) { "Text" }
     PHLEX
 
-    assert_phlex_template expected, html
+    assert_phlex_template expected, html do
+      assert_locals "classes_helper"
+    end
   end
 
   it "should interpolate ERB in attributes using <%= and if" do
@@ -51,7 +58,9 @@ class Phlexing::Converter::AttributesTest < Minitest::Spec
       div(class: (classes_helper if true)) { "Text" }
     PHLEX
 
-    assert_phlex_template expected, html
+    assert_phlex_template expected, html do
+      assert_locals "classes_helper"
+    end
   end
 
   it "should interpolate ERB conditional in attribute" do
@@ -63,7 +72,9 @@ class Phlexing::Converter::AttributesTest < Minitest::Spec
       div(class: (something? ? "class-1" : "class-2")) { "Text" }
     PHLEX
 
-    assert_phlex_template expected, html
+    assert_phlex_template expected, html do
+      assert_instance_methods "something?"
+    end
   end
 
   it "should interpolate ERB in tag" do
@@ -131,6 +142,8 @@ class Phlexing::Converter::AttributesTest < Minitest::Spec
       div(style: %(\#\{background\}\#\{display\}))
     PHLEX
 
-    assert_phlex_template expected, html
+    assert_phlex_template expected, html do
+      assert_locals "background", "display"
+    end
   end
 end

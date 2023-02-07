@@ -128,4 +128,85 @@ class Phlexing::ConverterTest < Minitest::Spec
       assert_locals "show_company", "some_method"
     end
   end
+
+  it "should detect ivars in ERB interpolated HTML attribute" do
+    html = %(<div class="<%= @classes %>"></div>)
+
+    expected = <<~PHLEX.strip
+      class Component < Phlex::HTML
+        def initialize(classes:)
+          @classes = classes
+        end
+
+        def template
+          div(class: @classes)
+        end
+      end
+    PHLEX
+
+    assert_phlex expected, html do
+      assert_ivars "classes"
+    end
+  end
+
+  it "should detect locals in ERB interpolated HTML attribute" do
+    html = %(<div class="<%= classes %>"></div>)
+
+    expected = <<~PHLEX.strip
+      class Component < Phlex::HTML
+        attr_accessor :classes
+
+        def initialize(classes:)
+          @classes = classes
+        end
+
+        def template
+          div(class: classes)
+        end
+      end
+    PHLEX
+
+    assert_phlex expected, html do
+      assert_locals "classes"
+    end
+  end
+
+  it "should detect method call in ERB interpolated HTML attribute" do
+    html = %(<div class="<%= some_helper(with: :args) %>"></div>)
+
+    expected = <<~PHLEX.strip
+      class Component < Phlex::HTML
+        def template
+          div(class: (some_helper(with: :args)))
+        end
+      end
+    PHLEX
+
+    assert_phlex expected, html do
+      assert_instance_methods "some_helper"
+    end
+  end
+
+  it "should method call on object in ERB interpolated HTML attribute" do
+    html = %(<div class="<%= Router.user_path(user) %>"></div>)
+
+    expected = <<~PHLEX.strip
+      class Component < Phlex::HTML
+        attr_accessor :user
+
+        def initialize(user:)
+          @user = user
+        end
+
+        def template
+          div(class: Router.user_path(user))
+        end
+      end
+    PHLEX
+
+    assert_phlex expected, html do
+      assert_consts "Router"
+      assert_locals "user"
+    end
+  end
 end
