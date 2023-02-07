@@ -12,9 +12,9 @@ module Phlexing
       # https://github.com/spree/deface/blob/6bf18df76715ee3eb3d0cd1b6eda822817ace91c/lib/deface/parser.rb#L105-L111
       #
 
-      html_tag = /<html.*?(?:(?!>)[\s\S])*>/i
-      head_tag = /<head.*?(?:(?!>)[\s\S])*>/i
-      body_tag = /<body.*?(?:(?!>)[\s\S])*>/i
+      html_tag = /<html(( .*?(?:(?!>)[\s\S])*>)|>)/i
+      head_tag = /<head(( .*?(?:(?!>)[\s\S])*>)|>)/i
+      body_tag = /<body(( .*?(?:(?!>)[\s\S])*>)|>)/i
 
       if source =~ html_tag
         Nokogiri::HTML::Document.parse(source)

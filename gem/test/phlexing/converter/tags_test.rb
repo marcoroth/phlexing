@@ -10,6 +10,7 @@ class Phlexing::Converter::TagsTest < Minitest::Spec
     assert_phlex_template "template_tag", %(<template></template>)
     assert_phlex_template "html", %(<html></html>)
     assert_phlex_template "head", %(<head></head>)
+    assert_phlex_template "header", %(<header></header>)
     assert_phlex_template "body", %(<body></body>)
   end
 
@@ -171,6 +172,18 @@ class Phlexing::Converter::TagsTest < Minitest::Spec
     assert_phlex_template expected, html
   end
 
+  it "standlone head tag with attributes" do
+    html = <<~HTML.strip
+      <head id="123"></head>
+    HTML
+
+    expected = <<~PHLEX.strip
+      head(id: "123")
+    PHLEX
+
+    assert_phlex_template expected, html
+  end
+
   it "standlone body tag" do
     html = <<~HTML.strip
       <body></body>
@@ -178,6 +191,26 @@ class Phlexing::Converter::TagsTest < Minitest::Spec
 
     expected = <<~PHLEX.strip
       body
+    PHLEX
+
+    assert_phlex_template expected, html
+  end
+
+  it "should convert header tag" do
+    html = %(<header>Hello</header>)
+
+    expected = <<~PHLEX.strip
+      header { "Hello" }
+    PHLEX
+
+    assert_phlex_template expected, html
+  end
+
+  it "should convert header tag with attributes" do
+    html = %(<header id="123">Hello</header>)
+
+    expected = <<~PHLEX.strip
+      header(id: "123") { "Hello" }
     PHLEX
 
     assert_phlex_template expected, html
