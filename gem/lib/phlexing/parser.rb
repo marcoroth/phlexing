@@ -13,7 +13,7 @@ module Phlexing
       #
 
       html_tag = /<html.*?(?:(?!>)[\s\S])*>/i
-      head_tag = /<head.*?(?:(?!>)[\s\S])*>/i
+      head_tag = /<head(( .*?(?:(?!>)[\s\S])*>)|>)/i
       body_tag = /<body.*?(?:(?!>)[\s\S])*>/i
 
       if source =~ html_tag
