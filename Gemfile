@@ -21,7 +21,7 @@ gem "puma", "~> 6.0"
 gem "jsbundling-rails"
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
-gem "turbo-rails", "~> 1.3.2"
+gem "turbo-rails", "~> 1.3.3"
 
 # Power-pack for Turbo-Streams
 gem "turbo_power", "~> 0.3"
