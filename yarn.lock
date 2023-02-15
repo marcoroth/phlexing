@@ -518,11 +518,6 @@ minimist@^1.2.6:
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.6.tgz#8637a5b759ea0d6e98702cfb3a9283323c93af44"
   integrity sha512-Jsjnk4bw3YJqYzbdyBiNsPWHPfO++UGG749Cxs6peCu5Xg4nrena6OVxOYxrQTqww0Jmwt+Ref8rggumkTLz9Q==
 
-"morphdom@>= 2.6, < 2.7":
-  version "2.6.2"
-  resolved "https://registry.yarnpkg.com/morphdom/-/morphdom-2.6.2.tgz#fdb75032af7421c0b3115899cdee96a031b6b673"
-  integrity sha512-4RYdPa8ZUIdxiUsSrv6J1Ll+eF+lUt4K8+GGylRgMnwRMkJVexGR9HuVoI9D+1In2+Qn8IsRmY65xXNRnt9JOQ==
-
 nanoid@^3.3.4:
   version "3.3.4"
   resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.3.4.tgz#730b67e3cd09e2deacf03c027c81c9d9dbc5e8ab"
@@ -731,19 +726,10 @@ to-regex-range@^5.0.1:
   dependencies:
     is-number "^7.0.0"
 
-turbo-morph@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/turbo-morph/-/turbo-morph-0.2.0.tgz#5ff9afe74bb85b583ad63e9c00b50bc3278fc87b"
-  integrity sha512-UbkDbviKmsCrcvPXezJ+lBGB7AhaNDke5tZ7HGAtNJswrKcJVBlQ8Ij713E1PXOg/6qCS69gTuZY4xZGW+67Zw==
-  dependencies:
-    morphdom ">= 2.6, < 2.7"
-
-turbo_power@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/turbo_power/-/turbo_power-0.3.0.tgz#26e919d092b06ffeba7bd0ea22358ba8d3ec0a5e"
-  integrity sha512-XoMukWtg4uwM+fTWtht4drb8JzluTYBg24voeOFNY4WOWjsd85uueME1yjmOPyUenNpuhoM4y/puwGKSOoYPXQ==
-  dependencies:
-    turbo-morph "^0.2.0"
+turbo_power@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/turbo_power/-/turbo_power-0.3.1.tgz#81170967b764ffc8e2fa54630904c2207f4d08ec"
+  integrity sha512-C1DbH3sSmjQktj7OwqRtGelIYnhLEUdlF51Fq8qwD4CjR8LLyksEr+98mpjtd3LdlGnpDGM2xztB6Jf9hp8NOw==
 
 update-browserslist-db@^1.0.9:
   version "1.0.9"
