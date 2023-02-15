@@ -34,7 +34,7 @@ module Phlexing
     end
 
     def handle_html_comment_output(text)
-      output("comment", quote(text))
+      output("comment", braces(quote(text)))
     end
 
     def handle_erb_comment_output(text)
