@@ -22,7 +22,7 @@ PATH
       html_press (~> 0.8.2)
       nokogiri (~> 1.0)
       phlex (~> 1.1)
-      syntax_tree (~> 5.2)
+      syntax_tree (~> 6.0)
 
 GEM
   remote: https://rubygems.org/
@@ -224,7 +224,7 @@ GEM
       sprockets (>= 3.0.0)
     stimulus-rails (1.2.1)
       railties (>= 6.0.0)
-    syntax_tree (5.2.0)
+    syntax_tree (6.0.0)
       prettier_print (>= 1.2.0)
     thor (1.2.1)
     timeout (0.3.1)
