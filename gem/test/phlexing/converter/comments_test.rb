@@ -10,7 +10,7 @@ class Phlexing::Converter::CommentsTest < Minitest::Spec
     HTML
 
     expected = <<~PHLEX.strip
-      comment "Hello Comment"
+      comment { "Hello Comment" }
       div { "Hello World" }
     PHLEX
 
@@ -24,7 +24,7 @@ class Phlexing::Converter::CommentsTest < Minitest::Spec
     HTML
 
     expected = <<~PHLEX.strip
-      comment "Hello 'Comment'"
+      comment { "Hello 'Comment'" }
       div { "Hello World" }
     PHLEX
 
@@ -38,7 +38,7 @@ class Phlexing::Converter::CommentsTest < Minitest::Spec
     HTML
 
     expected = <<~PHLEX.strip
-      comment %(Hello "Comment")
+      comment { %(Hello "Comment") }
       div { "Hello World" }
     PHLEX
 
@@ -52,7 +52,7 @@ class Phlexing::Converter::CommentsTest < Minitest::Spec
     HTML
 
     expected = <<~PHLEX.strip
-      comment %(Hello 'Comment")
+      comment { %(Hello 'Comment") }
       div { "Hello World" }
     PHLEX
 

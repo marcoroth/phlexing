@@ -30,6 +30,10 @@ module Phlexing
       "(#{string})"
     end
 
+    def braces(string)
+      "{ #{string} }"
+    end
+
     def interpolate(string)
       "\#\{#{string}\}"
     end
