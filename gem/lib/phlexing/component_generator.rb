@@ -25,6 +25,14 @@ module Phlexing
       out << options.parent_component
       out << newline
 
+      analyzer.includes.each do |inklude|
+        out << "include "
+        out << inklude
+        out << newline
+      end
+
+      out << newline if analyzer.includes.any?
+
       if analyzer.locals.any?
         out << "attr_accessor "
         out << build_accessors
