@@ -86,6 +86,10 @@ module Phlexing
       if known_rails_helpers.keys.include?(name)
         @analyzer.includes << known_rails_helpers[name]
       end
+
+      if routes_helpers.map { |regex| name.scan(regex).any? }.reduce(:|)
+        @analyzer.includes << "Phlex::Rails::Helpers::Routes"
+      end
     end
   end
 end

@@ -192,6 +192,8 @@ class Phlexing::ConverterTest < Minitest::Spec
 
     expected = <<~PHLEX.strip
       class Component < Phlex::HTML
+        include Phlex::Rails::Helpers::Routes
+
         attr_accessor :user
 
         def initialize(user:)
@@ -207,6 +209,7 @@ class Phlexing::ConverterTest < Minitest::Spec
     assert_phlex expected, html do
       assert_consts "Router"
       assert_locals "user"
+      assert_analyzer_includes "Phlex::Rails::Helpers::Routes"
     end
   end
 end

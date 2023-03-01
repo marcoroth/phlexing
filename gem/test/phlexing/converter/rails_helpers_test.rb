@@ -134,7 +134,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
 
     assert_phlex_template expected, html do
       assert_instance_methods "image_tag", "image_path"
-      assert_analyzer_includes "Phlex::Rails::Helpers::ImagePath", "Phlex::Rails::Helpers::ImageTag"
+      assert_analyzer_includes "Phlex::Rails::Helpers::ImagePath", "Phlex::Rails::Helpers::ImageTag", "Phlex::Rails::Helpers::Routes"
     end
   end
 
@@ -256,7 +256,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
     assert_phlex_template expected, html do
       assert_locals "user_path"
       assert_instance_methods "link_to"
-      assert_analyzer_includes "Phlex::Rails::Helpers::LinkTo"
+      assert_analyzer_includes "Phlex::Rails::Helpers::LinkTo", "Phlex::Rails::Helpers::Routes"
     end
   end
 
@@ -272,7 +272,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
     assert_phlex_template expected, html do
       assert_locals "post"
       assert_instance_methods "url_for"
-      assert_analyzer_includes "Phlex::Rails::Helpers::URLFor"
+      assert_analyzer_includes "Phlex::Rails::Helpers::URLFor", "Phlex::Rails::Helpers::Routes"
     end
   end
 
@@ -372,7 +372,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
 
     assert_phlex_template expected, html do
       assert_instance_methods "stylesheet_path"
-      assert_analyzer_includes "Phlex::Rails::Helpers::StyleSheetPath"
+      assert_analyzer_includes "Phlex::Rails::Helpers::StyleSheetPath", "Phlex::Rails::Helpers::Routes"
     end
   end
 
@@ -387,7 +387,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
 
     assert_phlex_template expected, html do
       assert_instance_methods "javascript_path"
-      assert_analyzer_includes "Phlex::Rails::Helpers::JavaScriptPath"
+      assert_analyzer_includes "Phlex::Rails::Helpers::JavaScriptPath", "Phlex::Rails::Helpers::Routes"
     end
   end
 
