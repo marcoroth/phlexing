@@ -25,7 +25,7 @@ module Phlexing
       out << options.parent_component
       out << newline
 
-      analyzer.includes.each do |inklude|
+      analyzer.includes.sort.each do |inklude|
         out << "include "
         out << inklude
         out << newline
