@@ -100,6 +100,17 @@ module Phlexing
       ]
     end
 
+    def known_rails_helpers
+      Phlex::Rails::Helpers.constants
+        .reject { |m| m == :Routes }
+        .map { |m| Module.const_get("::Phlex::Rails::Helpers::#{m}") }
+        .each_with_object({}) { |m, sum|
+          (m.instance_methods - Module.instance_methods).each do |method|
+            sum[method.to_s] = m.name
+          end
+        }
+    end
+
     def string_output?(node)
       word = node.text.strip.scan(/^\w+/)[0]
 

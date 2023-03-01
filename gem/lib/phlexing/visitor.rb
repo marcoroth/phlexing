@@ -5,6 +5,7 @@ require "syntax_tree"
 module Phlexing
   class Visitor < SyntaxTree::Visitor
     using Refinements::StringRefinements
+    include Helpers
 
     def initialize(analyzer)
       @analyzer = analyzer
@@ -71,10 +72,20 @@ module Phlexing
 
     def visit_vcall(node)
       @analyzer.locals << node.value.value
+      test_rails_helper(node.value.value)
     end
 
     def visit_ident(node)
       @analyzer.idents << node.value
+      test_rails_helper(node.value)
+    end
+
+    private
+
+    def test_rails_helper(name)
+      if known_rails_helpers.keys.include?(name)
+        @analyzer.includes << known_rails_helpers[name]
+      end
     end
   end
 end

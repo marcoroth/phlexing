@@ -99,6 +99,7 @@ module Phlexing
         assert_locals "tag"
         assert_idents "div"
         assert_calls "tag"
+        assert_analyzer_includes "Phlex::Rails::Helpers::Tag"
       end
     end
 
@@ -128,6 +129,7 @@ module Phlexing
       assert_analyzed(input) do
         assert_idents "content_tag", "div"
         assert_instance_methods "content_tag"
+        assert_analyzer_includes "Phlex::Rails::Helpers::ContentTag"
       end
     end
   end

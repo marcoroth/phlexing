@@ -12,6 +12,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
 
     assert_phlex_template expected, html do
       assert_locals "tag"
+      assert_analyzer_includes "Phlex::Rails::Helpers::Tag"
     end
   end
 
@@ -24,6 +25,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
 
     assert_phlex_template expected, html do
       assert_locals "tag", "content"
+      assert_analyzer_includes "Phlex::Rails::Helpers::Tag"
     end
   end
 
@@ -38,6 +40,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
 
     assert_phlex_template expected, html do
       assert_instance_methods "content_tag"
+      assert_analyzer_includes "Phlex::Rails::Helpers::ContentTag"
     end
   end
 
@@ -52,6 +55,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
 
     assert_phlex_template expected, html do
       assert_instance_methods "content_tag"
+      assert_analyzer_includes "Phlex::Rails::Helpers::ContentTag"
     end
   end
 
@@ -67,6 +71,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
     assert_phlex_template expected, html do
       assert_locals "content"
       assert_instance_methods "content_tag"
+      assert_analyzer_includes "Phlex::Rails::Helpers::ContentTag"
     end
   end
 
@@ -82,6 +87,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
     assert_phlex_template expected, html do
       assert_locals "content"
       assert_instance_methods "content_tag"
+      assert_analyzer_includes "Phlex::Rails::Helpers::ContentTag"
     end
   end
 
@@ -97,6 +103,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
     assert_phlex_template expected, html do
       assert_ivars "article"
       assert_instance_methods "form_for"
+      assert_analyzer_includes "Phlex::Rails::Helpers::FormFor"
     end
   end
 
@@ -112,6 +119,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
     assert_phlex_template expected, html do
       assert_ivars "article"
       assert_instance_methods "form_with"
+      assert_analyzer_includes "Phlex::Rails::Helpers::FormWith"
     end
   end
 
@@ -126,6 +134,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
 
     assert_phlex_template expected, html do
       assert_instance_methods "image_tag", "image_path"
+      assert_analyzer_includes "Phlex::Rails::Helpers::ImagePath", "Phlex::Rails::Helpers::ImageTag"
     end
   end
 
@@ -140,6 +149,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
 
     assert_phlex_template expected, html do
       assert_instance_methods "check_box_tag"
+      assert_analyzer_includes "Phlex::Rails::Helpers::CheckboxTag"
     end
   end
 
@@ -154,6 +164,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
 
     assert_phlex_template expected, html do
       assert_instance_methods "text_field"
+      assert_analyzer_includes "Phlex::Rails::Helpers::TextField"
     end
   end
 
@@ -168,6 +179,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
 
     assert_phlex_template expected, html do
       assert_instance_methods "options_for_select"
+      assert_analyzer_includes "Phlex::Rails::Helpers::OptionsForSelect"
     end
   end
 
@@ -182,6 +194,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
 
     assert_phlex_template expected, html do
       assert_instance_methods "collection_select"
+      assert_analyzer_includes "Phlex::Rails::Helpers::CollectionSelect"
     end
   end
 
@@ -196,6 +209,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
 
     assert_phlex_template expected, html do
       assert_instance_methods "options_from_collection_for_select"
+      assert_analyzer_includes "Phlex::Rails::Helpers::OptionsFromCollectionForSelect"
     end
   end
 
@@ -210,6 +224,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
 
     assert_phlex_template expected, html do
       assert_instance_methods "select_date"
+      assert_analyzer_includes "Phlex::Rails::Helpers::SelectDate"
       assert_consts "Date"
     end
   end
@@ -225,6 +240,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
 
     assert_phlex_template expected, html do
       assert_instance_methods "select_year"
+      assert_analyzer_includes "Phlex::Rails::Helpers::SelectYear"
     end
   end
 
@@ -240,6 +256,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
     assert_phlex_template expected, html do
       assert_locals "user_path"
       assert_instance_methods "link_to"
+      assert_analyzer_includes "Phlex::Rails::Helpers::LinkTo"
     end
   end
 
@@ -255,6 +272,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
     assert_phlex_template expected, html do
       assert_locals "post"
       assert_instance_methods "url_for"
+      assert_analyzer_includes "Phlex::Rails::Helpers::URLFor"
     end
   end
 
@@ -272,6 +290,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
 
     assert_phlex_template expected, html do
       assert_instance_methods "content_for"
+      assert_analyzer_includes "Phlex::Rails::Helpers::ContentFor"
     end
   end
 
@@ -293,6 +312,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
 
     assert_phlex_template expected, html do
       assert_instance_methods "content_for", "link_to"
+      assert_analyzer_includes "Phlex::Rails::Helpers::ContentFor", "Phlex::Rails::Helpers::LinkTo"
     end
   end
 
@@ -307,6 +327,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
 
     assert_phlex_template expected, html do
       assert_instance_methods "t"
+      assert_analyzer_includes "Phlex::Rails::Helpers::T"
     end
   end
 
@@ -321,6 +342,108 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
 
     assert_phlex_template expected, html do
       assert_instance_methods "translate"
+      assert_analyzer_includes "Phlex::Rails::Helpers::Translate"
+    end
+  end
+
+  it "Rails radio_button helper" do
+    html = %(<%= radio_button("hello") %>Text)
+
+    expected = <<~PHLEX.strip
+      radio_button("hello")
+
+      text "Text"
+    PHLEX
+
+    assert_phlex_template expected, html do
+      assert_instance_methods "radio_button"
+      assert_analyzer_includes "Phlex::Rails::Helpers::RadioButton"
+    end
+  end
+
+  it "Rails stylesheet_path helper" do
+    html = %(<%= stylesheet_path "hello" %>Text)
+
+    expected = <<~PHLEX.strip
+      stylesheet_path "hello"
+
+      text "Text"
+    PHLEX
+
+    assert_phlex_template expected, html do
+      assert_instance_methods "stylesheet_path"
+      assert_analyzer_includes "Phlex::Rails::Helpers::StyleSheetPath"
+    end
+  end
+
+  it "Rails javascript_path helper" do
+    html = %(<%= javascript_path "hello" %>Text)
+
+    expected = <<~PHLEX.strip
+      javascript_path "hello"
+
+      text "Text"
+    PHLEX
+
+    assert_phlex_template expected, html do
+      assert_instance_methods "javascript_path"
+      assert_analyzer_includes "Phlex::Rails::Helpers::JavaScriptPath"
+    end
+  end
+
+  it "Rails dom_id helper" do
+    html = %(<%= dom_id "hello" %>Text)
+
+    expected = <<~PHLEX.strip
+      dom_id "hello"
+
+      text "Text"
+    PHLEX
+
+    assert_phlex_template expected, html do
+      assert_instance_methods "dom_id"
+      assert_analyzer_includes "Phlex::Rails::Helpers::DOMID"
+    end
+  end
+
+  it "should include rails helpers in component" do
+    html = %(<%= translate("hello") %>)
+
+    expected = <<~PHLEX.strip
+      class Component < Phlex::HTML
+        include Phlex::Rails::Helpers::Translate
+
+        def template
+          translate("hello")
+        end
+      end
+    PHLEX
+
+    assert_phlex expected, html do
+      assert_instance_methods "translate"
+      assert_analyzer_includes "Phlex::Rails::Helpers::Translate"
+    end
+  end
+
+  it "should include multiple rails helpers in component" do
+    html = %(<%= translate("hello") %><%= t("hello") %>)
+
+    expected = <<~PHLEX.strip
+      class Component < Phlex::HTML
+        include Phlex::Rails::Helpers::Translate
+        include Phlex::Rails::Helpers::T
+
+        def template
+          translate("hello")
+
+          t("hello")
+        end
+      end
+    PHLEX
+
+    assert_phlex expected, html do
+      assert_instance_methods "translate", "t"
+      assert_analyzer_includes "Phlex::Rails::Helpers::Translate", "Phlex::Rails::Helpers::T"
     end
   end
 end
