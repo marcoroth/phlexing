@@ -4,7 +4,7 @@ require "phlex"
 
 module Phlexing
   module Helpers
-    KNOWN_ELEMENTS = Phlex::HTML::VOID_ELEMENTS.values + Phlex::HTML::STANDARD_ELEMENTS.values
+    KNOWN_ELEMENTS = Phlex::HTML::VoidElements::REGISTERED_ELEMENTS.values + Phlex::HTML::StandardElements::REGISTERED_ELEMENTS.values
 
     def whitespace
       options.whitespace? ? "whitespace\n" : ""

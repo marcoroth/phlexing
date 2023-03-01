@@ -32,6 +32,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency "deface", "~> 1.9"
   spec.add_dependency "html_press", "~> 0.8.2"
   spec.add_dependency "nokogiri", "~> 1.0"
-  spec.add_dependency "phlex", "~> 1.1"
+  spec.add_dependency "phlex", "~> 1.4"
   spec.add_dependency "syntax_tree", "~> 6.0"
 end
