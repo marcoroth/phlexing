@@ -81,19 +81,20 @@ module Phlexing
 
     def blocklist
       [
-        "render",
+        "render"
       ]
     end
 
     def routes_helpers
       [
         /\w+_url/,
-        /\w+_path/,
+        /\w+_path/
       ]
     end
 
     def known_rails_helpers
-      Phlex::Rails::Helpers.constants
+      Phlex::Rails::Helpers
+        .constants
         .reject { |m| m == :Routes }
         .map { |m| Module.const_get("::Phlex::Rails::Helpers::#{m}") }
         .each_with_object({}) { |m, sum|
