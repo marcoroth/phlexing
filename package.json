@@ -3,7 +3,8 @@
   "private": "true",
   "dependencies": {
     "@hotwired/stimulus": "^3.2.1",
-    "@hotwired/turbo-rails": "^7.2.5",
+    "@hotwired/turbo": "^7.3.0",
+    "@hotwired/turbo-rails": "^7.3.0",
     "@rails/actioncable": "^7.0.4",
     "@tailwindcss/forms": "^0.5.3",
     "autoprefixer": "^10.4.13",
@@ -11,7 +12,7 @@
     "esbuild": "^0.17.10",
     "esbuild-rails": "^1.0.3",
     "postcss": "^8.4.16",
-    "stimulus-use": "^0.51.3",
+    "stimulus-use": "^0.52.0",
     "tailwindcss": "^3.2.7",
     "turbo_power": "^0.3.1"
   },
