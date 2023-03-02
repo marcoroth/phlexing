@@ -1,4 +1,13 @@
 GIT
+  remote: https://github.com/joeldrapper/phlex-rails.git
+  revision: 674bb22351f8507c3214553a1650ad9e12378ca7
+  specs:
+    phlex-rails (0.7.1)
+      phlex (~> 1.4)
+      rails (>= 6.1, < 8)
+      zeitwerk (~> 2.6)
+
+GIT
   remote: https://github.com/joeldrapper/rubocop.git
   revision: 8d3c1a7dd04a0dee701e26ee506b28af0ffe3b98
   branch: rubocop-user-agent
@@ -158,10 +167,6 @@ GEM
     phlex (1.4.0)
       concurrent-ruby (~> 1.2)
       zeitwerk (~> 2.6)
-    phlex-rails (0.7.1)
-      phlex (~> 1.4)
-      rails (>= 6.1, < 8)
-      zeitwerk (~> 2.6)
     polyglot (0.3.5)
     prettier_print (1.2.0)
     racc (1.6.2)
@@ -223,6 +228,7 @@ PLATFORMS
 DEPENDENCIES
   maxitest (~> 4.4)
   minitest (~> 5.0)
+  phlex-rails!
   phlexing!
   rake (~> 13.0)
   rubocop!

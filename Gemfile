@@ -47,6 +47,9 @@ gem "cssbundling-rails"
 # Simple ERB to Phlex converter
 gem "phlexing", path: "gem"
 
+# An object-oriented alternative to ActionView for Ruby on Rails.
+gem "phlex-rails", github: "joeldrapper/phlex-rails"
+
 # A pure Ruby code highlighter that is compatible with Pygments
 gem "rouge", "~> 4.1"
 

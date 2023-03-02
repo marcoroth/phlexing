@@ -272,7 +272,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
     assert_phlex_template expected, html do
       assert_locals "post"
       assert_instance_methods "url_for"
-      assert_analyzer_includes "Phlex::Rails::Helpers::URLFor", "Phlex::Rails::Helpers::Routes"
+      assert_analyzer_includes "Phlex::Rails::Helpers::URLFor"
     end
   end
 
@@ -430,8 +430,8 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
 
     expected = <<~PHLEX.strip
       class Component < Phlex::HTML
-        include Phlex::Rails::Helpers::Translate
         include Phlex::Rails::Helpers::T
+        include Phlex::Rails::Helpers::Translate
 
         def template
           translate("hello")
