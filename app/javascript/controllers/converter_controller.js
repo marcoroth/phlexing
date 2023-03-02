@@ -21,7 +21,7 @@ export default class extends Controller {
 
   submit() {
     this.save()
-    this.outputTarget.querySelector("pre").classList.add("bg-gray-100", "animate-pulse", "duration-75")
+    this.outputTarget.querySelector("pre").classList.add("animate-pulse", "duration-75")
     this.formTarget.requestSubmit()
   }
 
