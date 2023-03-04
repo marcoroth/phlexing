@@ -179,11 +179,56 @@ class Phlexing::ConverterTest < Minitest::Spec
         def template
           div(class: (some_helper(with: :args)))
         end
+
+        private
+
+        def some_helper(*args, **kwargs)
+          # TODO: Implement me
+        end
       end
     PHLEX
 
     assert_phlex expected, html do
       assert_instance_methods "some_helper"
+    end
+  end
+
+  it "should render private instance methods" do
+    html = %(<% if should_show? %><%= pretty_print(@user) %><%= another_helper(1) %><% end %>)
+
+    expected = <<~PHLEX.strip
+      class Component < Phlex::HTML
+        def initialize(user:)
+          @user = user
+        end
+
+        def template
+          if should_show?
+            text pretty_print(@user)
+
+            text another_helper(1)
+          end
+        end
+
+        private
+
+        def another_helper(*args, **kwargs)
+          # TODO: Implement me
+        end
+
+        def pretty_print(*args, **kwargs)
+          # TODO: Implement me
+        end
+
+        def should_show?(*args, **kwargs)
+          # TODO: Implement me
+        end
+      end
+    PHLEX
+
+    assert_phlex expected, html do
+      assert_ivars "user"
+      assert_instance_methods "another_helper", "pretty_print", "should_show?"
     end
   end
 

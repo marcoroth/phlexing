@@ -68,6 +68,29 @@ module Phlexing
       out << converter.template_code
       out << newline
       out << "end"
+
+      if analyzer.instance_methods.any?
+        out << newline
+        out << newline
+        out << "private"
+        out << newline
+        out << newline
+
+        analyzer.instance_methods.sort.each do |instance_method|
+          out << "def "
+          out << instance_method
+          out << "(*args, **kwargs)"
+          out << newline
+          out << "# TODO: Implement me"
+          out << newline
+          out << "end"
+          out << newline
+          out << newline
+        end
+
+        out << newline
+      end
+
       out << newline
       out << "end"
       out << newline
