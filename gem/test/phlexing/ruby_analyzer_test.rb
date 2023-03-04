@@ -155,7 +155,7 @@ module Phlexing
       end
     end
 
-    it "should handle *_path route helper with argument" do
+    it "should handle *_url route helper with argument" do
       input = %(<%= user_url(1) %>)
 
       assert_analyzed(input) do
