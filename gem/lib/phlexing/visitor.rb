@@ -63,8 +63,8 @@ module Phlexing
           if node.message.value.end_with?("?") || node.child_nodes[3].is_a?(SyntaxTree::ArgParen)
             unless rails_helper?(node.message.value)
               @analyzer.instance_methods << node.message.value
-              @analyzer.calls << node.message.value
             end
+            @analyzer.calls << node.message.value
           else
             @analyzer.idents << node.message.value
           end

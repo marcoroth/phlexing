@@ -143,6 +143,7 @@ module Phlexing
       input = %(<%= user_path(1) %>)
 
       assert_analyzed(input) do
+        assert_calls "user_path"
         assert_analyzer_includes "Phlex::Rails::Helpers::Routes"
       end
     end
@@ -159,6 +160,7 @@ module Phlexing
       input = %(<%= user_url(1) %>)
 
       assert_analyzed(input) do
+        assert_calls "user_url"
         assert_analyzer_includes "Phlex::Rails::Helpers::Routes"
       end
     end
