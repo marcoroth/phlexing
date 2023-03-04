@@ -11,7 +11,7 @@ class Phlexing::Converter::BlocksTest < Minitest::Spec
     PHLEX
 
     assert_phlex_template expected, html do
-      assert_locals "tag"
+      assert_analyzer_includes "Phlex::Rails::Helpers::Tag"
     end
   end
 
@@ -23,7 +23,7 @@ class Phlexing::Converter::BlocksTest < Minitest::Spec
     PHLEX
 
     assert_phlex_template expected, html do
-      assert_locals "tag"
+      assert_analyzer_includes "Phlex::Rails::Helpers::Tag"
     end
   end
 
@@ -35,7 +35,8 @@ class Phlexing::Converter::BlocksTest < Minitest::Spec
     PHLEX
 
     assert_phlex_template expected, html do
-      assert_locals "tag", "content"
+      assert_locals "content"
+      assert_analyzer_includes "Phlex::Rails::Helpers::Tag"
     end
   end
 end

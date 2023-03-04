@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "phlex"
+require "phlex-rails"
 
 module Phlexing
   module Helpers
@@ -80,23 +81,27 @@ module Phlexing
 
     def blocklist
       [
-        "render",
-        "tag",
-        "form_with",
-        "link_to",
-        "t",
-        "translate"
+        "render"
       ]
     end
 
-    def regex_filter
+    def routes_helpers
       [
-        /\w+_field/,
-        /\w+_tag/,
-        /\w+_select/,
-        /\w+_for/,
-        /select_\w+/
+        /\w+_url/,
+        /\w+_path/
       ]
+    end
+
+    def known_rails_helpers
+      Phlex::Rails::Helpers
+        .constants
+        .reject { |m| m == :Routes }
+        .map { |m| Module.const_get("::Phlex::Rails::Helpers::#{m}") }
+        .each_with_object({}) { |m, sum|
+          (m.instance_methods - Module.instance_methods).each do |method|
+            sum[method.to_s] = m.name
+          end
+        }
     end
 
     def string_output?(node)
@@ -104,10 +109,10 @@ module Phlexing
 
       return true if word.nil?
 
-      blocklist_matched = blocklist.include?(word)
-      filter_matched = regex_filter.map { |regex| word.scan(regex).any? }.reduce(:|)
+      blocklist_matched = known_rails_helpers.keys.include?(word) || blocklist.include?(word)
+      route_matched = routes_helpers.map { |regex| word.scan(regex).any? }.reduce(:|)
 
-      !(blocklist_matched || filter_matched)
+      !(blocklist_matched || route_matched)
     end
 
     def children?(node)
