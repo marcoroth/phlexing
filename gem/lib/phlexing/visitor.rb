@@ -20,7 +20,7 @@ module Phlexing
     end
 
     def visit_command(node)
-      if !rails_helper?(node.message.value)
+      unless rails_helper?(node.message.value)
         @analyzer.instance_methods << node.message.value
       end
       super
@@ -61,7 +61,7 @@ module Phlexing
         case node.message
         when SyntaxTree::Ident
           if node.message.value.end_with?("?") || node.child_nodes[3].is_a?(SyntaxTree::ArgParen)
-            if !rails_helper?(node.message.value)
+            unless rails_helper?(node.message.value)
               @analyzer.instance_methods << node.message.value
               @analyzer.calls << node.message.value
             end
@@ -75,13 +75,13 @@ module Phlexing
     end
 
     def visit_vcall(node)
-      if !rails_helper?(node.value.value)
+      unless rails_helper?(node.value.value)
         @analyzer.locals << node.value.value
       end
     end
 
     def visit_ident(node)
-      if !rails_helper?(node.value)
+      unless rails_helper?(node.value)
         @analyzer.idents << node.value
       end
     end
