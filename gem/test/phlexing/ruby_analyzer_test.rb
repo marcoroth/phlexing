@@ -96,7 +96,6 @@ module Phlexing
       input = %(<%= tag.div do %>Content<% end %>)
 
       assert_analyzed(input) do
-        assert_locals "tag"
         assert_idents "div"
         assert_calls "tag"
         assert_analyzer_includes "Phlex::Rails::Helpers::Tag"
@@ -127,9 +126,40 @@ module Phlexing
       input = %(<%= content_tag :div do %>content<% end %>)
 
       assert_analyzed(input) do
-        assert_idents "content_tag", "div"
-        assert_instance_methods "content_tag"
+        assert_idents "div"
         assert_analyzer_includes "Phlex::Rails::Helpers::ContentTag"
+      end
+    end
+
+    it "should handle *_path route helper" do
+      input = %(<%= user_path %>)
+
+      assert_analyzed(input) do
+        assert_analyzer_includes "Phlex::Rails::Helpers::Routes"
+      end
+    end
+
+    it "should handle *_path route helper with argument" do
+      input = %(<%= user_path(1) %>)
+
+      assert_analyzed(input) do
+        assert_analyzer_includes "Phlex::Rails::Helpers::Routes"
+      end
+    end
+
+    it "should handle *_url route helper" do
+      input = %(<%= user_url %>)
+
+      assert_analyzed(input) do
+        assert_analyzer_includes "Phlex::Rails::Helpers::Routes"
+      end
+    end
+
+    it "should handle *_path route helper with argument" do
+      input = %(<%= user_url(1) %>)
+
+      assert_analyzed(input) do
+        assert_analyzer_includes "Phlex::Rails::Helpers::Routes"
       end
     end
   end

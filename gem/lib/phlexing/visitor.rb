@@ -20,7 +20,9 @@ module Phlexing
     end
 
     def visit_command(node)
-      @analyzer.instance_methods << node.message.value
+      if !rails_helper?(node.message.value)
+        @analyzer.instance_methods << node.message.value
+      end
       super
     end
 
@@ -59,8 +61,10 @@ module Phlexing
         case node.message
         when SyntaxTree::Ident
           if node.message.value.end_with?("?") || node.child_nodes[3].is_a?(SyntaxTree::ArgParen)
-            @analyzer.instance_methods << node.message.value
-            @analyzer.calls << node.message.value
+            if !rails_helper?(node.message.value)
+              @analyzer.instance_methods << node.message.value
+              @analyzer.calls << node.message.value
+            end
           else
             @analyzer.idents << node.message.value
           end
@@ -71,25 +75,31 @@ module Phlexing
     end
 
     def visit_vcall(node)
-      @analyzer.locals << node.value.value
-      test_rails_helper(node.value.value)
+      if !rails_helper?(node.value.value)
+        @analyzer.locals << node.value.value
+      end
     end
 
     def visit_ident(node)
-      @analyzer.idents << node.value
-      test_rails_helper(node.value)
+      if !rails_helper?(node.value)
+        @analyzer.idents << node.value
+      end
     end
 
     private
 
-    def test_rails_helper(name)
+    def rails_helper?(name)
       if known_rails_helpers.keys.include?(name)
         @analyzer.includes << known_rails_helpers[name]
+        return true
       end
 
       if routes_helpers.map { |regex| name.scan(regex).any? }.reduce(:|)
         @analyzer.includes << "Phlex::Rails::Helpers::Routes"
+        return true
       end
+
+      false
     end
   end
 end
