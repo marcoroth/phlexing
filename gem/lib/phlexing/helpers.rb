@@ -5,7 +5,9 @@ require "phlex-rails"
 
 module Phlexing
   module Helpers
-    KNOWN_ELEMENTS = Phlex::HTML::VoidElements::REGISTERED_ELEMENTS.values + Phlex::HTML::StandardElements::REGISTERED_ELEMENTS.values
+    KNOWN_ELEMENTS =
+      Phlex::HTML::VoidElements.send(:slow_registered_elements).to_a +
+      Phlex::HTML::StandardElements.send(:slow_registered_elements).to_a
 
     def whitespace
       options.whitespace? ? "whitespace\n" : ""

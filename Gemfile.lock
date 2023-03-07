@@ -1,13 +1,4 @@
 GIT
-  remote: https://github.com/joeldrapper/phlex-rails.git
-  revision: ffe938bcc5fd935cd23312bbaa99b78e20effcfd
-  specs:
-    phlex-rails (0.8.0)
-      phlex (~> 1.5)
-      rails (>= 6.1, < 8)
-      zeitwerk (~> 2.6)
-
-GIT
   remote: https://github.com/joeldrapper/rubocop.git
   revision: 8d3c1a7dd04a0dee701e26ee506b28af0ffe3b98
   branch: rubocop-user-agent
@@ -30,8 +21,8 @@ PATH
       deface (~> 1.9)
       html_press (~> 0.8.2)
       nokogiri (~> 1.0)
-      phlex (~> 1.4)
-      phlex-rails (~> 0.4)
+      phlex (~> 1.5)
+      phlex-rails (~> 0.8)
       syntax_tree (~> 6.0)
 
 GEM
@@ -185,6 +176,10 @@ GEM
       concurrent-ruby (~> 1.2)
       erb (>= 4)
       zeitwerk (~> 2.6)
+    phlex-rails (0.8.0)
+      phlex (~> 1.5)
+      rails (>= 6.1, < 8)
+      zeitwerk (~> 2.6)
     polyglot (0.3.5)
     prettier_print (1.2.0)
     puma (6.1.1)
@@ -275,7 +270,6 @@ DEPENDENCIES
   cssbundling-rails
   debug
   jsbundling-rails
-  phlex-rails!
   phlexing!
   puma (~> 6.1)
   rack-rewrite (~> 1.5)
