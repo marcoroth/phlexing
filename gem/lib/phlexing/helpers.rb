@@ -63,7 +63,7 @@ module Phlexing
 
       name = node.name.tr("-", "_")
 
-      @converter.custom_elements << name unless KNOWN_ELEMENTS.include?(name)
+      @converter.custom_elements << name unless KNOWN_ELEMENTS.include?(name.to_sym)
 
       name
     end
