@@ -6,8 +6,8 @@ require "phlex-rails"
 module Phlexing
   module Helpers
     KNOWN_ELEMENTS =
-      Phlex::HTML::VoidElements.send(:slow_registered_elements).to_a +
-      Phlex::HTML::StandardElements.send(:slow_registered_elements).to_a
+      Phlex::HTML::VoidElements.registered_elements.values +
+      Phlex::HTML::StandardElements.registered_elements.values
 
     def whitespace
       options.whitespace? ? "whitespace\n" : ""
@@ -63,7 +63,7 @@ module Phlexing
 
       name = node.name.tr("-", "_")
 
-      @converter.custom_elements << name unless KNOWN_ELEMENTS.include?(name.to_sym)
+      @converter.custom_elements << name unless KNOWN_ELEMENTS.include?(name)
 
       name
     end
