@@ -26,25 +26,99 @@ If bundler is not being used to manage dependencies, install the gem by executin
 
     $ gem install phlexing
 
-### Usage
+### Basic Usage
 
 ```ruby
 require "phlexing"
 
-Phlexing::Converter.convert('<h1 class="title">Hello World</h1>')
-=> "h1(class: \"title\") { \"Hello World\" }\n"
+Phlexing::Converter.convert(%(<h1 class="title">Hello World</h1>))
+```
 
-Phlexing::Converter.convert(%{
+##### Output
+
+```ruby
+h1(class: "title") { "Hello World" }
+```
+
+### Multi-line HTML
+
+```ruby
+
+Phlexing::Converter.convert(<<~HTML)
   <% @articles.each do |article| %>
     <h1><%= article.title %></h1>
   <% end %>
-})
-=> "@articles.each do |article|
-     h1 { article.title }
+HTML
+```
 
-     whitespace
-   end"
+##### Output
 
+```ruby
+@articles.each { |article| h1 { article.title } }
+```
+
+### Component class
+
+```ruby
+Phlexing::Converter.convert(<<~HTML, component: true)
+  <h1><%= @user.name %></h1>
+
+  <p><%= posts.count %> Posts</p>
+HTML
+```
+
+##### Output
+```ruby
+class Component < Phlex::HTML
+  attr_accessor :posts
+
+  def initialize(posts:, user:)
+    @posts = posts
+    @user = user
+  end
+
+  def template
+    h1 { @user.name }
+
+    p do
+      text posts.count
+      text %( Posts)
+    end
+  end
+end
+```
+
+### Rails Helpers
+
+```ruby
+Phlexing::Converter.convert(%(<%= link_to @article.title, @article %>), component: true)
+```
+
+##### Output
+```ruby
+class Component < Phlex::HTML
+  include Phlex::Rails::Helpers::LinkTo
+
+  def initialize(article:)
+    @article = article
+  end
+
+  def template
+    link_to @article.title, @article
+  end
+end
+```
+
+### ERB Attribute interpolation
+
+```ruby
+Phlexing::Converter.convert(%(<div style="background: <%= active? ? "green" : "gray" %>"></div>))
+```
+
+##### Output
+
+```ruby
+div(style: %(background: #{active? ? "green" : "gray"}))
 ```
 
 ### Development
