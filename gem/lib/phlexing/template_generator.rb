@@ -54,7 +54,7 @@ module Phlexing
 
       attributes = []
 
-      node.attributes.each_value do |attribute|
+      node.attribute_nodes.each do |attribute|
         attributes << handle_attribute(attribute)
       end
 
@@ -74,7 +74,13 @@ module Phlexing
     def handle_html_attribute_output(attribute)
       String.new.tap { |s|
         s << arg(attribute.name.underscore)
-        s << quote(attribute.value)
+        if attribute.value.blank? && !attribute.to_html.include?("=")
+          # handling boolean attributes
+          # eg. <input required> => input(required: true)
+          s << "true"
+        else
+          s << quote(attribute.value)
+        end
       }
     end
 
