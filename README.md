@@ -91,20 +91,42 @@ end
 ### Rails Helpers
 
 ```ruby
-Phlexing::Converter.convert(%(<%= link_to @article.title, @article %>), component: true)
+Phlexing::Converter.convert(%(<%= link_to "Home", root_path %>), component: true)
 ```
 
 ##### Output
 ```ruby
 class Component < Phlex::HTML
   include Phlex::Rails::Helpers::LinkTo
-
-  def initialize(article:)
-    @article = article
-  end
+  include Phlex::Rails::Helpers::Routes
 
   def template
-    link_to @article.title, @article
+    link_to "Home", root_path
+  end
+end
+```
+
+### Private component methods
+
+```ruby
+Phlexing::Converter.convert(%(<% if active? %>Active<% else %>Inactive<% end %>), component: true)
+```
+
+##### Output
+```ruby
+class Component < Phlex::HTML
+  def template
+    if active?
+      text "Active"
+    else
+      text "Inactive"
+    end
+  end
+
+  private
+
+  def active?(*args, **kwargs)
+    # TODO: Implement me
   end
 end
 ```
