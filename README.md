@@ -3,7 +3,7 @@
 [![Tests](https://github.com/marcoroth/phlexing/actions/workflows/tests.yml/badge.svg)](https://github.com/marcoroth/phlexing/actions/workflows/tests.yml)
 [![Rubocop](https://github.com/marcoroth/phlexing/actions/workflows/rubocop.yml/badge.svg)](https://github.com/marcoroth/phlexing/actions/workflows/rubocop.yml)
 
-A simple ERB to [Phlex](https://github.com/marcoroth/phlexing) Converter.
+A simple ERB to [Phlex](https://www.phlex.fun) Converter.
 
 <a href="https://phlexing.fun">
   <img src="./screenshot.png" alt="Phlexing Screenshot">
