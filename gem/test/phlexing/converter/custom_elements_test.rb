@@ -49,7 +49,7 @@ class Phlexing::Converter::CustomElementsTest < Minitest::Spec
 
         def template
           my_custom do
-            text "Hello"
+            plain "Hello"
             another_custom { "World" }
           end
         end

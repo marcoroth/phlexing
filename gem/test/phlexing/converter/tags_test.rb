@@ -56,7 +56,7 @@ class Phlexing::Converter::TagsTest < Minitest::Spec
 
     expected = <<~PHLEX.strip
       div do
-        text %(Text with 'single quotes' and "double quotes")
+        plain %(Text with 'single quotes' and "double quotes")
         span { %(Text with "double quotes" and 'single quotes') }
       end
     PHLEX
@@ -93,7 +93,7 @@ class Phlexing::Converter::TagsTest < Minitest::Spec
       div(class: "app", id: "body") do
         h1 { "Title 1" }
         h2 do
-          text "Title 2"
+          plain "Title 2"
           span { "Small Addition" }
         end
       end
@@ -107,9 +107,9 @@ class Phlexing::Converter::TagsTest < Minitest::Spec
 
     expected = <<~PHLEX.strip
       div do
-        text "Text"
+        plain "Text"
         br
-        text "Line 2"
+        plain "Line 2"
       end
     PHLEX
 

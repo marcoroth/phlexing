@@ -104,8 +104,8 @@ class Phlexing::Converter::ErbTest < Minitest::Spec
 
     expected = <<~PHLEX.strip
       div do
-        text "\#{some_method}_text"
-        text " More Text"
+        plain "\#{some_method}_text"
+        plain " More Text"
       end
     PHLEX
 
@@ -162,7 +162,7 @@ class Phlexing::Converter::ErbTest < Minitest::Spec
 
     expected = <<~PHLEX.strip
       div do # The Next line has text on it
-        text " More Text"
+        plain " More Text"
       end
     PHLEX
 
@@ -185,7 +185,7 @@ class Phlexing::Converter::ErbTest < Minitest::Spec
     expected = <<~PHLEX.strip
       div do
         unsafe_raw "<p>Some safe HTML</p>"
-        text some_method
+        plain some_method
         span { "Text" }
       end
     PHLEX
@@ -201,7 +201,7 @@ class Phlexing::Converter::ErbTest < Minitest::Spec
     expected = <<~PHLEX.strip
       div do
         unsafe_raw "<p>Some safe HTML</p>"
-        text "Another output"
+        plain "Another output"
       end
     PHLEX
 
@@ -219,8 +219,8 @@ class Phlexing::Converter::ErbTest < Minitest::Spec
     expected = <<~PHLEX.strip
       @greeting =
         capture do
-          text " Welcome to my shiny new web page! The date and time is "
-          text Time.now
+          plain " Welcome to my shiny new web page! The date and time is "
+          plain Time.now
         end
     PHLEX
 
@@ -236,9 +236,9 @@ class Phlexing::Converter::ErbTest < Minitest::Spec
 
     expected = <<~PHLEX.strip
       div do
-        text "Text"
-        text "ERB Text"
-        text "#{'interpolate'} text"
+        plain "Text"
+        plain "ERB Text"
+        plain "#{'interpolate'} text"
       end
     PHLEX
 

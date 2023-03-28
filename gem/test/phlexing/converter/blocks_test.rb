@@ -19,7 +19,7 @@ class Phlexing::Converter::BlocksTest < Minitest::Spec
     html = %(<%= tag.div do %>Content<% end %>)
 
     expected = <<~PHLEX.strip
-      tag.div { text "Content" }
+      tag.div { plain "Content" }
     PHLEX
 
     assert_phlex_template expected, html do
@@ -31,7 +31,7 @@ class Phlexing::Converter::BlocksTest < Minitest::Spec
     html = %(<%= tag.div do %><%= content %><% end %>)
 
     expected = <<~PHLEX.strip
-      tag.div { text content }
+      tag.div { plain content }
     PHLEX
 
     assert_phlex_template expected, html do
