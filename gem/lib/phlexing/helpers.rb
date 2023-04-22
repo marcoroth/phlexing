@@ -9,6 +9,8 @@ module Phlexing
       Phlex::HTML::VoidElements.registered_elements.values +
       Phlex::HTML::StandardElements.registered_elements.values
 
+    SVG_ELEMENTS = Phlex::SVG::StandardElements.registered_elements.values.to_h { |element| [element.downcase, element] }
+
     def whitespace
       options.whitespace? ? "whitespace\n" : ""
     end
@@ -59,17 +61,27 @@ module Phlexing
     end
 
     def tag_name(node)
-      return "template_tag" if node.name == "template-tag"
-
       name = node.name.tr("-", "_")
 
-      @converter.custom_elements << name unless KNOWN_ELEMENTS.include?(name)
+      return name if name == "template_tag"
+      return name if name.start_with?("s.")
+      return name if KNOWN_ELEMENTS.include?(name)
+
+      @converter.custom_elements << name
 
       name
     end
 
-    def block
+    def block(params = nil)
       out << " {"
+
+      if params
+        out << " "
+        out << "|"
+        out << params
+        out << "|"
+      end
+
       yield
       out << " }"
     end
