@@ -2,16 +2,17 @@
 
 module Phlexing
   class Options
-    attr_accessor :component, :component_name, :parent_component, :whitespace
+    attr_accessor :component, :component_name, :parent_component, :whitespace, :svg_param
 
     alias_method :whitespace?, :whitespace
     alias_method :component?, :component
 
-    def initialize(component: false, component_name: "Component", parent_component: "Phlex::HTML", whitespace: true)
+    def initialize(component: false, component_name: "Component", parent_component: "Phlex::HTML", whitespace: true, svg_param: "s")
       @component = component
       @component_name = safe_constant_name(component_name)
       @parent_component = safe_constant_name(parent_component)
       @whitespace = whitespace
+      @svg_param = svg_param
     end
 
     def safe_constant_name(name)

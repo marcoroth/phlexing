@@ -215,4 +215,24 @@ class Phlexing::Converter::TagsTest < Minitest::Spec
 
     assert_phlex_template expected, html
   end
+
+  it "should convert boolean attributes properly" do
+    html = %(<input required>)
+
+    expected = <<~PHLEX.strip
+      input(required: true)
+    PHLEX
+
+    assert_phlex_template expected, html
+  end
+
+  it "should convert blank attributes properly" do
+    html = %(<input required="">)
+
+    expected = <<~PHLEX.strip
+      input(required: "")
+    PHLEX
+
+    assert_phlex_template expected, html
+  end
 end

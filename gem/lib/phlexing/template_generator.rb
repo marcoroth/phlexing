@@ -54,7 +54,7 @@ module Phlexing
 
       attributes = []
 
-      node.attributes.each_value do |attribute|
+      node.attribute_nodes.each do |attribute|
         attributes << handle_attribute(attribute)
       end
 
@@ -74,7 +74,13 @@ module Phlexing
     def handle_html_attribute_output(attribute)
       String.new.tap { |s|
         s << arg(attribute.name.underscore)
-        s << quote(attribute.value)
+        if attribute.value.blank? && !attribute.to_html.include?("=")
+          # handling boolean attributes
+          # eg. <input required> => input(required: true)
+          s << "true"
+        else
+          s << quote(attribute.value)
+        end
       }
     end
 
@@ -141,8 +147,10 @@ module Phlexing
       out << tag_name(node)
       out << handle_attributes(node)
 
+      params = node.name == "svg" ? options.svg_param : nil
+
       if node.children.any?
-        block { handle_children(node, level) }
+        block(params) { handle_children(node, level) }
       end
 
       out << newline
@@ -183,6 +191,22 @@ module Phlexing
       out << newline if level == 1
     end
 
+    def handle_svg_node(node, level)
+      node.children.each do |child|
+        child.traverse do |subchild|
+          subchild.name = SVG_ELEMENTS[subchild.name] if SVG_ELEMENTS.key?(subchild.name)
+          subchild.name = subchild.name.prepend("#{options.svg_param}.") # rubocop:disable Style/RedundantSelfAssignment
+        end
+      end
+
+      whitespace_before = options.whitespace
+      options.whitespace = false
+
+      handle_element_node(node, level)
+
+      options.whitespace = whitespace_before
+    end
+
     def handle_document_node(node, level)
       handle_children(node, level)
     end
@@ -198,7 +222,11 @@ module Phlexing
       in Nokogiri::XML::Text
         handle_text_node(node)
       in Nokogiri::XML::Element
-        handle_element_node(node, level)
+        if node.name == "svg"
+          handle_svg_node(node, level)
+        else
+          handle_element_node(node, level)
+        end
       in Nokogiri::HTML4::Document | Nokogiri::HTML4::DocumentFragment | Nokogiri::XML::DTD
         handle_document_node(node, level)
       in Nokogiri::XML::Comment
