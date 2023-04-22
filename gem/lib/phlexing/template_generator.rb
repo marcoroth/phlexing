@@ -194,7 +194,7 @@ module Phlexing
     def handle_svg_node(node, level)
       node.children.each do |child|
         child.traverse do |subchild|
-          subchild.name = SVG_ELEMENTS[subchild.name] if SVG_ELEMENTS.has_key?(subchild.name)
+          subchild.name = SVG_ELEMENTS[subchild.name] if SVG_ELEMENTS.key?(subchild.name)
           subchild.name = subchild.name.prepend("#{options.svg_param}.") # rubocop:disable Style/RedundantSelfAssignment
         end
       end
