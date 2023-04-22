@@ -9,6 +9,8 @@ module Phlexing
       Phlex::HTML::VoidElements.registered_elements.values +
       Phlex::HTML::StandardElements.registered_elements.values
 
+    SVG_ELEMENTS = Phlex::SVG::StandardElements.registered_elements.values.map { |element| [element.downcase, element] }.to_h
+
     def whitespace
       options.whitespace? ? "whitespace\n" : ""
     end

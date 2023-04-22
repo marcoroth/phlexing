@@ -48,7 +48,7 @@ class Phlexing::Converter::SvgTest < Minitest::Spec
     end
   end
 
-  xit "converts SVG with case-sensitive" do
+  it "converts SVG with case-sensitive" do
     html = %(
       <svg>
         <feSpecularLighting>
