@@ -17,7 +17,7 @@ GIT
 PATH
   remote: gem
   specs:
-    phlexing (0.4.0)
+    phlexing (0.5.0)
       deface (~> 1.9)
       html_press (~> 0.8.2)
       nokogiri (~> 1.0)
@@ -172,7 +172,7 @@ GEM
     parallel (1.22.1)
     parser (3.1.2.1)
       ast (~> 2.4.1)
-    phlex (1.6.1)
+    phlex (1.8.1)
       concurrent-ruby (~> 1.2)
       erb (>= 4)
       zeitwerk (~> 2.6)
