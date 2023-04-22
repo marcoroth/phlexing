@@ -7,7 +7,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
     html = %(<%= tag.div do %>Content<% end %>)
 
     expected = <<~PHLEX.strip
-      tag.div { text "Content" }
+      tag.div { plain "Content" }
     PHLEX
 
     assert_phlex_template expected, html do
@@ -19,7 +19,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
     html = %(<%= tag.div do %><%= content %><% end %>)
 
     expected = <<~PHLEX.strip
-      tag.div { text content }
+      tag.div { plain content }
     PHLEX
 
     assert_phlex_template expected, html do
@@ -33,7 +33,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
 
     expected = <<~PHLEX.strip
       content_tag :div do
-        text "Content"
+        plain "Content"
       end
     PHLEX
 
@@ -47,7 +47,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
 
     expected = <<~PHLEX.strip
       content_tag :div, class: "container", data: { controller: "content" } do
-        text "Content"
+        plain "Content"
       end
     PHLEX
 
@@ -61,7 +61,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
 
     expected = <<~PHLEX.strip
       content_tag :div do
-        text content
+        plain content
       end
     PHLEX
 
@@ -76,7 +76,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
 
     expected = <<~PHLEX.strip
       content_tag :div do
-        text content
+        plain content
       end
     PHLEX
 
@@ -91,7 +91,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
 
     expected = <<~PHLEX.strip
       form_for :article, @article do |f|
-        text f.blah
+        plain f.blah
       end
     PHLEX
 
@@ -106,7 +106,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
 
     expected = <<~PHLEX.strip
       form_with :article, @article do |f|
-        text f.blah
+        plain f.blah
       end
     PHLEX
 
@@ -122,7 +122,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
     expected = <<~PHLEX.strip
       image_tag image_path("/asset")
 
-      text "Text"
+      plain "Text"
     PHLEX
 
     assert_phlex_template expected, html do
@@ -136,7 +136,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
     expected = <<~PHLEX.strip
       check_box_tag(:pet_dog)
 
-      text "Text"
+      plain "Text"
     PHLEX
 
     assert_phlex_template expected, html do
@@ -150,7 +150,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
     expected = <<~PHLEX.strip
       text_field(:person, :name)
 
-      text "Text"
+      plain "Text"
     PHLEX
 
     assert_phlex_template expected, html do
@@ -164,7 +164,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
     expected = <<~PHLEX.strip
       options_for_select([["Lisbon", 1], ["Madrid", 2]])
 
-      text "Text"
+      plain "Text"
     PHLEX
 
     assert_phlex_template expected, html do
@@ -178,7 +178,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
     expected = <<~PHLEX.strip
       collection_select([])
 
-      text "Text"
+      plain "Text"
     PHLEX
 
     assert_phlex_template expected, html do
@@ -192,7 +192,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
     expected = <<~PHLEX.strip
       options_from_collection_for_select([])
 
-      text "Text"
+      plain "Text"
     PHLEX
 
     assert_phlex_template expected, html do
@@ -206,7 +206,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
     expected = <<~PHLEX.strip
       select_date Date.today, prefix: :start_date
 
-      text "Text"
+      plain "Text"
     PHLEX
 
     assert_phlex_template expected, html do
@@ -221,7 +221,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
     expected = <<~PHLEX.strip
       select_year(2009)
 
-      text "Text"
+      plain "Text"
     PHLEX
 
     assert_phlex_template expected, html do
@@ -235,7 +235,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
     expected = <<~PHLEX.strip
       link_to "Abc", "/users"
 
-      text "Text"
+      plain "Text"
     PHLEX
 
     assert_phlex_template expected, html do
@@ -249,7 +249,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
     expected = <<~PHLEX.strip
       url_for post
 
-      text "Text"
+      plain "Text"
     PHLEX
 
     assert_phlex_template expected, html do
@@ -267,7 +267,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
     expected = <<~PHLEX.strip
       ul { content_for :navigation }
 
-      text "Text"
+      plain "Text"
     PHLEX
 
     assert_phlex_template expected, html do
@@ -288,7 +288,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
         li { link_to "Home", action: "index" }
       end
 
-      text "Text"
+      plain "Text"
     PHLEX
 
     assert_phlex_template expected, html do
@@ -302,7 +302,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
     expected = <<~PHLEX.strip
       t("hello")
 
-      text "Text"
+      plain "Text"
     PHLEX
 
     assert_phlex_template expected, html do
@@ -316,7 +316,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
     expected = <<~PHLEX.strip
       translate("hello")
 
-      text "Text"
+      plain "Text"
     PHLEX
 
     assert_phlex_template expected, html do
@@ -330,7 +330,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
     expected = <<~PHLEX.strip
       radio_button("hello")
 
-      text "Text"
+      plain "Text"
     PHLEX
 
     assert_phlex_template expected, html do
@@ -344,7 +344,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
     expected = <<~PHLEX.strip
       stylesheet_path "hello"
 
-      text "Text"
+      plain "Text"
     PHLEX
 
     assert_phlex_template expected, html do
@@ -358,7 +358,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
     expected = <<~PHLEX.strip
       javascript_path "hello"
 
-      text "Text"
+      plain "Text"
     PHLEX
 
     assert_phlex_template expected, html do
@@ -372,7 +372,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
     expected = <<~PHLEX.strip
       dom_id "hello"
 
-      text "Text"
+      plain "Text"
     PHLEX
 
     assert_phlex_template expected, html do

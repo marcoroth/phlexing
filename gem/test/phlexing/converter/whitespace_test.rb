@@ -11,7 +11,7 @@ class Phlexing::Converter::WhitespaceTest < Minitest::Spec
     expected = <<~PHLEX.strip
       a do
         i(class: "fa fa-pencil")
-        text " Edit"
+        plain " Edit"
       end
     PHLEX
 
@@ -56,9 +56,9 @@ class Phlexing::Converter::WhitespaceTest < Minitest::Spec
 
     expected = <<~PHLEX.strip
       h1 do
-        text @user.firstname
+        plain @user.firstname
         whitespace
-        text @user.lastname
+        plain @user.lastname
       end
     PHLEX
 
@@ -74,8 +74,8 @@ class Phlexing::Converter::WhitespaceTest < Minitest::Spec
 
     expected = <<~PHLEX.strip
       h1 do
-        text @user.firstname
-        text @user.lastname
+        plain @user.firstname
+        plain @user.lastname
       end
     PHLEX
 

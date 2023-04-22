@@ -3,7 +3,7 @@
 require_relative "../test_helper"
 
 class Phlexing::ConverterTest < Minitest::Spec
-  it "shouldn't pass render method call into the text method" do
+  it "shouldn't pass render method call into the plain method" do
     html = <<~HTML.strip
       <%= render SomeView.new %>
       Hello
@@ -12,7 +12,7 @@ class Phlexing::ConverterTest < Minitest::Spec
     expected = <<~PHLEX.strip
       render SomeView.new
 
-      text "Hello"
+      plain "Hello"
     PHLEX
 
     assert_phlex_template expected, html do
@@ -75,9 +75,9 @@ class Phlexing::ConverterTest < Minitest::Spec
 
         def template
           h1 do
-            text @firstname
+            plain @firstname
             whitespace
-            text @lastname
+            plain @lastname
           end
         end
       end
@@ -111,14 +111,14 @@ class Phlexing::ConverterTest < Minitest::Spec
         end
 
         def template
-          text @user.name
+          plain @user.name
 
           if show_company && @company
             whitespace
-            text @company.name
+            plain @company.name
           end
 
-          text some_method
+          plain some_method
         end
       end
     PHLEX
@@ -204,9 +204,9 @@ class Phlexing::ConverterTest < Minitest::Spec
 
         def template
           if should_show?
-            text pretty_print(@user)
+            plain pretty_print(@user)
 
-            text another_helper(1)
+            plain another_helper(1)
           end
         end
 

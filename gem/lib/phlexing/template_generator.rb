@@ -30,7 +30,7 @@ module Phlexing
     end
 
     def handle_text_output(text)
-      output("text", text)
+      output("plain", text)
     end
 
     def handle_html_comment_output(text)
