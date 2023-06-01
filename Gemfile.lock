@@ -182,7 +182,7 @@ GEM
       zeitwerk (~> 2.6)
     polyglot (0.3.5)
     prettier_print (1.2.1)
-    puma (6.2.2)
+    puma (6.3.0)
       nio4r (~> 2.0)
     racc (1.6.2)
     rack (2.2.7)
@@ -271,7 +271,7 @@ DEPENDENCIES
   debug
   jsbundling-rails
   phlexing!
-  puma (~> 6.2)
+  puma (~> 6.3)
   rack-rewrite (~> 1.5)
   rails (~> 7.0.5)
   rouge (~> 4.1)
