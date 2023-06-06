@@ -330,10 +330,10 @@ electron-to-chromium@^1.4.284:
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.327.tgz#288b106518cfed0a60f7de8a0480432a9be45477"
   integrity sha512-DIk2H4g/3ZhjgiABJjVdQvUdMlSABOsjeCm6gmUzIdKxAuFrGiJ8QXMm3i09grZdDBMC/d8MELMrdwYRC0+YHg==
 
-esbuild-rails@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/esbuild-rails/-/esbuild-rails-1.0.6.tgz#e0582821ef6886b1d39d189402aee938d51c856b"
-  integrity sha512-SS4RYqGpOZ9PNoGe+tD8UYsy1rfmIXrjxWNBrlqT6QL9S/HqDKQWY4nYc9dsd7YKDd7ucTmpzyb5hH6Z5Y9rLA==
+esbuild-rails@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/esbuild-rails/-/esbuild-rails-1.0.7.tgz#3c8f76dc891d5b2105cb683ace0a15d11c91a973"
+  integrity sha512-6LuKQnYY32fisBSJoMeDQm1V4MB17P95oV8Er145j77Yr7sDE6TpKKtXeprApN3YxE2rQUeU3il4LR3GHh5fIw==
   dependencies:
     fast-glob "^3.2.12"
 
