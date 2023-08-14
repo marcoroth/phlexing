@@ -1,0 +1,1 @@
+require "type_fusion"
