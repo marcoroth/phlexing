@@ -36,6 +36,7 @@ module Phlexing
     it "should suggest name with multiple top-level nodes" do
       assert_equal "PostComponent", NameSuggestor.call(%(<div>...</div><span id="post">...</span>))
       assert_equal "PostComponent", NameSuggestor.call(%(<div>...</div><span id="post" class="posts">...</span>))
+      assert_equal "UserComponent", NameSuggestor.call(%(<div>...</div><span id="post" class="posts"><%= @user.name %></span>))
       assert_equal "PostComponent", NameSuggestor.call(%(<div>...</div><span id="post" class="posts"><%= @user.name %><%= @company.name %></span>))
       assert_equal "PostsComponent", NameSuggestor.call(%(<div>...</div><span class="posts">...</span>))
       assert_equal "PostsComponent", NameSuggestor.call(%(<div>...</div><span class="posts container">...</span>))
