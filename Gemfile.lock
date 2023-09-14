@@ -133,7 +133,7 @@ GEM
     io-console (0.6.0)
     irb (1.6.4)
       reline (>= 0.3.0)
-    jsbundling-rails (1.1.2)
+    jsbundling-rails (1.2.0)
       railties (>= 6.0.0)
     json (2.6.3)
     loofah (2.21.3)
@@ -147,7 +147,7 @@ GEM
     marcel (1.0.2)
     method_source (1.0.0)
     mini_mime (1.1.5)
-    minitest (5.19.0)
+    minitest (5.20.0)
     msgpack (1.6.0)
     multi_css (0.1.0)
       css_press
