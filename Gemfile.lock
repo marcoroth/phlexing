@@ -236,7 +236,7 @@ GEM
       sprockets (>= 3.0.0)
     stimulus-rails (1.2.2)
       railties (>= 6.0.0)
-    syntax_tree (6.1.1)
+    syntax_tree (6.2.0)
       prettier_print (>= 1.2.0)
     thor (1.2.2)
     timeout (0.4.0)
