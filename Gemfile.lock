@@ -240,7 +240,7 @@ GEM
       prettier_print (>= 1.2.0)
     thor (1.2.2)
     timeout (0.4.0)
-    turbo-rails (1.4.0)
+    turbo-rails (1.5.0)
       actionpack (>= 6.0.0)
       activejob (>= 6.0.0)
       railties (>= 6.0.0)
@@ -281,7 +281,7 @@ DEPENDENCIES
   rubocop!
   sprockets-rails
   stimulus-rails
-  turbo-rails (~> 1.4)
+  turbo-rails (~> 1.5)
   turbo_power (~> 0.5)
   tzinfo-data
   web-console
