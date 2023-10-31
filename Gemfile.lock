@@ -95,7 +95,7 @@ GEM
       tzinfo (~> 2.0)
     ast (2.4.2)
     bindex (0.8.1)
-    bootsnap (1.16.0)
+    bootsnap (1.17.0)
       msgpack (~> 1.2)
     builder (3.2.4)
     cgi (0.3.6)
@@ -148,7 +148,7 @@ GEM
     method_source (1.0.0)
     mini_mime (1.1.5)
     minitest (5.20.0)
-    msgpack (1.6.0)
+    msgpack (1.7.2)
     multi_css (0.1.0)
       css_press
     multi_js (0.1.0)
