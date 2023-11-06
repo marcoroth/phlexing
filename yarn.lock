@@ -783,10 +783,10 @@ ts-interface-checker@^0.1.9:
   resolved "https://registry.yarnpkg.com/ts-interface-checker/-/ts-interface-checker-0.1.13.tgz#784fd3d679722bc103b1b4b8030bcddb5db2a699"
   integrity sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==
 
-turbo_power@^0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/turbo_power/-/turbo_power-0.5.0.tgz#3c9e68f49a8b701be195893b7d335633087287c5"
-  integrity sha512-IzCjy+pL5ohwJf26d4XTxlOp2gHLxhSyifRsysZeare7qjxnlHTuBUoeAx98+PlyKBMDYGQeitu+EFDwqxXVfw==
+turbo_power@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/turbo_power/-/turbo_power-0.6.0.tgz#894b261af7209c02911185666e681d9e37e2554b"
+  integrity sha512-1zWR7mtZr9oZ6ypdQUkVpi5sHCoMbSdmcsBHNqcuftDqn35LHg/alh+vgbB8q5Z3MlMFnnOmQ/QkHeW7Mjcb7A==
 
 update-browserslist-db@^1.0.11:
   version "1.0.11"
