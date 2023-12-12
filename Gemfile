@@ -68,6 +68,9 @@ gem "bootsnap", require: false
 # A Ruby static code analyzer and formatter, based on the community Ruby style guide.
 gem "rubocop", require: false, github: "joeldrapper/rubocop", branch: "rubocop-user-agent"
 
+# Tool to interactively execute Ruby expressions read from the standard input.
+gem "irb", "~> 1.8"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[mri mingw x64_mingw]
