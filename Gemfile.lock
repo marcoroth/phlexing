@@ -144,8 +144,8 @@ GEM
     htmlentities (4.3.4)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
-    io-console (0.6.0)
-    irb (1.10.1)
+    io-console (0.7.1)
+    irb (1.11.0)
       rdoc
       reline (>= 0.3.8)
     jsbundling-rails (1.2.1)
@@ -197,7 +197,7 @@ GEM
       zeitwerk (~> 2.6)
     polyglot (0.3.5)
     prettier_print (1.2.1)
-    psych (5.1.1.1)
+    psych (5.1.2)
       stringio
     puma (6.4.0)
       nio4r (~> 2.0)
@@ -242,7 +242,7 @@ GEM
       zeitwerk (~> 2.6)
     rainbow (3.1.1)
     rake (13.1.0)
-    rdoc (6.6.1)
+    rdoc (6.6.2)
       psych (>= 4.0.0)
     regexp_parser (2.6.1)
     reline (0.4.1)
@@ -300,7 +300,7 @@ DEPENDENCIES
   bootsnap
   cssbundling-rails
   debug
-  irb (~> 1.8)
+  irb (~> 1.11)
   jsbundling-rails
   phlexing!
   puma (~> 6.4)
