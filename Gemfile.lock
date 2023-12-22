@@ -120,7 +120,7 @@ GEM
       railties (>= 6.0.0)
     csspool-st (3.1.2)
     date (3.3.4)
-    debug (1.9.0)
+    debug (1.9.1)
       irb (~> 1.10)
       reline (>= 0.3.8)
     deface (1.9.0)
