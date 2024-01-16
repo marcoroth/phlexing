@@ -145,9 +145,9 @@ GEM
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     io-console (0.7.1)
-    irb (1.11.0)
+    irb (1.11.1)
       rdoc
-      reline (>= 0.3.8)
+      reline (>= 0.4.2)
     jsbundling-rails (1.2.2)
       railties (>= 6.0.0)
     json (2.6.3)
