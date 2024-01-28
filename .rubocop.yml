@@ -1,7 +1,7 @@
 inherit_from: "https://www.goodcop.style"
 
 AllCops:
-  TargetRubyVersion: 2.7
+  TargetRubyVersion: 3.0
   SuggestExtensions: false
 
 Lint/EmptyClass:
