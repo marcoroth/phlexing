@@ -8,6 +8,7 @@ class ConvertersController < ApplicationController
     source = params["input"] || ""
     whitespace = params["whitespace"] ? true : false
     component = params["component"] ? true : false
+    template_name = params["template_name"] ? "view_template" : "template"
 
     component_name = params["component_name"].presence || Phlexing::NameSuggestor.call(source)
     component_name = component_name.gsub(" ", "_").camelize
@@ -20,7 +21,8 @@ class ConvertersController < ApplicationController
       whitespace: whitespace,
       component: component,
       component_name: component_name,
-      parent_component: parent_component
+      parent_component: parent_component,
+      template_name: template_name
     )
   end
 end

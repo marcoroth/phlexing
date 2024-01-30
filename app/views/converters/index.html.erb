@@ -36,11 +36,21 @@
           <div data-controller="phlex-class">
             <div class="relative flex items-start mb-3">
               <div class="flex h-5 items-center">
+                <input checked id="template_name" name="template_name" type="checkbox" data-action="click->converter#submit" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+              </div>
+              <div class="ml-3 text-sm">
+                <label for="template_name" class="font-medium text-gray-700">Phlex View Template Name</label>
+                <p class="text-gray-500">Phlex 2.0 changed the view template name from <code class="bg-gray-100 py-0.5 px-1 rounded">template</code> to <code class="bg-gray-100 py-0.5 px-1 rounded">view_template</code>. Check this box to use the 2.0 syntax.</p>
+              </div>
+            </div>
+
+            <div class="relative flex items-start mb-3">
+              <div class="flex h-5 items-center">
                 <input checked id="component" name="component" type="checkbox" data-action="click->converter#submit click->phlex-class#toggle" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
               </div>
               <div class="ml-3 text-sm">
                 <label for="component" class="font-medium text-gray-700">Generate Phlex class</label>
-                <p class="text-gray-500">Generate a Phlex class with a template method around your input</p>
+                <p class="text-gray-500">Generate a Phlex class with a <code class="bg-gray-100 py-0.5 px-1 rounded">view_template</code> method around your input</p>
               </div>
             </div>
 
