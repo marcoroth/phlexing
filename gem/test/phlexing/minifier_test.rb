@@ -111,5 +111,12 @@ module Phlexing
 
       assert_equal expected, Minifier.call(input)
     end
+
+    xit "should properly minify attribute interpolation" do
+      input = %(<input type="checkbox" <%= "selected" %> />)
+      expected = %(<input type="checkbox" <%= "selected" %> />)
+
+      assert_equal expected, Minifier.call(input)
+    end
   end
 end

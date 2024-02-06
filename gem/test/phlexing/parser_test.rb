@@ -30,7 +30,7 @@ module Phlexing
       assert_equal "#document-fragment", extract_children(parser).join(",")
       assert_dom_equal "", parser.to_xml
       assert_equal "#document-fragment", parser.name
-      assert_equal Nokogiri::HTML4::DocumentFragment, parser.class
+      assert_equal Nokogiri::HTML5::DocumentFragment, parser.class
     end
 
     it "should handle empty string" do
@@ -39,7 +39,7 @@ module Phlexing
       assert_equal "#document-fragment", extract_children(parser).join(",")
       assert_dom_equal "", parser.to_xml
       assert_equal "#document-fragment", parser.name
-      assert_equal Nokogiri::HTML4::DocumentFragment, parser.class
+      assert_equal Nokogiri::HTML5::DocumentFragment, parser.class
     end
 
     it "should handle simple div" do
@@ -48,7 +48,7 @@ module Phlexing
       assert_equal "#document-fragment,div", extract_children(parser).join(",")
       assert_dom_equal %(<div></div>), parser.to_html
       assert_equal "#document-fragment", parser.name
-      assert_equal Nokogiri::HTML4::DocumentFragment, parser.class
+      assert_equal Nokogiri::HTML5::DocumentFragment, parser.class
     end
 
     it "should handle ERB" do
@@ -57,7 +57,7 @@ module Phlexing
       assert_equal "#document-fragment,div,erb,text", extract_children(parser).join(",")
       assert_dom_equal %(<div> <erb loud=""> some_method </erb> </div>), parser.to_xml
       assert_equal "#document-fragment", parser.name
-      assert_equal Nokogiri::HTML4::DocumentFragment, parser.class
+      assert_equal Nokogiri::HTML5::DocumentFragment, parser.class
     end
 
     it "should handle html" do
