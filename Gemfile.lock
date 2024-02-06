@@ -14,6 +14,16 @@ GIT
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 3.0)
 
+GIT
+  remote: https://github.com/marcoroth/html_press.git
+  revision: 24ce95baae9912f8131d050cf253b688eb616cbf
+  branch: non-standard-attributes
+  specs:
+    html_press (0.8.2)
+      htmlentities
+      multi_css (>= 0.1.0)
+      multi_js (>= 0.1.0)
+
 PATH
   remote: gem
   specs:
@@ -109,7 +119,7 @@ GEM
     bootsnap (1.18.3)
       msgpack (~> 1.2)
     builder (3.2.4)
-    cgi (0.4.0)
+    cgi (0.4.1)
     concurrent-ruby (1.2.3)
     connection_pool (2.4.1)
     crass (1.0.6)
@@ -131,16 +141,12 @@ GEM
       rainbow (>= 2.1.0)
     drb (2.2.0)
       ruby2_keywords
-    erb (4.0.3)
+    erb (4.0.4)
       cgi (>= 0.3.3)
     erubi (1.12.0)
-    execjs (2.8.1)
+    execjs (2.9.1)
     globalid (1.2.1)
       activesupport (>= 6.1)
-    html_press (0.8.2)
-      htmlentities
-      multi_css (>= 0.1.0)
-      multi_js (>= 0.1.0)
     htmlentities (4.3.4)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
@@ -150,7 +156,7 @@ GEM
       reline (>= 0.4.2)
     jsbundling-rails (1.3.0)
       railties (>= 6.0.0)
-    json (2.6.3)
+    json (2.7.1)
     loofah (2.22.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -161,7 +167,7 @@ GEM
       net-smtp
     marcel (1.0.2)
     mini_mime (1.1.5)
-    minitest (5.21.2)
+    minitest (5.22.0)
     msgpack (1.7.2)
     multi_css (0.1.0)
       css_press
@@ -288,7 +294,7 @@ GEM
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
-    zeitwerk (2.6.12)
+    zeitwerk (2.6.13)
 
 PLATFORMS
   arm64-darwin-21
@@ -301,6 +307,7 @@ DEPENDENCIES
   bootsnap
   cssbundling-rails
   debug
+  html_press!
   irb (~> 1.11)
   jsbundling-rails
   phlexing!
