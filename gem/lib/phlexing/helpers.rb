@@ -24,7 +24,11 @@ module Phlexing
     end
 
     def arg(string)
-      "#{string}: "
+      if string.include?(".")
+        %("#{string}": )
+      else
+        "#{string}: "
+      end
     end
 
     def quote(string)

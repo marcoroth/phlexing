@@ -146,4 +146,14 @@ class Phlexing::Converter::AttributesTest < Minitest::Spec
       assert_locals "background", "display"
     end
   end
+
+  it "should support Alpine.js attributes" do
+    html = %(<button @click.prevent="something">Button</button>)
+
+    expected = <<~PHLEX.strip
+      button("@click.prevent": "something") { "Button" }
+    PHLEX
+
+    assert_phlex_template expected, html
+  end
 end

@@ -99,5 +99,17 @@ module Phlexing
 
       assert_equal expected, Minifier.call(input)
     end
+
+    it "should not minify alpine.js attributes" do
+      input = %(<button @click.prevent="something">Button</button>)
+      expected = %(<button @click.prevent="something">Button</button>)
+
+      assert_equal expected, Minifier.call(input)
+
+      input = %(<button @click.prevent='something'>Button</button>)
+      expected = %(<button @click.prevent='something'>Button</button>)
+
+      assert_equal expected, Minifier.call(input)
+    end
   end
 end
