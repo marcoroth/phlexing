@@ -14,6 +14,16 @@ GIT
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 3.0)
 
+GIT
+  remote: https://github.com/marcoroth/html_press.git
+  revision: 24ce95baae9912f8131d050cf253b688eb616cbf
+  branch: non-standard-attributes
+  specs:
+    html_press (0.8.2)
+      htmlentities
+      multi_css (>= 0.1.0)
+      multi_js (>= 0.1.0)
+
 PATH
   remote: .
   specs:
@@ -115,10 +125,6 @@ GEM
     execjs (2.8.1)
     globalid (1.1.0)
       activesupport (>= 5.0)
-    html_press (0.8.2)
-      htmlentities
-      multi_css (>= 0.1.0)
-      multi_js (>= 0.1.0)
     htmlentities (4.3.4)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
@@ -228,6 +234,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  html_press!
   maxitest (~> 4.4)
   minitest (~> 5.0)
   phlexing!

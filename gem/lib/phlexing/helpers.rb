@@ -24,7 +24,15 @@ module Phlexing
     end
 
     def arg(string)
-      "#{string}: "
+      if string.include?(".") || string.include?("@")
+        %(#{double_quotes(string)}: )
+      else
+        "#{string}: "
+      end
+    end
+
+    def double_quotes(string)
+      %("#{string}")
     end
 
     def quote(string)

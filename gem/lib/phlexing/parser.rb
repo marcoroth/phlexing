@@ -25,7 +25,7 @@ module Phlexing
       elsif source =~ body_tag
         Nokogiri::HTML::Document.parse(source).css("body").first
       else
-        Nokogiri::HTML::DocumentFragment.parse(source)
+        Nokogiri::HTML5::DocumentFragment.parse(source)
       end
     end
   end

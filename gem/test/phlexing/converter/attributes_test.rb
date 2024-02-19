@@ -83,7 +83,7 @@ class Phlexing::Converter::AttributesTest < Minitest::Spec
     HTML
 
     expected = <<~PHLEX.strip
-      input(type: %(checkbox), **(" selected": true))
+      input(type: "checkbox", **{ " selected": true })
     PHLEX
 
     assert_phlex_template expected, html
@@ -145,5 +145,25 @@ class Phlexing::Converter::AttributesTest < Minitest::Spec
     assert_phlex_template expected, html do
       assert_locals "background", "display"
     end
+  end
+
+  it "should support Alpine.js attributes" do
+    html = %(<button @click.prevent="something">Button</button>)
+
+    expected = <<~PHLEX.strip
+      button("@click.prevent": "something") { "Button" }
+    PHLEX
+
+    assert_phlex_template expected, html
+  end
+
+  it "should support attributes with @" do
+    html = %(<button @prevent="something">Button</button>)
+
+    expected = <<~PHLEX.strip
+      button("@prevent": "something") { "Button" }
+    PHLEX
+
+    assert_phlex_template expected, html
   end
 end

@@ -46,6 +46,7 @@ gem "cssbundling-rails"
 
 # Simple ERB to Phlex converter
 gem "phlexing", path: "gem"
+gem "html_press", github: "marcoroth/html_press", branch: "non-standard-attributes"
 
 # A pure Ruby code highlighter that is compatible with Pygments
 gem "rouge", "~> 4.2"
