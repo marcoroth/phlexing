@@ -387,7 +387,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
       class Component < Phlex::HTML
         include Phlex::Rails::Helpers::Translate
 
-        def template
+        def view_template
           translate("hello")
         end
       end
@@ -406,7 +406,7 @@ class Phlexing::Converter::RailsHelpersTest < Minitest::Spec
         include Phlex::Rails::Helpers::T
         include Phlex::Rails::Helpers::Translate
 
-        def template
+        def view_template
           translate("hello")
 
           t("hello")

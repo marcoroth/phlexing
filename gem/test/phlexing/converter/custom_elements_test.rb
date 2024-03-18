@@ -47,7 +47,7 @@ class Phlexing::Converter::CustomElementsTest < Minitest::Spec
         register_element :another_custom
         register_element :my_custom
 
-        def template
+        def view_template
           my_custom do
             plain "Hello"
             another_custom { "World" }
@@ -76,7 +76,7 @@ class Phlexing::Converter::CustomElementsTest < Minitest::Spec
           @users = users
         end
 
-        def template
+        def view_template
           users.each do |user|
             d { user.firstname }
 

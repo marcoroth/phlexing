@@ -40,6 +40,17 @@ Phlexing::Converter.convert(%(<h1 class="title">Hello World</h1>))
 h1(class: "title") { "Hello World" }
 ```
 
+### Converter Options
+
+| Option | Type | Default Value | Description |
+| --- | --- | --- | --- |
+| `whitespace` | `Boolean` | `true` | Generate whitespace in and around HTML block elements. |
+| `component` | `Boolean` | `false` | Generate a Phlex class with a `view_template` method around your input. |
+| `component_name` | `String` | `"Component"` | The name of your Phlex class. |
+| `parent_component` | `String` | `"Phlex::HTML"` | The name of the parent class your Phlex class will inherit from. |
+| `svg_param` | `String` | `"s"` | The name of the block argument Phlex will use to generate SVG-specific elements. |
+| `template_name` | `String` | `"view_template"` | The name of the generated template method in your Phlex class. |
+
 ### Multi-line HTML
 
 ```ruby
@@ -77,7 +88,7 @@ class Component < Phlex::HTML
     @user = user
   end
 
-  def template
+  def view_template
     h1 { @user.name }
 
     p do
@@ -100,7 +111,7 @@ class Component < Phlex::HTML
   include Phlex::Rails::Helpers::LinkTo
   include Phlex::Rails::Helpers::Routes
 
-  def template
+  def view_template
     link_to "Home", root_path
   end
 end
@@ -115,7 +126,7 @@ Phlexing::Converter.convert(%(<% if active? %>Active<% else %>Inactive<% end %>)
 ##### Output
 ```ruby
 class Component < Phlex::HTML
-  def template
+  def view_template
     if active?
       text "Active"
     else

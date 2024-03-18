@@ -63,7 +63,7 @@ module Phlexing
         out << newline
       end
 
-      out << "def template"
+      out << "def #{options.template_name}"
       out << newline
       out << converter.template_code
       out << newline
