@@ -247,7 +247,7 @@ GEM
     reline (0.4.3)
       io-console (~> 0.5)
     rexml (3.2.5)
-    rouge (4.2.0)
+    rouge (4.2.1)
     rubocop-ast (1.21.0)
       parser (>= 3.1.1.0)
     ruby-progressbar (1.11.0)
