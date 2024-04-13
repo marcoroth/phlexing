@@ -26,7 +26,7 @@ export default class extends Controller {
   }
 
   async copy(event) {
-    await navigator.clipboard.writeText(document.getElementById("output-copy").value)
+    await navigator.clipboard.writeText(document.getElementById("output").innerText)
 
     const button = (event.target instanceof HTMLButtonElement) ? event.target : event.target.closest("button")
 
