@@ -36,7 +36,7 @@ module Phlexing
 
             #{elements}
 
-            def template
+            def view_template
               #{template}
             end
 

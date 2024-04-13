@@ -26,7 +26,7 @@ class Phlexing::ConverterTest < Minitest::Spec
 
     expected = <<~PHLEX.strip
       class TestComponent < Phlex::HTML
-        def template
+        def view_template
           h1 { "Hello World" }
         end
       end
@@ -40,7 +40,7 @@ class Phlexing::ConverterTest < Minitest::Spec
 
     expected = <<~PHLEX.strip
       class Component < ApplicationView
-        def template
+        def view_template
           h1 { "Hello World" }
         end
       end
@@ -54,7 +54,7 @@ class Phlexing::ConverterTest < Minitest::Spec
 
     expected = <<~PHLEX.strip
       class TestComponent < ApplicationView
-        def template
+        def view_template
           h1 { "Hello World" }
         end
       end
@@ -73,7 +73,7 @@ class Phlexing::ConverterTest < Minitest::Spec
           @lastname = lastname
         end
 
-        def template
+        def view_template
           h1 do
             plain @firstname
             whitespace
@@ -110,7 +110,7 @@ class Phlexing::ConverterTest < Minitest::Spec
           @user = user
         end
 
-        def template
+        def view_template
           plain @user.name
 
           if show_company && @company
@@ -138,7 +138,7 @@ class Phlexing::ConverterTest < Minitest::Spec
           @classes = classes
         end
 
-        def template
+        def view_template
           div(class: @classes)
         end
       end
@@ -160,7 +160,7 @@ class Phlexing::ConverterTest < Minitest::Spec
           @classes = classes
         end
 
-        def template
+        def view_template
           div(class: classes)
         end
       end
@@ -176,7 +176,7 @@ class Phlexing::ConverterTest < Minitest::Spec
 
     expected = <<~PHLEX.strip
       class Component < Phlex::HTML
-        def template
+        def view_template
           div(class: (some_helper(with: :args)))
         end
 
@@ -202,7 +202,7 @@ class Phlexing::ConverterTest < Minitest::Spec
           @user = user
         end
 
-        def template
+        def view_template
           if should_show?
             plain pretty_print(@user)
 
@@ -245,7 +245,7 @@ class Phlexing::ConverterTest < Minitest::Spec
           @user = user
         end
 
-        def template
+        def view_template
           div(class: Router.user_path(user))
         end
       end
