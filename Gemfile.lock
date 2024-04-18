@@ -183,7 +183,7 @@ GEM
     parallel (1.22.1)
     parser (3.1.2.1)
       ast (~> 2.4.1)
-    phlex (1.10.0)
+    phlex (1.10.1)
     phlex-rails (1.1.1)
       phlex (~> 1.9)
       railties (>= 6.1, < 8)
