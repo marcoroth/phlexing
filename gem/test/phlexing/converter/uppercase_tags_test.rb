@@ -76,7 +76,6 @@ class Phlexing::Converter::UppercaseTagsTest < Minitest::Spec
 
     expected = <<~PHLEX.strip
       html do
-        whitespace
         head
         whitespace
         body
