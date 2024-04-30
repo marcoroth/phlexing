@@ -231,6 +231,8 @@ module Phlexing
         handle_document_node(node, level)
       in Nokogiri::XML::Comment
         handle_html_comment_node(node)
+      in Nokogiri::XML::NodeSet
+        node.each { |n| handle_element_node(n, level) }
       end
     end
   end

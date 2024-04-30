@@ -8,9 +8,14 @@ class Phlexing::Converter::UppercaseTagsTest < Minitest::Spec
     assert_phlex_template "span", %(<SPAN></SPAN>)
     assert_phlex_template "p", %(<P></P>)
     assert_phlex_template "template_tag", %(<TEMPLATE></TEMPLATE>)
-    assert_phlex_template "html", %(<HTML></HTML>)
-    assert_phlex_template "head", %(<HEAD></HEAD>)
+    assert_phlex_template "head\nbody", %(<HEAD></HEAD>)
     assert_phlex_template "body", %(<BODY></BODY>)
+    assert_phlex_template <<~PHLEX.strip, %(<HTML></HTML>)
+      html do
+        head
+        body
+      end
+    PHLEX
   end
 
   it "standlone uppercase body tag" do
@@ -32,6 +37,7 @@ class Phlexing::Converter::UppercaseTagsTest < Minitest::Spec
 
     expected = <<~PHLEX.strip
       head
+      body
     PHLEX
 
     assert_phlex_template expected, html
@@ -43,7 +49,10 @@ class Phlexing::Converter::UppercaseTagsTest < Minitest::Spec
     HTML
 
     expected = <<~PHLEX.strip
-      html
+      html do
+        head
+        body
+      end
     PHLEX
 
     assert_phlex_template expected, html
@@ -56,11 +65,8 @@ class Phlexing::Converter::UppercaseTagsTest < Minitest::Spec
     HTML
 
     expected = <<~PHLEX.strip
-      html do
-        head
-
-        body
-      end
+      head
+      body
     PHLEX
 
     assert_phlex_template expected, html
