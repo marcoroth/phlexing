@@ -232,7 +232,7 @@ module Phlexing
       in Nokogiri::XML::Comment
         handle_html_comment_node(node)
       in Nokogiri::XML::NodeSet
-        node.each { |n| handle_element_node(n, level) }
+        node.each { |n| handle_node(n, level + 1) }
       end
     end
   end

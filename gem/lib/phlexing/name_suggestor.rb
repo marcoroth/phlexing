@@ -33,7 +33,7 @@ module Phlexing
     def self.extract(document, method)
       return [] unless document
 
-      document.children.map { |element| send(method, element) }.compact
+      document.map { |element| send(method, element) }.compact
     end
 
     def self.extract_id_from_element(element)

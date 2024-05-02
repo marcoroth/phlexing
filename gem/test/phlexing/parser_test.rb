@@ -27,37 +27,33 @@ module Phlexing
     it "should handle nil" do
       parser = Parser.call(nil)
 
-      assert_equal "#document-fragment", extract_children(parser).join(",")
+      assert_equal "", extract_children(parser).join(",")
       assert_equal "", parser.to_html
-      assert_equal "#document-fragment", parser.name
-      assert_equal Nokogiri::HTML5::DocumentFragment, parser.class
+      assert_equal Nokogiri::XML::NodeSet, parser.class
     end
 
     it "should handle empty string" do
       parser = Parser.call("")
 
-      assert_equal "#document-fragment", extract_children(parser).join(",")
+      assert_equal "", extract_children(parser).join(",")
       assert_equal "", parser.to_html
-      assert_equal "#document-fragment", parser.name
-      assert_equal Nokogiri::HTML5::DocumentFragment, parser.class
+      assert_equal Nokogiri::XML::NodeSet, parser.class
     end
 
     it "should handle simple div" do
       parser = Parser.call("<div></div>")
 
-      assert_equal "#document-fragment,div", extract_children(parser).join(",")
+      assert_equal "div", extract_children(parser).join(",")
       assert_equal %(<div></div>), parser.to_html
-      assert_equal "#document-fragment", parser.name
-      assert_equal Nokogiri::HTML5::DocumentFragment, parser.class
+      assert_equal Nokogiri::XML::NodeSet, parser.class
     end
 
     it "should handle ERB" do
       parser = Parser.call("<div><%= some_method %></div>")
 
-      assert_equal "#document-fragment,div,erb,text", extract_children(parser).join(",")
+      assert_equal "div,erb,text", extract_children(parser).join(",")
       assert_equal %(<div><erb loud=""> some_method </erb></div>), parser.to_html
-      assert_equal "#document-fragment", parser.name
-      assert_equal Nokogiri::HTML5::DocumentFragment, parser.class
+      assert_equal Nokogiri::XML::NodeSet, parser.class
     end
 
     it "should handle html" do
@@ -74,7 +70,6 @@ module Phlexing
 
       assert_equal "document,html,head,title,text,body,h1,text", extract_children(parser).join(",")
       assert_equal %(<html><head><title>Title</title></head><body><h1>Hello</h1></body></html>), parser.to_html
-      assert_equal "document", parser.name
       assert_equal Nokogiri::HTML5::Document, parser.class
     end
 
@@ -83,7 +78,6 @@ module Phlexing
 
       assert_equal "document,html,head,title,text,body", extract_children(parser).join(",")
       assert_equal %(<html><head><title>Title</title></head><body></body></html>), parser.to_html
-      assert_equal "document", parser.name
       assert_equal Nokogiri::HTML5::Document, parser.class
     end
 
@@ -92,7 +86,6 @@ module Phlexing
 
       assert_equal "document,html,head,body,h1,text", extract_children(parser).join(",")
       assert_equal %(<html><head></head><body><h1>Hello</h1></body></html>), parser.to_html
-      assert_equal "document", parser.name
       assert_equal Nokogiri::HTML5::Document, parser.class
     end
 
@@ -101,7 +94,6 @@ module Phlexing
 
       assert_equal "head,title,text,body,h1,text", extract_children(parser).join(",")
       assert_equal %(<head><title>Title</title></head><body><h1>Hello</h1></body>), parser.to_html
-      assert_equal false, parser.respond_to?(:name)
       assert_equal Nokogiri::XML::NodeSet, parser.class
     end
 
@@ -126,7 +118,6 @@ module Phlexing
 
       assert_equal "body,h1,text", extract_children(parser).join(",")
       assert_equal %(<body><h1>Hello</h1></body>), parser.to_html
-      # assert_equal "body", parser.name
       assert_equal Nokogiri::XML::NodeSet, parser.class
     end
 
@@ -135,7 +126,6 @@ module Phlexing
 
       assert_equal "body", extract_children(parser).join(",")
       assert_equal %(<body></body>), parser.to_html
-      # assert_equal "body", parser.name
       assert_equal Nokogiri::XML::NodeSet, parser.class
     end
   end
