@@ -8,10 +8,15 @@ class Phlexing::Converter::TagsTest < Minitest::Spec
     assert_phlex_template "span", %(<span></span>)
     assert_phlex_template "p", %(<p></p>)
     assert_phlex_template "template_tag", %(<template></template>)
-    assert_phlex_template "html", %(<html></html>)
-    assert_phlex_template "head", %(<head></head>)
+    assert_phlex_template "head\n\nbody", %(<head></head>)
     assert_phlex_template "header", %(<header></header>)
     assert_phlex_template "body", %(<body></body>)
+    assert_phlex_template <<~PHLEX.strip, %(<html></html>)
+      html do
+        head
+        body
+      end
+    PHLEX
   end
 
   it "basic self closing tag" do
@@ -133,11 +138,9 @@ class Phlexing::Converter::TagsTest < Minitest::Spec
     HTML
 
     expected = <<~PHLEX.strip
-      html do
-        head
+      head
 
-        body
-      end
+      body
     PHLEX
 
     assert_phlex_template expected, html
@@ -150,11 +153,9 @@ class Phlexing::Converter::TagsTest < Minitest::Spec
     HTML
 
     expected = <<~PHLEX.strip
-      html do
-        head
+      head
 
-        body
-      end
+      body
     PHLEX
 
     assert_phlex_template expected, html
@@ -167,6 +168,8 @@ class Phlexing::Converter::TagsTest < Minitest::Spec
 
     expected = <<~PHLEX.strip
       head
+
+      body
     PHLEX
 
     assert_phlex_template expected, html
@@ -179,6 +182,8 @@ class Phlexing::Converter::TagsTest < Minitest::Spec
 
     expected = <<~PHLEX.strip
       head(id: "123")
+
+      body
     PHLEX
 
     assert_phlex_template expected, html

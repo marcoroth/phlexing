@@ -1,4 +1,12 @@
 GIT
+  remote: https://github.com/flavorjones/nokogiri-html5-inference.git
+  revision: 7426a3601d30bf6cb9794d6b5c2e767151a0fa6f
+  branch: flavorjones-always-return-nodeset
+  specs:
+    nokogiri-html5-inference (0.2.0)
+      nokogiri (~> 1.14)
+
+GIT
   remote: https://github.com/joeldrapper/rubocop.git
   revision: 8d3c1a7dd04a0dee701e26ee506b28af0ffe3b98
   branch: rubocop-user-agent
@@ -21,6 +29,7 @@ PATH
       deface (~> 1.9)
       html_press (~> 0.8.2)
       nokogiri (~> 1.0)
+      nokogiri-html5-inference (~> 0.2)
       phlex (~> 1.6)
       phlex-rails (>= 0.9, < 2.0)
       syntax_tree (~> 6.0)
@@ -178,6 +187,7 @@ PLATFORMS
 DEPENDENCIES
   maxitest (~> 4.4)
   minitest (~> 5.0)
+  nokogiri-html5-inference!
   phlexing!
   rake (~> 13.0)
   rubocop!

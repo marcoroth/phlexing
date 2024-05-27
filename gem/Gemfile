@@ -8,3 +8,6 @@ gem "maxitest", "~> 4.4"
 gem "minitest", "~> 5.0"
 gem "rake", "~> 13.0"
 gem "rubocop", require: false, github: "joeldrapper/rubocop", branch: "rubocop-user-agent"
+# gem "nokogiri-html5-inference", github: "flavorjones/nokogiri-html5-inference", branch: "2-use-template-context-node"
+
+gem "nokogiri-html5-inference", github: "flavorjones/nokogiri-html5-inference", branch: "flavorjones-always-return-nodeset"
