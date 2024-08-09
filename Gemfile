@@ -69,7 +69,7 @@ gem "bootsnap", require: false
 gem "rubocop", require: false, github: "joeldrapper/rubocop", branch: "rubocop-user-agent"
 
 # Tool to interactively execute Ruby expressions read from the standard input.
-gem "irb", "~> 1.13"
+gem "irb", "~> 1.14"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
