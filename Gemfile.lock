@@ -241,7 +241,7 @@ GEM
     regexp_parser (2.9.2)
     reline (0.5.9)
       io-console (~> 0.5)
-    rexml (3.3.3)
+    rexml (3.3.6)
       strscan
     rouge (4.3.0)
     rubocop-ast (1.31.3)
