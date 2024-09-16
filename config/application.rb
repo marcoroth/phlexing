@@ -23,7 +23,7 @@ require "action_cable/engine"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module Phlexing
+module PhlexingApp
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.1
@@ -32,6 +32,9 @@ module Phlexing
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w(assets tasks))
+
+    # Instead of depending on the phlexing gem, add it to the autoload paths to enable hot reloading
+    config.autoload_paths << Rails.root.join("gem/lib")
 
     # Configuration for the application, engines, and railties goes here.
     #
