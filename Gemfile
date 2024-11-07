@@ -45,7 +45,15 @@ gem "cssbundling-rails"
 # gem "bcrypt", "~> 3.1.7"
 
 # Simple ERB to Phlex converter
-gem "phlexing", path: "gem"
+# gem "phlexing", path: "gem"
+
+# dependencies of phlexing gem from gem/phlexing.gemspec
+gem "deface", "~> 1.9"
+gem "html_press", "~> 0.8.2"
+gem "syntax_tree", "~> 6.0"
+gem "phlex", "~> 1.6"
+gem "phlex-rails", ">= 0.9", "< 2.0"
+# end of dependencies of phlexing gem
 
 # A pure Ruby code highlighter that is compatible with Pygments
 gem "rouge", "~> 4.4"
