@@ -48,7 +48,7 @@ gem "cssbundling-rails"
 gem "phlexing", path: "gem"
 
 # A pure Ruby code highlighter that is compatible with Pygments
-gem "rouge", "~> 4.4"
+gem "rouge", "~> 4.5"
 
 # A web server agnostic rack middleware for defining and applying rewrite rules
 gem "rack-rewrite", "~> 1.5"
