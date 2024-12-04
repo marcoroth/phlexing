@@ -34,5 +34,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency "nokogiri", "~> 1.0"
   spec.add_dependency "phlex", "~> 1.6"
   spec.add_dependency "phlex-rails", ">= 0.9", "< 2.0"
+  spec.add_dependency "slim"
   spec.add_dependency "syntax_tree", "~> 6.0"
 end

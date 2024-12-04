@@ -257,4 +257,28 @@ class Phlexing::ConverterTest < Minitest::Spec
       assert_analyzer_includes "Phlex::Rails::Helpers::Routes"
     end
   end
+
+  it "should handle slim when configered to" do
+    slim = <<~SLIM.strip
+      #my-id class=@classes
+    SLIM
+
+    phlex = <<~PHLEX
+      class Component < Phlex::HTML
+        attr_accessor :classes
+
+        def initialize(classes:)
+          @classes = classes
+        end
+
+        def view_template
+          div(class: classes)
+        end
+      end
+    PHLEX
+
+    assert_phlex phlex, slim, templating_lang: :slim do
+      assert_locals "classes"
+    end
+  end
 end

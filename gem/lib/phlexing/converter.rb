@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "slim/erb_converter"
+
 module Phlexing
   class Converter
     attr_accessor :source, :custom_elements, :options
@@ -22,7 +24,9 @@ module Phlexing
       @custom_elements = Set.new
       @options = Options.new(**options)
 
-      call(source)
+      source_converted = options[:templating_lang] == :slim ? convert_slim_to_erb(source) : source
+      # binding.pry if @options[:templating_lang] == :slim
+      call(source_converted)
     end
 
     def code
@@ -30,6 +34,10 @@ module Phlexing
     end
 
     # private
+
+    def convert_slim_to_erb(source) = slim_converter.call(source)
+
+    def slim_converter = Slim::ERBConverter.new
 
     def template_code
       TemplateGenerator.call(self, source)

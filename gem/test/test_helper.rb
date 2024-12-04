@@ -4,6 +4,7 @@ $LOAD_PATH.unshift File.expand_path("../lib", __dir__)
 
 require "phlexing"
 require "maxitest/autorun"
+require "pry"
 
 def assert_phlex(expected, source, **options, &block)
   @converter = Phlexing::Converter.new(source, **options)

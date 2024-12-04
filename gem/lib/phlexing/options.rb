@@ -2,18 +2,25 @@
 
 module Phlexing
   class Options
-    attr_accessor :component, :component_name, :parent_component, :whitespace, :svg_param, :template_name
+    attr_accessor :component,
+                  :component_name,
+                  :parent_component,
+                  :whitespace,
+                  :svg_param,
+                  :template_name,
+                  :templating_lang
 
     alias_method :whitespace?, :whitespace
     alias_method :component?, :component
 
-    def initialize(component: false, component_name: "Component", parent_component: "Phlex::HTML", whitespace: true, svg_param: "s", template_name: "view_template")
+    def initialize(component: false, component_name: "Component", parent_component: "Phlex::HTML", whitespace: true, svg_param: "s", template_name: "view_template", templating_lang: :ERB)
       @component = component
       @component_name = safe_constant_name(component_name)
       @parent_component = safe_constant_name(parent_component)
       @whitespace = whitespace
       @svg_param = svg_param
       @template_name = template_name
+      @templating_lang = templating_lang
     end
 
     def safe_constant_name(name)
