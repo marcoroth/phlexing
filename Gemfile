@@ -24,7 +24,7 @@ gem "jsbundling-rails"
 gem "turbo-rails", "~> 2.0"
 
 # Power-pack for Turbo-Streams
-gem "turbo_power", "~> 0.6"
+gem "turbo_power", "~> 0.7"
 
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem "stimulus-rails"
