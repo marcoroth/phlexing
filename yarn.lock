@@ -960,10 +960,10 @@ ts-interface-checker@^0.1.9:
   resolved "https://registry.yarnpkg.com/ts-interface-checker/-/ts-interface-checker-0.1.13.tgz#784fd3d679722bc103b1b4b8030bcddb5db2a699"
   integrity sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==
 
-turbo_power@^0.7.0:
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/turbo_power/-/turbo_power-0.7.0.tgz#537cc82f3617feb1c70b94ee6c8b7d42cdce81db"
-  integrity sha512-KU5YbHnyYXluETUKmq02tH4/Vy/yJ4my1Nn7USRPWyEFV6LiXICPlhr2ETJ90pf11khs7WMNKEEqNTcGLngs6w==
+turbo_power@^0.7.1:
+  version "0.7.1"
+  resolved "https://registry.yarnpkg.com/turbo_power/-/turbo_power-0.7.1.tgz#591769f37cca9b8149ea07682021081039c9f32c"
+  integrity sha512-xnB1Yb3xXSVcDQyiqZV8kLjbHdCmyBfQYZJeJklEnEz+jM5xl6JUNo2yy5vc/8ZPKKMzS05INvvvLxafQYJVuQ==
 
 update-browserslist-db@^1.1.0:
   version "1.1.0"
