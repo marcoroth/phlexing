@@ -13,7 +13,7 @@
     "esbuild-rails": "^1.0.7",
     "postcss": "^8.5.4",
     "stimulus-use": "^0.52.3",
-    "tailwindcss": "^3.4.17",
+    "tailwindcss": "^4.1.10",
     "turbo_power": "^0.7.1"
   },
   "scripts": {
