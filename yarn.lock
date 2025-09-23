@@ -389,10 +389,10 @@ cssesc@^3.0.0:
   resolved "https://registry.yarnpkg.com/cssesc/-/cssesc-3.0.0.tgz#37741919903b868565e1c09ea747445cd18983ee"
   integrity sha512-/Tb/JcjK111nNScGob5MNtsntNM1aCNUDipB/TkwZFhyDrrE47SOx/18wF2bbjgc3ZzCSKW1T5nt5EbFoAz/Vg==
 
-debounced@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/debounced/-/debounced-1.0.2.tgz#2369b4077fce893e8bf6074768adf3589afabc7f"
-  integrity sha512-6GPv+l/OOtdb1DKNY70k5ubuJhVjtBjUnujC5vQAHHrMuvBpDXsTc91xEMTdeA3/v4swYHamtdB9XIN7DcKxpw==
+debounced@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/debounced/-/debounced-2.0.0.tgz#b1460033ee5bcdd3bd48f79f4de336da0cc886ae"
+  integrity sha512-ODgC2y/scVRGu1xxEYQRhr3xs8No//rnxfVB4F8eYCAkVAG6j6EBQEGBmcS9bop95kIEMqXjj/L16HKOJdA14A==
 
 didyoumean@^1.2.2:
   version "1.2.2"
