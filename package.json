@@ -9,7 +9,7 @@
     "@tailwindcss/forms": "^0.5.10",
     "autoprefixer": "^10.4.21",
     "debounced": "^1.0.2",
-    "esbuild": "^0.25.9",
+    "esbuild": "^0.25.11",
     "esbuild-rails": "^1.0.7",
     "postcss": "^8.5.6",
     "stimulus-use": "^0.52.3",
