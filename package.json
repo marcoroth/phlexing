@@ -4,20 +4,23 @@
   "dependencies": {
     "@hotwired/stimulus": "^3.2.2",
     "@hotwired/turbo": "^8.0.12",
-    "@hotwired/turbo-rails": "^8.0.16",
+    "@hotwired/turbo-rails": "^8.0.18",
     "@rails/actioncable": "^7.1.3",
     "@tailwindcss/forms": "^0.5.10",
     "autoprefixer": "^10.4.21",
-    "debounced": "^1.0.2",
-    "esbuild": "^0.25.9",
+    "debounced": "^2.0.1",
+    "esbuild": "^0.25.11",
     "esbuild-rails": "^1.0.7",
     "postcss": "^8.5.6",
     "stimulus-use": "^0.52.3",
-    "tailwindcss": "^3.4.17",
+    "tailwindcss": "^4.1.16",
     "turbo_power": "^0.7.1"
   },
   "scripts": {
     "build": "node esbuild.config.mjs",
     "build:css": "tailwindcss -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.css --minify"
+  },
+  "devDependencies": {
+    "chokidar": "^4.0.3"
   }
 }

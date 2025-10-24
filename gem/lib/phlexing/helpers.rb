@@ -40,7 +40,7 @@ module Phlexing
     end
 
     def interpolate(string)
-      "\#\{#{string}\}"
+      "\#{#{string}}"
     end
 
     def unescape(source)
