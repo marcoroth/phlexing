@@ -52,10 +52,8 @@ module Phlexing
     def handle_attributes(node)
       return "" if node.attributes.keys.none?
 
-      attributes = []
-
-      node.attribute_nodes.each do |attribute|
-        attributes << handle_attribute(attribute)
+      attributes = node.attribute_nodes.map do |attribute|
+        handle_attribute(attribute)
       end
 
       parens(attributes.join(", "))

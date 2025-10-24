@@ -3,7 +3,7 @@
 require_relative "../test_helper"
 
 def assert_dom_equal(expected, actual)
-  assert_equal expected, actual.gsub(%(<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\" \"http://www.w3.org/TR/REC-html40/loose.dtd\">), "").squish
+  assert_equal expected, actual.gsub(%(<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">), "").squish
 end
 
 module Phlexing
@@ -15,10 +15,8 @@ module Phlexing
     def extract_children(node)
       @nodes << node.name
 
-      if node&.children
-        node.children.each do |node|
-          extract_children(node)
-        end
+      node&.children&.each do |node|
+        extract_children(node)
       end
 
       @nodes
