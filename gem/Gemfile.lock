@@ -99,15 +99,15 @@ GEM
       nokogiri (>= 1.12.0)
     maxitest (4.4.0)
       minitest (>= 5.0.0, < 5.18.0)
+    mini_portile2 (2.8.9)
     minitest (5.17.0)
     multi_css (0.1.0)
       css_press
     multi_js (0.1.0)
       uglifier (~> 2)
     mutex_m (0.3.0)
-    nokogiri (1.17.1-x86_64-darwin)
-      racc (~> 1.4)
-    nokogiri (1.17.1-x86_64-linux)
+    nokogiri (1.17.1)
+      mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     parallel (1.22.1)
     parser (3.2.0.0)
@@ -175,6 +175,7 @@ GEM
     zeitwerk (2.6.13)
 
 PLATFORMS
+  arm64-darwin-24
   x86_64-darwin-19
   x86_64-darwin-22
   x86_64-darwin-23

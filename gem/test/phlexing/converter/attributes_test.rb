@@ -41,7 +41,7 @@ class Phlexing::Converter::AttributesTest < Minitest::Spec
     HTML
 
     expected = <<~PHLEX.strip
-      div(class: %(\#\{classes_helper && nil\})) { "Text" }
+      div(class: %(\#{classes_helper && nil})) { "Text" }
     PHLEX
 
     assert_phlex_template expected, html do
@@ -90,11 +90,8 @@ class Phlexing::Converter::AttributesTest < Minitest::Spec
   end
 
   xit "should interpolate ERB in tag with interpoltion" do
-    # rubocop:disable Lint/InterpolationCheck
     html = '<input type="checkbox" <%= "data-#{Time.now.to_i}"%> />'
     expected = 'input(type: %(checkbox), **(" data-#{Time.now.to_i}": true))'
-    # rubocop:enable Lint/InterpolationCheck
-
     assert_phlex_template expected, html
   end
 
@@ -109,7 +106,7 @@ class Phlexing::Converter::AttributesTest < Minitest::Spec
     html = %(<div style="background: <%= blue? ? "blue" : "red" %>"></div>)
 
     expected = <<~PHLEX.strip
-      div(style: %(background: \#\{blue? ? "blue" : "red"\}))
+      div(style: %(background: \#{blue? ? "blue" : "red"}))
     PHLEX
 
     assert_phlex_template expected, html
@@ -119,7 +116,7 @@ class Phlexing::Converter::AttributesTest < Minitest::Spec
     html = %(<div style="<%= "background: blue" %>; display: none;"></div>)
 
     expected = <<~PHLEX.strip
-      div(style: %(\#\{"background: blue"\}; display: none;))
+      div(style: %(\#{"background: blue"}; display: none;))
     PHLEX
 
     assert_phlex_template expected, html
@@ -139,7 +136,7 @@ class Phlexing::Converter::AttributesTest < Minitest::Spec
     html = %(<div style="<%= background %><%= display %>"></div>)
 
     expected = <<~PHLEX.strip
-      div(style: %(\#\{background\}\#\{display\}))
+      div(style: %(\#{background}\#{display}))
     PHLEX
 
     assert_phlex_template expected, html do

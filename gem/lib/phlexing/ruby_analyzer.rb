@@ -68,7 +68,7 @@ module Phlexing
       attributes.each do |pair|
         pair.select! { |name, _| name.start_with?("data-erb-") }
 
-        pair.each do |_, value|
+        pair.each_value do |value|
           Parser
             .call(value)
             .children

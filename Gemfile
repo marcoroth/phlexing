@@ -66,7 +66,7 @@ gem "bootsnap", require: false
 # gem "image_processing", "~> 1.2"
 
 # A Ruby static code analyzer and formatter, based on the community Ruby style guide.
-gem "rubocop", require: false, github: "joeldrapper/rubocop", branch: "rubocop-user-agent"
+gem "rubocop", "~> 1.81"
 
 # Tool to interactively execute Ruby expressions read from the standard input.
 gem "irb", "~> 1.14"
